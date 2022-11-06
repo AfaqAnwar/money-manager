@@ -1,2 +1,1 @@
-# MoneyManager
-Money Management Flutter Application
+# money_manager
