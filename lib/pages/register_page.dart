@@ -50,26 +50,41 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column (
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.attach_money_sharp,
-                  size: 100,
-                  ),
-          
-                  SizedBox(height: 75),
-          
-              Text(
-                'Get Started',
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 52,
-                ),
-                ),
-                SizedBox(height: 10),
                 Text(
-                'Fill Out Your Details To Continue',
-                style: TextStyle(
-                  fontSize: 24
+                    'Money Manager',
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 52, 
+                        color: Colors.black
+                      ), 
+                    ),
+                  
+                  SizedBox(height: 20),
+                  
+                  Image.asset(
+                    'assets/images/logo.png',
+                    height: 100,
+                    width: 100,
+                    ),
+
+                  SizedBox(height: 40),
+          
+                Text(
+                    'Get Started',
+                      style: GoogleFonts.bebasNeue(
+                      fontSize: 48,
+                      color: Colors.blue
+                    ),
                   ),
+
+                SizedBox(height: 10),
+                
+                Text(
+                  'Fill Out Your Details To Continue',
+                  style: TextStyle(
+                    fontSize: 20
+                    ),
                 ),
+                
                 SizedBox(height: 50),
           
                 // email textfield
