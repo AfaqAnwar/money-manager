@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,14 +16,21 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final signUpCodeController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    signUpCodeController.dispose();
     super.dispose();
   }
 
+  // authenticate user details
   Future signUp() async {
     if (passwordConfirmed()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -30,6 +38,23 @@ class _RegisterPageState extends State<RegisterPage> {
         password: passwordController.text.trim(),
       );
     }
+
+    addUserDetails(
+      firstNameController.text.trim(), 
+      lastNameController.text.trim(), 
+      signUpCodeController.text.trim(), 
+      emailController.text.trim()
+      );
+  }
+
+  Future addUserDetails(String firstName, String lastName, String signUpCode, String email) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'first name': firstName,
+      'last name': lastName,
+      'sign up code code': signUpCode,
+      'email': email,
+    });
+
   }
 
   bool passwordConfirmed() {
@@ -42,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+    return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center (
@@ -50,24 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column (
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                    'Money Manager',
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 52, 
-                        color: Colors.black
-                      ), 
-                    ),
-                  
-                  SizedBox(height: 20),
-                  
-                  Image.asset(
-                    'assets/images/logo.png',
-                    height: 100,
-                    width: 100,
-                    ),
 
-                  SizedBox(height: 40),
-          
                 Text(
                     'Get Started',
                       style: GoogleFonts.bebasNeue(
@@ -86,7 +94,55 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 
                 SizedBox(height: 50),
-          
+                
+                // first name textfield
+                Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: TextField(
+                              controller: firstNameController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'First Name',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                
+                SizedBox(height: 10),
+
+                // last name controller
+                Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: TextField(
+                              controller: lastNameController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Last Name',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                
+                SizedBox(height: 10),
+
                 // email textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -159,7 +215,31 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 SizedBox(height: 10),
-          
+                
+                // sign up code textfield
+                Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: TextField(
+                              controller: signUpCodeController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Sign Up Code (Optional)',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                
+                SizedBox(height: 20),
+
                 // Sign Up Button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
