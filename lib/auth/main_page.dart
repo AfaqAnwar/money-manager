@@ -4,6 +4,7 @@ import 'package:moneymanager/auth/auth_page.dart';
 
 import '../pages/home_page.dart';
 
+// Auth Page to Check if User Is Logged In.
 class MainPage extends StatelessWidget {
   const MainPage({ Key? key}) : super(key: key);
   

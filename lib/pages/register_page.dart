@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Registration Page
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
   const RegisterPage({ Key? key, required this.showLoginPage, }) : super(key: key);
@@ -30,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  // authenticate user details
+  // Authenticates user data and logs to Firebase.
   Future signUp() async {
     if (passwordConfirmed()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -39,22 +40,26 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
 
+    // Adds additional details to the Firestore.
     addUserDetails(
       firstNameController.text.trim(), 
       lastNameController.text.trim(), 
       signUpCodeController.text.trim(), 
-      emailController.text.trim()
+      emailController.text.trim(),
+      false,
       );
   }
 
-  Future addUserDetails(String firstName, String lastName, String signUpCode, String email) async {
-    await FirebaseFirestore.instance.collection('users').add({
+  // Creates a Firestore entry with the FireAuthUID.
+  Future addUserDetails(String firstName, String lastName, String signUpCode, String email, bool hasCompletedSurvey) async {
+    DocumentReference ref = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid);
+    ref. set({
       'first name': firstName,
       'last name': lastName,
-      'sign up code code': signUpCode,
+      'sign up code': signUpCode,
       'email': email,
+      'survey completed': hasCompletedSurvey,
     });
-
   }
 
   bool passwordConfirmed() {

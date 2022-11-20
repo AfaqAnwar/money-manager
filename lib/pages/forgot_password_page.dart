@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// Reset Password Page
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({ Key? key }) : super(key: key);
 
