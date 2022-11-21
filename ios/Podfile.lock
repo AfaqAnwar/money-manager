@@ -612,6 +612,9 @@ PODS:
     - FirebaseAuth (~> 10.2.0)
   - Firebase/CoreOnly (10.2.0):
     - FirebaseCore (= 10.2.0)
+  - Firebase/Database (10.2.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 10.2.0)
   - Firebase/Firestore (10.2.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.2.0)
@@ -621,6 +624,10 @@ PODS:
     - Flutter
   - firebase_core (2.3.0):
     - Firebase/CoreOnly (= 10.2.0)
+    - Flutter
+  - firebase_database (10.0.6):
+    - Firebase/Database (= 10.2.0)
+    - firebase_core
     - Flutter
   - FirebaseAuth (10.2.0):
     - FirebaseCore (~> 10.0)
@@ -633,6 +640,9 @@ PODS:
     - GoogleUtilities/Logger (~> 7.8)
   - FirebaseCoreInternal (10.2.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseDatabase (10.2.0):
+    - FirebaseCore (~> 10.0)
+    - leveldb-library (~> 1.22)
   - FirebaseFirestore (10.2.0):
     - abseil/algorithm (~> 1.20211102.0)
     - abseil/base (~> 1.20211102.0)
@@ -734,6 +744,7 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
@@ -745,6 +756,7 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
+    - FirebaseDatabase
     - FirebaseFirestore
     - GoogleUtilities
     - "gRPC-C++"
@@ -762,6 +774,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_database:
+    :path: ".symlinks/plugins/firebase_database/ios"
   Flutter:
     :path: Flutter
   path_provider_ios:
@@ -774,9 +788,11 @@ SPEC CHECKSUMS:
   Firebase: a3ea7eba4382afd83808376edb99acdaff078dcf
   firebase_auth: dc7124acfe6adb5823dcc4f3063c6b5ab6f92428
   firebase_core: db1432de826785171029b7c1a26e5b22ce1dd477
+  firebase_database: d079ef5f8044ff121d39ab2a9e7eabbcd9017aea
   FirebaseAuth: 08e7739244eeae5216d0a3f8d9f16a76be9c252e
   FirebaseCore: 813838072b797b64f529f3c2ee35e696e5641dd1
   FirebaseCoreInternal: 091bde13e47bb1c5e9fe397634f3593dc390430f
+  FirebaseDatabase: 61b99b5477c29115e9d4006c6b44a8815a3cc3c3
   FirebaseFirestore: bda7a1ca8c19319a2acd2761cd4b962022c1d5ea
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
