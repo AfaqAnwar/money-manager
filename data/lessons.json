@@ -1,0 +1,98 @@
+{
+    "Modules":
+    {
+        "1": {
+            "courseName": "Income 101",
+            "lessons1":
+            {
+                "lessonName": "Module Goals",
+                "lessonText": "In this module, you will learn the different types of income a person may have. You will be able to identify the type of income sources you have in your life so you can log your income in the app."
+            },
+            "lesson2":
+            {
+                "lessonName": "What is an income?",
+                "lessonText": "An income is the money you recieve from different sources like allowances, jobs, and gifts. There are two type of income active and passive. Active income is money you earn from working like a summer job or from an allowance. Passive income is money you get without working, for example money from stocks."
+            },
+            "question1":
+            {
+                "question": "Allowance is:",
+                "choices": ["money recieved from parents", "money recieved from school"],
+                "answer": "money recieved from parents"
+            },
+            "question2":
+            {
+                "question": "If you worked a summer job at Summer Youth in New York City, is this a passive or active income ?",
+                "choices": ["Passive", "Active"],
+                "answer": "Active"
+            },
+            "question3":
+            {
+                "question":"When you are born if your parents made a life insuance policy for you, is this a passive or active income?",
+                "choices": ["Passive", "Active"],
+                "answer": "Passive"
+            }
+        },
+        "2": {
+            "courseName": "Expenses 101",
+            "lessons1":
+            {
+                "lessonName": "Module Goals",
+                "lessonText": "In this module, you will learn the different types of expenses a person may have. You will be able to identify the expenses in your daily life."
+            },
+            "lesson2":
+            {
+                "lessonName": "What is an expense?",
+                "lessonText": "An expense is the money needed to pay bill, goods or services. These can be takeout expense, birthday presents, traveling, shopping, Netflix or Spotify bill and much more. The two types of expenses are essential and discretionary. Essential expenses are costs you need to survive in society such as groceries or rent. Discretionary expenses are non-essential expenses that are needs for a person. A type of discretionary expense can be wanting the latest iPhone every year even if your current iPhone is functional."
+            },
+            "question1":
+            {
+                "question": "Expenses is:",
+                "choices": ["money received from parents", "money you spend to pay bills, goods or services"],
+                "answer": "money you spend to pay bills, goods or services"
+            },
+            "question2":
+            {
+                "question": "Is buying a new play station, an essential or discretionary expense?",
+                "choices": ["Essential", "Discretionary"],
+                "answer": "Discretionary"
+            },
+            "question3":
+            {
+                "question":"Is your grocery bill an essential or discretionary expense?",
+                "choices": ["Essential", "Discretionary"],
+                "answer": "Essential"
+            }
+        },
+        "3": {
+            "courseName": "Savings 101",
+            "lessons1":
+            {
+                "lessonName": "Module Goals",
+                "lessonText": "In this module, you will learn why people save and how you can start saving."
+            },
+            "lesson2":
+            {
+                "lessonName": "Why do we save and how can you start?",
+                "lessonText": "Saving is when you take a portion of your income and put it away to use for later for a big expense. An example of this is parents putting money away to save for their child college tuition. A way to save is logging all your expenses and figuring are you okay with not having anymore and using that money to save. The general rule people use when wanting to save is 50-20-30. 50% of your income goes towards your needs and must-do expenses. 30% are anything you would like to buy that is a want. 20% goes towards your savings account."
+            },
+            "question1":
+            {
+                "question": "Saving is:",
+                "choices": ["a financial tool people use to make smart money choices", "they money you recieve in a period", "a software model"],
+                "answer": "a financial tool people use to make smart money choices"
+            },
+            "question2":
+            {
+                "question": "What is the minimum amount you should save from your income?",
+                "choices": ["50%", "30%", "20%"],
+                "answer": "20%"
+            },
+            "question3":
+            {
+                "question":"When you are budgeting if you notice that your expenses are greater than your income, should you keep your expenses the same?",
+                "choices": ["True", "False"],
+                "answer": "False"
+            }
+        }
+    }
+}
