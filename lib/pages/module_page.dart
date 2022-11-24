@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
-import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:moneymanager/colors.dart' as color;
+import 'package:moneymanager/module_list_items.dart';
+
+
 class ModulePage extends StatefulWidget {
   const ModulePage({Key? key}) : super(key: key);
 
@@ -11,37 +14,75 @@ class ModulePage extends StatefulWidget {
 
 class ModulePageState extends State<ModulePage> {
 
-  final database = FirebaseDatabase.instance;
-
-  // Method to retrieve data from the Firebase Reael time Database
-  _initData() async {
-    //FirebaseDatabase database = FirebaseDatabase.instance;
-
-    final ref = database.ref().child('Modules');
-
-    // to read or write data we need a reference to our database reading the infomation once
-    //DatabaseReference modulesRef = database.ref('Modules');
-    //final snapshot = await modulesRef.child('/Modules').get();
-
-    // if the snapshot of the data exisit it will print the values in that snapshot
-    //if(snapshot.exists) {
-    //  print(snapshot.value);
-    //}
-
-    // else the database was not able to read it 
-    //else{
-    //  print("No Data was available");
-    //}
-
-
-  }
+  List<ModulesListItems> courses = [];
 
 // In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
   void initState(){
     super.initState();
-    _initData();
+    initData();
   }
+
+    // Method to retrieve module data from the Firebase Reael time Database
+  Future initData() async {
+
+    // get a reference of our firebase database 
+    //DatabaseReference childRef1 = FirebaseDatabase.instance.ref('Modules/0');
+    //DatabaseReference childRef2 = FirebaseDatabase.instance.ref('Modules/1');
+    //DatabaseReference childRef3 = FirebaseDatabase.instance.ref('Modules/2');
+
+    // get the database once
+    //DatabaseEvent event = await childRef1.once();
+
+
+
+    for(int i = 0; i < 3; i++){
+      
+      // ignore: prefer_interpolation_to_compose_strings
+      var childPath = "Modules/" + i.toString();
+      //print(childPath);
+
+      DatabaseReference ref = FirebaseDatabase.instance.ref(childPath);
+      DatabaseEvent event = await ref.once();
+      var json = event.snapshot.value as Map<dynamic,dynamic>;
+
+      Map<String, String> lessonDict = {};
+
+      var courseName = json['courseName'];
+
+      var lesson1Name = json['lesson1']['lessonName'];
+      var lesson1Text = json['lesson1']['lessonText'];
+      var lesson2Name = json['lesson2']['lessonName'];
+      var lesson2Text = json['lesson2']['lessonText'];
+
+      lessonDict[lesson1Name] = lesson1Text;
+      lessonDict[lesson2Name] = lesson2Text;
+      //print(lessonDict);
+
+      var q1 = json['question1'];
+      var q2 = json['question2'];
+      var q3 = json['question3'];
+
+      //print(q1);
+
+      var quizDict = {q1, q2, q3};
+      //print(quizDict);
+
+      ModulesListItems m = ModulesListItems(courseName, lessonDict, quizDict);
+      courses.add(m);
+
+      //print(m.getModuleTitle());
+
+    }
+
+    for(int i = 0; i < courses.length; i++){
+      print(courses[i].getModuleTitle());
+
+    }
+    
+  
+  }
+
 
 // UI Design 
   @override
@@ -105,9 +146,17 @@ class ModulePageState extends State<ModulePage> {
                       "Reminder",
                       style: TextStyle(
                         fontSize: 16,
-                        color: color.AppColor.homepageSubtite
+                        color: color.AppColor.homepagesecondTitle
                       ),
                     ),
+                    SizedBox(height: 5,),
+                    Text(
+                      "Remember to log your expenses and income per day or week",
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -166,10 +215,10 @@ class ModulePageState extends State<ModulePage> {
                         child: Align(
                           alignment: Alignment.bottomCenter,
                         child: Text(
-                          "Savings 101",
+                          courses[i].getModuleTitle(),
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.blueAccent
+                            color: color.AppColor.homepagesecondTitle
                           )
                         ),
                         )

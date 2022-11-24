@@ -1,9 +1,9 @@
 {
     "Modules":
     {
-        "1": {
+        "0": {
             "courseName": "Income 101",
-            "lessons1":
+            "lesson1":
             {
                 "lessonName": "Module Goals",
                 "lessonText": "In this module, you will learn the different types of income a person may have. You will be able to identify the type of income sources you have in your life so you can log your income in the app."
@@ -32,9 +32,9 @@
                 "answer": "Passive"
             }
         },
-        "2": {
+        "1": {
             "courseName": "Expenses 101",
-            "lessons1":
+            "lesson1":
             {
                 "lessonName": "Module Goals",
                 "lessonText": "In this module, you will learn the different types of expenses a person may have. You will be able to identify the expenses in your daily life."
@@ -63,9 +63,9 @@
                 "answer": "Essential"
             }
         },
-        "3": {
+        "2": {
             "courseName": "Savings 101",
-            "lessons1":
+            "lesson1":
             {
                 "lessonName": "Module Goals",
                 "lessonText": "In this module, you will learn why people save and how you can start saving."
@@ -78,13 +78,13 @@
             "question1":
             {
                 "question": "Saving is:",
-                "choices": ["a financial tool people use to make smart money choices", "they money you recieve in a period", "a software model"],
+                "choices": ["a financial tool people use to make smart money choices", "a software model"],
                 "answer": "a financial tool people use to make smart money choices"
             },
             "question2":
             {
                 "question": "What is the minimum amount you should save from your income?",
-                "choices": ["50%", "30%", "20%"],
+                "choices": ["50%", "20%"],
                 "answer": "20%"
             },
             "question3":
