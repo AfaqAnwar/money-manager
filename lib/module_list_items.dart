@@ -23,11 +23,17 @@ class ModulesListItems {
   String getModuleTitle(){
     return moduleTitle;
   }
-  Map<String, String> getLesson(){
-     return lessons;
+  List<String> getLesson(){
+    List<String> l = [];
+    lessons.forEach((key, value) {
+      print('Lesson Title: $key' + "and " + "Lesson Description: $value");
+      l.add(key);
+      l.add(value);
+    });
+    return l;
+
   }
   Set<dynamic> getQuiz(){
     return quiz;
   }
-  
 }

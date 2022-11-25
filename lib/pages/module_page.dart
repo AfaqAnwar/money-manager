@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/colors.dart' as color;
 import 'package:moneymanager/module_list_items.dart';
+import 'package:moneymanager/pages/lesson_goal_page.dart';
 
 
 class ModulePage extends StatefulWidget {
@@ -15,6 +16,7 @@ class ModulePage extends StatefulWidget {
 class ModulePageState extends State<ModulePage> {
 
   List<ModulesListItems> courses = [];
+  List<String> courseTitles = [];
 
 // In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
@@ -26,30 +28,29 @@ class ModulePageState extends State<ModulePage> {
     // Method to retrieve module data from the Firebase Reael time Database
   Future initData() async {
 
-    // get a reference of our firebase database 
-    //DatabaseReference childRef1 = FirebaseDatabase.instance.ref('Modules/0');
-    //DatabaseReference childRef2 = FirebaseDatabase.instance.ref('Modules/1');
-    //DatabaseReference childRef3 = FirebaseDatabase.instance.ref('Modules/2');
-
-    // get the database once
-    //DatabaseEvent event = await childRef1.once();
-
-
-
-    for(int i = 0; i < 3; i++){
+    for(int i = 1; i < 4; i++){
       
       // ignore: prefer_interpolation_to_compose_strings
+      // File path for each module
       var childPath = "Modules/" + i.toString();
       //print(childPath);
 
+       // get a reference of our firebase database 
       DatabaseReference ref = FirebaseDatabase.instance.ref(childPath);
+
+      // reference call to the database once
       DatabaseEvent event = await ref.once();
+
+      // map the json tree into a data type of Map
       var json = event.snapshot.value as Map<dynamic,dynamic>;
 
+      // lesson dict to hold lesson title, and description
       Map<String, String> lessonDict = {};
 
+      // course name
       var courseName = json['courseName'];
 
+      // all the lessons
       var lesson1Name = json['lesson1']['lessonName'];
       var lesson1Text = json['lesson1']['lessonText'];
       var lesson2Name = json['lesson2']['lessonName'];
@@ -59,6 +60,7 @@ class ModulePageState extends State<ModulePage> {
       lessonDict[lesson2Name] = lesson2Text;
       //print(lessonDict);
 
+      // quiz question dictionary
       var q1 = json['question1'];
       var q2 = json['question2'];
       var q3 = json['question3'];
@@ -68,7 +70,10 @@ class ModulePageState extends State<ModulePage> {
       var quizDict = {q1, q2, q3};
       //print(quizDict);
 
+      // create a module object with coursename, lessondictioanry and quizdictioanry
       ModulesListItems m = ModulesListItems(courseName, lessonDict, quizDict);
+
+      // add it to the array
       courses.add(m);
 
       //print(m.getModuleTitle());
@@ -76,10 +81,10 @@ class ModulePageState extends State<ModulePage> {
     }
 
     for(int i = 0; i < courses.length; i++){
-      print(courses[i].getModuleTitle());
+      //print(courses[i].getModuleTitle());
+      courseTitles.add(courses[i].getModuleTitle());
 
     }
-    
   
   }
 
@@ -223,7 +228,7 @@ class ModulePageState extends State<ModulePage> {
                         ),
                         )
                       )
-                    )
+                    ),
                   ],
                 );
               })) 

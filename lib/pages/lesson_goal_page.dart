@@ -5,32 +5,26 @@ import 'package:moneymanager/colors.dart' as colors;
 import 'package:moneymanager/module_list_items.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:moneymanager/pages/module_page.dart';
-import 'package:moneymanager/pages/quiz_page.dart';
 
 
-class LessonPage extends StatefulWidget{
+class GoalPage extends StatefulWidget{
   
-  
-  //const LessonPage({super.key, required this.module});
-  const LessonPage({Key? key}) : super(key: key);
-
-  //final ModulesListItems module;
+  const GoalPage({Key? key}) : super(key: key);
 
   @override
-  State<LessonPage> createState() => LessonPageState();
+  State<GoalPage> createState() => GoalPageState();
 }
 
-class LessonPageState extends State<LessonPage> {
-
-
-   List<ModulesListItems> courses = [];
+class GoalPageState extends State<GoalPage> {
 
 // In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
   void initState(){
     super.initState();
+
   }
 
+// UI Section
   @override
   Widget build(BuildContext context) {
 
@@ -65,18 +59,17 @@ class LessonPageState extends State<LessonPage> {
                   Row(
                     children: [
                       Icon(Icons.arrow_back_ios, size: 25,
-                      color: Colors.white),
-                      Row(
-                        children: [
-                          Icon(Icons.arrow_forward_ios, size: 25,
-                          color: Colors.white),
-                        ],
-                      )
+                      color: Colors.white)
                     ],
+                  ),
+                  InkWell(
+                    onTap:() {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ModulePage()));
+                    },
                   ),
                   SizedBox(height: 30,),
                   Text(
-                    "Lesson # 1",
+                    "Remember to log your expenses and income per day or week",
                     style: TextStyle(
                     fontSize: 22,
                     color: Colors.white
@@ -107,7 +100,7 @@ class LessonPageState extends State<LessonPage> {
                             color: Colors.white),
                             SizedBox(width: 5,),
                             Text(
-                              "15 mins",
+                              "5 mins",
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white 
@@ -138,7 +131,7 @@ class LessonPageState extends State<LessonPage> {
                     children: [
                       Padding(padding: EdgeInsets.only(top: 100, left: 30)),
                       Text(
-                        "About the lesson",
+                        "Lesson Description",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,
