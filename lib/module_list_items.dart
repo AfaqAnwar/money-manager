@@ -37,3 +37,29 @@ class ModulesListItems {
     return quiz;
   }
 }
+
+// Class for Quiz Questions and Option Lists
+class Question {
+  final String text;
+  final List<Option> options;
+  bool isLocked;
+  Option? selectedOption;
+
+  Question({
+    required this.text,
+    required this.options,
+    this.isLocked = false,
+    this.selectedOption
+  });
+}
+
+// Class the hold the multiple choice for each question
+class Option {
+  final String text;
+  final bool isCorrect;
+
+  const Option({
+    required this.text,
+    required this.isCorrect
+  });
+}
