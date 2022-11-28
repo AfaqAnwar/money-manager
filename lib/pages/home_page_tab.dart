@@ -98,14 +98,17 @@ class _HomePageTabState extends State<HomePageTab> {
           ),
           // ..userdata.transactions.map(transction) => TransactionItem(transction:transaction)
           const TransactionItem(
-              transaction: Transaction(
-                  ItemCategory.expense,
-                  "Shoes",
-                  "Nike",
-                  "\$40.00",
-                  "Nov, 27",
-                  "assets/icons/money.png",
-                  TransactionType.outflow))
+            transaction: Transaction(ItemCategory.expense, "Shoes", "Nike",
+                "\$40.00", "Nov, 27", TransactionType.outflow),
+          ),
+          const TransactionItem(
+            transaction: Transaction(ItemCategory.income, "Direct Deposit",
+                "NYIT", "\$200.00", "Nov, 27", TransactionType.inflow),
+          ),
+          const TransactionItem(
+            transaction: Transaction(ItemCategory.food, "Burrito Bowl",
+                "Chipotle", "\$15.00", "Nov, 27", TransactionType.outflow),
+          )
         ]),
       ),
     );

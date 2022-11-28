@@ -9,7 +9,6 @@ class Transaction {
   final String itemName;
   final String amount;
   final String date;
-  final String categoryImage;
   final TransactionType transactionType;
 
   const Transaction(
@@ -18,7 +17,6 @@ class Transaction {
     this.itemName,
     this.amount,
     this.date,
-    this.categoryImage,
     this.transactionType,
   );
 }
