@@ -22,10 +22,12 @@ class _HomePageState extends State<HomePage> {
   Widget buildContentOfTab(int index) {
     switch (index) {
       case 0:
-        return Container();
-      case 1:
         return const HomePageTab();
+      case 1:
+        return Container();
       case 2:
+        return Container();
+      case 3:
         return Container();
 
       default:
@@ -106,9 +108,12 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: fontLight,
         items: [
           BottomNavigationBarItem(
+              icon: Image.asset('assets/icons/home-1.png'), label: "Home"),
+          BottomNavigationBarItem(
               icon: Image.asset('assets/icons/book.png'), label: "Lessons"),
           BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/home-1.png'), label: "Home"),
+              icon: Image.asset('assets/icons/chart-vertical.png'),
+              label: "Data"),
           BottomNavigationBarItem(
               icon: Image.asset('assets/icons/user-1.png'), label: "Profile"),
         ],
