@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/pages/home_page_tab.dart';
+import 'package:moneymanager/pages/profile_tab.dart';
 import 'package:moneymanager/pages/survey.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:moneymanager/data/user.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var currentIndex = 1;
+  var currentIndex = 0;
 
   // Navbar Method
   Widget buildContentOfTab(int index) {
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         return Container();
       case 3:
-        return Container();
+        return const ProfileTab();
 
       default:
         return const HomePageTab();
