@@ -15,7 +15,7 @@
             "question1":
             {
                 "question": "Allowance is:",
-                "choices": ["money recieved from parents", "money recieved from school"],
+                "choices": ["money recieved from school", "money recieved from parents"],
                 "answer": "money recieved from parents"
             },
             "question2":
@@ -27,7 +27,7 @@
             "question3":
             {
                 "question":"When you are born if your parents made a life insuance policy for you, is this a passive or active income?",
-                "choices": ["Passive", "Active"],
+                "choices": ["Active", "Passive"],
                 "answer": "Passive"
             }
         },
@@ -58,7 +58,7 @@
             "question3":
             {
                 "question":"Is your grocery bill an essential or discretionary expense?",
-                "choices": ["Essential", "Discretionary"],
+                "choices": ["Discretionary", "Essential"],
                 "answer": "Essential"
             }
         },
@@ -77,7 +77,7 @@
             "question1":
             {
                 "question": "Saving is:",
-                "choices": ["a financial tool people use to make smart money choices", "a software model"],
+                "choices": ["a software model", "a financial tool people use to make smart money choices"],
                 "answer": "a financial tool people use to make smart money choices"
             },
             "question2":

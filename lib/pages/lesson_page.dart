@@ -2,25 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:moneymanager/colors.dart' as colors;
-import 'package:moneymanager/module_items.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:moneymanager/pages/lesson_goal_page.dart';
-import 'package:moneymanager/pages/module_page.dart';
 import 'package:moneymanager/pages/quiz_page.dart';
 
 class LessonPage extends StatefulWidget {
-  //const LessonPage({super.key, required this.module});
-  const LessonPage({Key? key}) : super(key: key);
+  // index of the module they selected
+  final index;
+  final List moduleItems;
 
-  //final ModulesListItems module;
+  const LessonPage({Key? key, required this.moduleItems, required this.index})
+      : super(key: key);
 
   @override
   State<LessonPage> createState() => LessonPageState();
 }
 
 class LessonPageState extends State<LessonPage> {
-  List<ModulesItems> courses = [];
-
 // In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
   void initState() {
@@ -81,7 +78,7 @@ class LessonPageState extends State<LessonPage> {
                     height: 30,
                   ),
                   Text(
-                    "Lesson # 1",
+                    "Lesson # 2",
                     style: TextStyle(fontSize: 22, color: Colors.white),
                   ),
                   SizedBox(
@@ -136,7 +133,8 @@ class LessonPageState extends State<LessonPage> {
                         Padding(padding: EdgeInsets.only(top: 300, left: 20)),
                         Expanded(
                           child: Text(
-                            "desc",
+                            widget.moduleItems[widget.index]['lesson2']
+                                ['lessonText'],
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -159,15 +157,16 @@ class LessonPageState extends State<LessonPage> {
   }
 
   _navigateToNextScreen() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => QuizPage()));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => QuizPage(
+              moduleItems: widget.moduleItems,
+              index: widget.index,
+            )));
   }
 
   _navigateToPreviousScreen() {
     Navigator.of(context).pop(MaterialPageRoute(
-        builder: (context) => GoalPage(
-              moduleItems: [],
-              index: null,
-            )));
+        builder: (context) =>
+            GoalPage(index: widget.index, moduleItems: widget.moduleItems)));
   }
 }

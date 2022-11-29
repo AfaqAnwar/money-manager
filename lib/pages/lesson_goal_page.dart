@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:moneymanager/colors.dart' as colors;
-import 'package:moneymanager/module_items.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:moneymanager/pages/lesson_page.dart';
 import 'package:moneymanager/pages/module_page.dart';
 
@@ -137,10 +135,12 @@ class GoalPageState extends State<GoalPage> {
                   children: [
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(top: 100, left: 20)),
+                        Padding(padding: EdgeInsets.only(top: 250, left: 20)),
                         Expanded(
                           child: Text(
-                            widget.moduleItems[widget.index].toString(),
+                            widget.moduleItems[widget.index]['lesson1']
+                                    ['lessonText']
+                                .toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -163,8 +163,11 @@ class GoalPageState extends State<GoalPage> {
   }
 
   _navigateToNextScreen() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => LessonPage()));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => LessonPage(
+              index: widget.index,
+              moduleItems: widget.moduleItems,
+            )));
   }
 
   _navigateToPreviousScreen() {

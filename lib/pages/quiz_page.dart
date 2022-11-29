@@ -3,12 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/colors.dart' as colors;
 import 'package:moneymanager/module_items.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:moneymanager/pages/lesson_goal_page.dart';
-import 'package:moneymanager/pages/module_page.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage({super.key});
+  // index of the module they selected
+  final index;
+  final List moduleItems;
+
+  // when the user clicks on a module you want to pass the module they clicked on so we need to pass the index
+  const QuizPage({Key? key, required this.moduleItems, required this.index})
+      : super(key: key);
 
   @override
   State<QuizPage> createState() => QuizPageState();
@@ -69,7 +73,7 @@ class QuizPageState extends State<QuizPage> {
                     controller: _controller,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: ((context, index) {
-                      final _question = dataQuestions[index];
+                      final _question = widget.moduleItems[widget.index][''];
                       return buildQuestion(_question);
                     })),
               ),
