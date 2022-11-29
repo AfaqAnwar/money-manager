@@ -20,8 +20,9 @@ class _ModulePageState extends State<ModulePage> {
   List moduleItems = [];
 
   Future<void> readJson() async {
+    WidgetsFlutterBinding.ensureInitialized();
     final String response =
-        await rootBundle.loadString('assets/images/data/lessons.json');
+        await rootBundle.loadString('assets/data/lessons.json');
     final data = await json.decode(response);
     setState(() {
       moduleItems = data["Modules"];

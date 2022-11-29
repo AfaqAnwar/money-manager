@@ -140,7 +140,7 @@ class GoalPageState extends State<GoalPage> {
                         Padding(padding: EdgeInsets.only(top: 100, left: 20)),
                         Expanded(
                           child: Text(
-                            moduleItems[index]['lesson1']['lessonText'],
+                            widget.moduleItems[widget.index].toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
