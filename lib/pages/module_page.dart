@@ -68,7 +68,7 @@ class _ModulePageState extends State<ModulePage> {
         backgroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: color.AppColor.homepageTitle,
-            fontSize: 28,
+            fontSize: 28R,
             fontWeight: FontWeight.w800),
       ),
       // backgrond color of the UI
