@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:moneymanager/colors.dart' as colors;
-import 'package:moneymanager/module_list_items.dart';
+import 'package:moneymanager/module_items.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:moneymanager/pages/lesson_goal_page.dart';
 import 'package:moneymanager/pages/module_page.dart';
 
 
@@ -19,7 +20,7 @@ class QuizPageState extends State<QuizPage> {
 
 // Test Data to see if the backend of the system is working
   final dataQuestions = [
-  Question(text: "What is Sanzida's middle name",
+  Question(text: "What is Sanzida's middle name?",
    options: [
     const Option(text: "Afrin", isCorrect: true),
     const Option(text: "None", isCorrect: false),
@@ -45,42 +46,49 @@ class QuizPageState extends State<QuizPage> {
 
   }
 
+  // UI for the question page
   @override
   Widget build(BuildContext context) {
-    
-    return Padding(
+    return Scaffold (
+      backgroundColor: colors.AppColor.gradientFirst,
+      appBar: AppBar(
+        title: const Text('Question 1/2'),
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: colors.AppColor.homepageTitle,
+          fontSize: 25,
+          fontWeight: FontWeight.w800
+        ),
+      ),
+      body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const SizedBox(height: 20,),
           // ignore: prefer_const_constructors
-          Text(
-            'Question$_questionNumber/${dataQuestions.length}',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12
-            ),
-            ),
-          const Divider(thickness: 1, color: Colors.blueGrey,),
+          // Question area for all the related questions in the modules
           Expanded(
-            child: PageView.builder(
-              itemCount: dataQuestions.length,
-              controller: _controller,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: ((context, index) {
-                final _question = dataQuestions[index];
-                return buildQuestion(_question);
-              })),
+              child: PageView.builder( 
+                itemCount: dataQuestions.length,
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: ((context, index) {
+                  final _question = dataQuestions[index];
+                  return buildQuestion(_question);
+                })),
           ),
+          // This is the Next button UI
           buildElevatedButton(),
-          const SizedBox(height: 20,),
+          const SizedBox(height: 300,),
         ],
       ),
-    );
+    )
+    ); 
   }
 
-  Column buildQuestion(Question question){
+// UI for the Questions 
+    Column buildQuestion(Question question){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -90,7 +98,7 @@ class QuizPageState extends State<QuizPage> {
           style: 
             TextStyle(
               fontSize: 25,
-              color: Colors.white
+              color: Colors.white,
             ),
         ),
         const SizedBox(height: 32,),
@@ -114,27 +122,35 @@ class QuizPageState extends State<QuizPage> {
       ],
     );
   }
-  
+
+// Functin to handle the backend for the next button
   ElevatedButton buildElevatedButton() {
     return ElevatedButton(
+      // when pressed and it is less than the number of questions go to the next questions
       onPressed: () {
         if(_questionNumber < dataQuestions.length) {
           _controller.nextPage(
             duration: const Duration(milliseconds:  250),
             curve: Curves.easeInExpo,
           );
-
           setState(() {
             _questionNumber++;
           });
-        } else {}
+        } 
+        // else if they completed all the questions go to the resulting page
+        else {
+          // To - Do make a result page 
+          Navigator.of(context).pop(MaterialPageRoute(builder: (context) => GoalPage(courses: [], index: null,)));
+        }
       }, 
+      // Change the UI text for the Next button
       child: Text(
         _questionNumber < dataQuestions.length ? 'Next Page' : 'Finished the test'),
       );
   }
 }
 
+// Class for the option weidget for all the question multiple choices 
 class OptionWidget extends StatelessWidget {
 
     final Question question;
@@ -152,6 +168,8 @@ class OptionWidget extends StatelessWidget {
         children: question.options.map((option) => buildOption(context, option)).toList(),
         ),
       );
+
+// build the UI for the multiple choices
 
     Widget buildOption(BuildContext context, Option option){
       final color = getColorForOption(option, question);
@@ -180,11 +198,12 @@ class OptionWidget extends StatelessWidget {
   }
 }
 
+// Color Scheme for the correct and wrong question selected
 Color getColorForOption(Option option, Question question) {
   final isSelected = option == question.selectedOption;
   if(question.isLocked){
     if(isSelected){
-      return option.isCorrect? Colors.green : Colors.red;
+      return option.isCorrect? Color.fromARGB(255, 104, 255, 109) : Color.fromARGB(255, 255, 17, 0);
     } else if(option.isCorrect){
       return Colors.green;
     }

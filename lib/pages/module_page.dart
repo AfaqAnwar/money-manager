@@ -1,95 +1,64 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, prefer_typing_uninitialized_variables, unused_field
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:moneymanager/colors.dart' as color;
-import 'package:moneymanager/module_list_items.dart';
+import 'package:moneymanager/module_items.dart';
 import 'package:moneymanager/pages/lesson_goal_page.dart';
-
+import 'package:moneymanager/pages/lesson_page.dart';
 
 class ModulePage extends StatefulWidget {
   const ModulePage({Key? key}) : super(key: key);
 
   @override
-  State<ModulePage> createState() => ModulePageState();
+  State<ModulePage> createState() => _ModulePageState();
 }
 
-class ModulePageState extends State<ModulePage> {
+class _ModulePageState extends State<ModulePage> {
+  List moduleItems = [];
 
-  List<ModulesListItems> courses = [];
-  List<String> courseTitles = [];
+  Future<void> readJson() async {
+    final String response =
+        await rootBundle.loadString('assets/images/data/lessons.json');
+    final data = await json.decode(response);
+    setState(() {
+      moduleItems = data["Modules"];
+    });
+    print(moduleItems[1]['lesson1']['lessonText']);
+  }
 
-// In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    initData();
+    readJson();
   }
 
-    // Method to retrieve module data from the Firebase Reael time Database
-  Future initData() async {
-
-    for(int i = 1; i < 4; i++){
-      
-      // ignore: prefer_interpolation_to_compose_strings
-      // File path for each module
-      var childPath = "Modules/" + i.toString();
-      //print(childPath);
-
-       // get a reference of our firebase database 
-      DatabaseReference ref = FirebaseDatabase.instance.ref(childPath);
-
-      // reference call to the database once
-      DatabaseEvent event = await ref.once();
-
-      // map the json tree into a data type of Map
-      var json = event.snapshot.value as Map<dynamic,dynamic>;
-
-      // lesson dict to hold lesson title, and description
-      Map<String, String> lessonDict = {};
-
-      // course name
-      var courseName = json['courseName'];
-
-      // all the lessons
-      var lesson1Name = json['lesson1']['lessonName'];
-      var lesson1Text = json['lesson1']['lessonText'];
-      var lesson2Name = json['lesson2']['lessonName'];
-      var lesson2Text = json['lesson2']['lessonText'];
-
-      lessonDict[lesson1Name] = lesson1Text;
-      lessonDict[lesson2Name] = lesson2Text;
-      //print(lessonDict);
-
-      // quiz question dictionary
-      var q1 = json['question1'];
-      var q2 = json['question2'];
-      var q3 = json['question3'];
-
-      //print(q1);
-
-      var quizDict = {q1, q2, q3};
-      //print(quizDict);
-
-      // create a module object with coursename, lessondictioanry and quizdictioanry
-      ModulesListItems m = ModulesListItems(courseName, lessonDict, quizDict);
-
-      // add it to the array
-      courses.add(m);
-
-      //print(m.getModuleTitle());
-
-    }
-
-    for(int i = 0; i < courses.length; i++){
-      //print(courses[i].getModuleTitle());
-      courseTitles.add(courses[i].getModuleTitle());
-
-    }
-  
+  Widget progressBar(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 150,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            color.AppColor.gradientFirst,
+            color.AppColor.gradientSecond
+          ], begin: Alignment.bottomLeft, end: Alignment.centerRight),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+              topRight: Radius.circular(80)),
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(4, 10),
+                blurRadius: 20,
+                color: color.AppColor.gradientSecond.withOpacity(0.2))
+          ]),
+    );
   }
 
-
-// UI Design 
+// UI Design
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,148 +66,216 @@ class ModulePageState extends State<ModulePage> {
         title: const Text('Modules'),
         backgroundColor: Colors.white,
         titleTextStyle: TextStyle(
-          color: color.AppColor.homepageTitle,
-          fontSize: 30,
-          fontWeight: FontWeight.w800
-        ),
+            color: color.AppColor.homepageTitle,
+            fontSize: 30,
+            fontWeight: FontWeight.w800),
       ),
       // backgrond color of the UI
       backgroundColor: color.AppColor.homepageBackground,
       body: Container(
-          // use paddding to move the containter down
-          padding: const EdgeInsets.only(top: 25, bottom: 35, left: 20, right: 20),
+        // use paddding to move the containter down
+        padding:
+            const EdgeInsets.only(top: 25, bottom: 35, left: 20, right: 20),
         child: Column(
           children: [
             Row(
               children: [
                 // Lesson Module App
-            ],
-          ),
-            SizedBox(height: 20,),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
             // Progress Bar
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 150, 
+              height: 150,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
+                  gradient: LinearGradient(colors: [
                     color.AppColor.gradientFirst,
                     color.AppColor.gradientSecond
-                  ],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.centerRight
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                  topRight: Radius.circular(80)
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(4,10),
-                    blurRadius: 20,
-                    color: color.AppColor.gradientSecond.withOpacity(0.2)
-                  )
-                ]
-                ),
+                  ], begin: Alignment.bottomLeft, end: Alignment.centerRight),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                      topRight: Radius.circular(80)),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(4, 10),
+                        blurRadius: 20,
+                        color: color.AppColor.gradientSecond.withOpacity(0.2))
+                  ]),
               child: Container(
-                padding: const EdgeInsets.only(left: 20, top: 25), 
+                padding: const EdgeInsets.only(left: 20, top: 25),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Reminder",
                       style: TextStyle(
-                        fontSize: 16,
-                        color: color.AppColor.homepagesecondTitle
-                      ),
+                          fontSize: 16,
+                          color: color.AppColor.homepagesecondTitle),
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       "Remember to log your expenses and income per day or week",
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white
-                      ),
+                      style: TextStyle(fontSize: 22, color: Colors.white),
                     )
                   ],
                 ),
               ),
-          ),
+            ),
             // UI for the three types of Modules
             Container(
               padding: const EdgeInsets.only(top: 15, bottom: 15),
               child: Row(
-              children: [
-                Text(
-                  "Lessons Libaray",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600
-                  ),
-                )
-              ],
+                children: [
+                  Text(
+                    "Lessons Libaray",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
             ),
-          ),
-            // UI for the lessons 
-            Expanded(child: ListView.builder(
-              // How many items will we have in the UI row
-              itemCount: 3,
-              itemBuilder: (_, i){
-                return Row(
-                  children: [
-                    Container(
-                     width: 385,
-                      height: 130,
-                      margin: EdgeInsets.only(left: 5, bottom: 15, top:20),
-                      padding: EdgeInsets.only(bottom: 5),
-                     // show an image for each module 
-                      decoration: BoxDecoration(
-                        color: Colors.white, 
+            // UI for the lessons
+            Column(
+              children: [
+                InkWell(
+                  child: Container(
+                    width: 385,
+                    height: 130,
+                    margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
+                    padding: EdgeInsets.only(bottom: 5),
+                    // show an image for each module
+                    decoration: BoxDecoration(
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/income.png"
-                          )
-                        ),
+                            image: AssetImage("assets/images/income.png")),
                         boxShadow: [
                           BoxShadow(
-                            blurRadius: 3,
-                            offset: Offset(5, 5),
-                            color: Colors.white
-                          ),
+                              blurRadius: 3,
+                              offset: Offset(5, 5),
+                              color: Colors.white),
                           BoxShadow(
-                            blurRadius: 3,
-                            offset: Offset(-5, -5),
-                            color: Color.fromARGB(255, 246, 243, 243)
-                          ),
-                        ]
-                      ),
-                      child: Center(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
+                              blurRadius: 3,
+                              offset: Offset(-5, -5),
+                              color: Color.fromARGB(255, 246, 243, 243)),
+                        ]),
+                    child: Center(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
                         child: Text(
-                          courses[i].getModuleTitle(),
+                          moduleItems[0]["courseName"],
                           style: TextStyle(
-                            fontSize: 20,
-                            color: color.AppColor.homepagesecondTitle
-                          )
+                              fontSize: 20,
+                              color: color.AppColor.homepagesecondTitle),
                         ),
-                        )
-                      )
+                      ),
                     ),
-                  ],
-                );
-              })) 
-          
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                GoalPage(moduleItems: moduleItems, index: 0)));
+                  },
+                ),
+                InkWell(
+                  child: Container(
+                    width: 385,
+                    height: 130,
+                    margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
+                    padding: EdgeInsets.only(bottom: 5),
+                    // show an image for each module
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/income.png")),
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 3,
+                              offset: Offset(5, 5),
+                              color: Colors.white),
+                          BoxShadow(
+                              blurRadius: 3,
+                              offset: Offset(-5, -5),
+                              color: Color.fromARGB(255, 246, 243, 243)),
+                        ]),
+                    child: Center(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          moduleItems[1]["courseName"],
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: color.AppColor.homepagesecondTitle),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                GoalPage(moduleItems: moduleItems, index: 1)));
+                  },
+                ),
+                InkWell(
+                  child: Container(
+                    width: 385,
+                    height: 130,
+                    margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
+                    padding: EdgeInsets.only(bottom: 5),
+                    // show an image for each module
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/income.png")),
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 3,
+                              offset: Offset(5, 5),
+                              color: Colors.white),
+                          BoxShadow(
+                              blurRadius: 3,
+                              offset: Offset(-5, -5),
+                              color: Color.fromARGB(255, 246, 243, 243)),
+                        ]),
+                    child: Center(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          moduleItems[2]["courseName"],
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: color.AppColor.homepagesecondTitle),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                GoalPage(moduleItems: moduleItems, index: 2)));
+                  },
+                ),
+              ],
+            )
           ],
         ),
-      )
-
-    ); // return scaffold
-
+      ),
+    );
+    // return scaffold
   }
-
 }

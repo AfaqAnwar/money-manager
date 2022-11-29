@@ -1,7 +1,6 @@
 {
-    "Modules":
+    "Modules": [
     {
-        "1": {
             "courseName": "Income 101",
             "lesson1":
             {
@@ -32,7 +31,7 @@
                 "answer": "Passive"
             }
         },
-        "2": {
+         {
             "courseName": "Expenses 101",
             "lesson1":
             {
@@ -63,7 +62,7 @@
                 "answer": "Essential"
             }
         },
-        "3": {
+        {
             "courseName": "Savings 101",
             "lesson1":
             {
@@ -94,5 +93,5 @@
                 "answer": "False"
             }
         }
-    }
+    ]
 }

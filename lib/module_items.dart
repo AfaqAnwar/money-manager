@@ -1,15 +1,15 @@
 // Module List Item a class that will create an module object for the three modules
-class ModulesListItems {
+class ModulesItems {
 
-// the attributes for the module
+// the instances every module class would have
   String moduleTitle;
   Map<String, String> lessons;
   Set<dynamic> quiz;
 
-  //constructur initalizing all the attributes  
-  ModulesListItems(this.moduleTitle, this.lessons, this.quiz);
+  //constructur initalizing all the attributes  R
+  ModulesItems(this.moduleTitle, this.lessons, this.quiz);
 
-  // methods to get and set each attributes
+  // Set Methods to set the following instance fields: moduleTitle, Lessons, Quizs
   void setModuleTitle(String title){
     moduleTitle = title;
   }
@@ -20,14 +20,19 @@ class ModulesListItems {
     quiz = quiz;
   }
 
+  // Get the methods
   String getModuleTitle(){
     return moduleTitle;
   }
   List<String> getLesson(){
     List<String> l = [];
     lessons.forEach((key, value) {
-      print('Lesson Title: $key' + "and " + "Lesson Description: $value");
+      //print('Lesson Title: $key' + "and " + "Lesson Description: $value");
+      //print("Key: ");
+      //print(key);
       l.add(key);
+      //print("Value: ");
+      //print(value);
       l.add(value);
     });
     return l;
@@ -57,9 +62,12 @@ class Question {
 class Option {
   final String text;
   final bool isCorrect;
+  
 
   const Option({
     required this.text,
     required this.isCorrect
   });
+
+
 }
