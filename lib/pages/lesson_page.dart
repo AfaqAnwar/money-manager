@@ -136,7 +136,7 @@ class LessonPageState extends State<LessonPage> {
                         Padding(padding: EdgeInsets.only(top: 300, left: 20)),
                         Expanded(
                           child: Text(
-                            desc,
+                            "desc",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -166,7 +166,7 @@ class LessonPageState extends State<LessonPage> {
   _navigateToPreviousScreen() {
     Navigator.of(context).pop(MaterialPageRoute(
         builder: (context) => GoalPage(
-              courses: [],
+              moduleItems: [],
               index: null,
             )));
   }
