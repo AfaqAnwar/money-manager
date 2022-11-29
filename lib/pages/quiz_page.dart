@@ -20,18 +20,9 @@ class QuizPage extends StatefulWidget {
 
 class QuizPageState extends State<QuizPage> {
 // Test Data to see if the backend of the system is working
-  final dataQuestions = [
-    Question(text: "What is Sanzida's middle name?", options: [
-      const Option(text: "Afrin", isCorrect: true),
-      const Option(text: "None", isCorrect: false),
-      const Option(text: "Binte", isCorrect: false),
-    ]),
-    Question(text: "When is our second exam?", options: [
-      const Option(text: "Nov 31", isCorrect: true),
-      const Option(text: "Dec 31", isCorrect: false),
-      const Option(text: "July 4", isCorrect: false)
-    ])
-  ];
+  final dataQuestions = [];
+
+// Load the data and format for the questions in the correct format needed for the UI
 
   // PageController for the next question controller
   late PageController _controller;
@@ -39,19 +30,61 @@ class QuizPageState extends State<QuizPage> {
   int _questionNumber = 1;
 
   @override
+  // ignore: must_call_super
   void initState() {
-    super.initState();
     _controller = PageController(initialPage: 0);
+
+    dataQuestions.add(Question(
+        text: widget.moduleItems[widget.index]["question1"]["question"]
+            .toString(),
+        options: [
+          Option(
+              text: widget.moduleItems[widget.index]["question1"]["choices"][0]
+                  .toString(),
+              isCorrect: false),
+          Option(
+              text: widget.moduleItems[widget.index]["question1"]["choices"][1]
+                  .toString(),
+              isCorrect: true)
+        ]));
+
+    dataQuestions.add(Question(
+        text: widget.moduleItems[widget.index]["question2"]["question"]
+            .toString(),
+        options: [
+          Option(
+              text: widget.moduleItems[widget.index]["question2"]["choices"][0]
+                  .toString(),
+              isCorrect: false),
+          Option(
+              text: widget.moduleItems[widget.index]["question2"]["choices"][1]
+                  .toString(),
+              isCorrect: true)
+        ]));
+
+    dataQuestions.add(Question(
+        text: widget.moduleItems[widget.index]["question2"]["question"]
+            .toString(),
+        options: [
+          Option(
+              text: widget.moduleItems[widget.index]["question2"]["choices"][0]
+                  .toString(),
+              isCorrect: false),
+          Option(
+              text: widget.moduleItems[widget.index]["question2"]["choices"][1]
+                  .toString(),
+              isCorrect: true)
+        ]));
   }
 
   // UI for the question page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: colors.AppColor.gradientFirst,
+        backgroundColor: colors.AppColor.homepageBackground,
         appBar: AppBar(
           title: const Text('Question 1/2'),
-          backgroundColor: Colors.white,
+          backgroundColor: colors.AppColor.homepageTitle,
           titleTextStyle: TextStyle(
               color: colors.AppColor.homepageTitle,
               fontSize: 25,
@@ -73,7 +106,7 @@ class QuizPageState extends State<QuizPage> {
                     controller: _controller,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: ((context, index) {
-                      final _question = widget.moduleItems[widget.index][''];
+                      final _question = dataQuestions[index];
                       return buildQuestion(_question);
                     })),
               ),
@@ -95,11 +128,14 @@ class QuizPageState extends State<QuizPage> {
         const SizedBox(
           height: 32,
         ),
+        const Padding(
+          padding: EdgeInsets.only(left: 20),
+        ),
         Text(
           question.text,
           style: TextStyle(
             fontSize: 25,
-            color: Colors.white,
+            color: colors.AppColor.homepageTitle,
           ),
         ),
         const SizedBox(
@@ -195,7 +231,7 @@ class OptionWidget extends StatelessWidget {
             children: [
               Text(
                 option.text,
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 10),
               )
             ],
           ),
@@ -209,10 +245,10 @@ Color getColorForOption(Option option, Question question) {
   if (question.isLocked) {
     if (isSelected) {
       return option.isCorrect
-          ? Color.fromARGB(255, 104, 255, 109)
+          ? Color.fromARGB(255, 255, 255, 255)
           : Color.fromARGB(255, 255, 17, 0);
     } else if (option.isCorrect) {
-      return Colors.green;
+      return Color.fromARGB(255, 255, 255, 255);
     }
   }
   return Colors.white;

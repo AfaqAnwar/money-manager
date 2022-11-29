@@ -130,7 +130,7 @@ class LessonPageState extends State<LessonPage> {
                   children: [
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(top: 300, left: 20)),
+                        Padding(padding: EdgeInsets.only(top: 390, left: 30)),
                         Expanded(
                           child: Text(
                             widget.moduleItems[widget.index]['lesson2']
@@ -141,7 +141,7 @@ class LessonPageState extends State<LessonPage> {
                               fontWeight: FontWeight.w200,
                             ),
                             softWrap: true,
-                            maxLines: 20,
+                            maxLines: 30,
                           ),
                         ),
                       ],

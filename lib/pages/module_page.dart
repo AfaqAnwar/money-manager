@@ -27,7 +27,7 @@ class _ModulePageState extends State<ModulePage> {
     setState(() {
       moduleItems = data["Modules"];
     });
-    print(moduleItems[1]['lesson1']['lessonText']);
+    //print(moduleItems[1]['question1']['choices'][0]);
   }
 
   @override
@@ -68,7 +68,7 @@ class _ModulePageState extends State<ModulePage> {
         backgroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: color.AppColor.homepageTitle,
-            fontSize: 30,
+            fontSize: 28,
             fontWeight: FontWeight.w800),
       ),
       // backgrond color of the UI
@@ -76,7 +76,7 @@ class _ModulePageState extends State<ModulePage> {
       body: Container(
         // use paddding to move the containter down
         padding:
-            const EdgeInsets.only(top: 25, bottom: 35, left: 20, right: 20),
+            const EdgeInsets.only(top: 15, bottom: 35, left: 20, right: 20),
         child: Column(
           children: [
             Row(
@@ -85,7 +85,7 @@ class _ModulePageState extends State<ModulePage> {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             // Progress Bar
             Container(
@@ -108,7 +108,7 @@ class _ModulePageState extends State<ModulePage> {
                         color: color.AppColor.gradientSecond.withOpacity(0.2))
                   ]),
               child: Container(
-                padding: const EdgeInsets.only(left: 20, top: 25),
+                padding: const EdgeInsets.only(left: 20, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -131,7 +131,7 @@ class _ModulePageState extends State<ModulePage> {
             ),
             // UI for the three types of Modules
             Container(
-              padding: const EdgeInsets.only(top: 15, bottom: 15),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: Row(
                 children: [
                   Text(
@@ -148,9 +148,8 @@ class _ModulePageState extends State<ModulePage> {
                 InkWell(
                   child: Container(
                     width: 385,
-                    height: 130,
-                    margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
-                    padding: EdgeInsets.only(bottom: 5),
+                    height: 122,
+                    margin: EdgeInsets.only(left: 5, bottom: 20, top: 20),
                     // show an image for each module
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -190,7 +189,7 @@ class _ModulePageState extends State<ModulePage> {
                 InkWell(
                   child: Container(
                     width: 385,
-                    height: 130,
+                    height: 122,
                     margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
                     padding: EdgeInsets.only(bottom: 5),
                     // show an image for each module
@@ -198,7 +197,7 @@ class _ModulePageState extends State<ModulePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                            image: AssetImage("assets/images/income.png")),
+                            image: AssetImage("assets/images/expenses.png")),
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 3,
@@ -232,7 +231,7 @@ class _ModulePageState extends State<ModulePage> {
                 InkWell(
                   child: Container(
                     width: 385,
-                    height: 130,
+                    height: 122,
                     margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
                     padding: EdgeInsets.only(bottom: 5),
                     // show an image for each module
@@ -240,7 +239,7 @@ class _ModulePageState extends State<ModulePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                            image: AssetImage("assets/images/income.png")),
+                            image: AssetImage("assets/images/savings.png")),
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 3,
@@ -272,7 +271,7 @@ class _ModulePageState extends State<ModulePage> {
                   },
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
