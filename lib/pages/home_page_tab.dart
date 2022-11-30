@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
+import 'package:date_format/date_format.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/transactionObject.dart';
 import 'package:moneymanager/data/user.dart';
@@ -23,6 +22,26 @@ class HomePageTab extends StatefulWidget {
 
 // Home Page Tab that displays user information
 class _HomePageTabState extends State<HomePageTab> {
+  List<TransactionObject> transactionList = [];
+
+  void transactionBuilder() {
+    for (int i = 0; i < CurrentUser.transactions.length; i++) {
+      var map = Map<String, dynamic>.from(CurrentUser.getTransactions[i]);
+      transactionList.add(TransactionObject.decoded(map));
+    }
+  }
+
+  void addTransaction(TransactionObject obj) {
+    setState(() {
+      transactionList.insert(0, obj);
+    });
+  }
+
+  @override
+  void initState() {
+    transactionBuilder();
+  }
+
   XenCardGutter gutter = const XenCardGutter(
     child: Padding(
       padding: EdgeInsets.all(8.0),
@@ -109,8 +128,22 @@ class _HomePageTabState extends State<HomePageTab> {
                               var incomeOrExpense =
                                   decoded["data"][0]["questions"][0]["answer"];
 
-                              var date =
-                                  decoded["data"][0]["questions"][1]["answer"];
+                              var tempDate = decoded["data"][0]["questions"][1]
+                                      ["answer"]
+                                  .split(" ")[0]
+                                  .split("-");
+
+                              var finalDate = formatDate(
+                                  DateTime(
+                                      int.parse(tempDate[0]),
+                                      int.parse(tempDate[1]),
+                                      int.parse(tempDate[2])),
+                                  [M, ' ', d, ' ', yyyy]).toString();
+
+                              // ignore: prefer_interpolation_to_compose_strings
+                              var localDate = finalDate.split(" ")[0] +
+                                  " " +
+                                  finalDate.split(" ")[1];
 
                               var amount =
                                   decoded["data"][0]["questions"][2]["answer"];
@@ -154,7 +187,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                         name,
                                         company,
                                         amount,
-                                        date.toString(),
+                                        finalDate.toString(),
                                         incomeOrExpense);
 
                                 DocumentSnapshot data = await FirebaseFirestore
@@ -169,19 +202,28 @@ class _HomePageTabState extends State<HomePageTab> {
                                     .doc(
                                         FirebaseAuth.instance.currentUser!.uid);
 
+                                TransactionObject
+                                    transactionToBeAddedToLocalList =
+                                    TransactionObject(
+                                        getCategory(category),
+                                        name,
+                                        company,
+                                        amount,
+                                        localDate,
+                                        incomeOrExpense);
+
                                 var transactions;
 
                                 try {
                                   transactions = data.get("transactions");
-                                  transactions.add(transaction.toMap());
                                 } catch (e) {
                                   List<dynamic> transactions = [];
-                                  transactions.add(transaction.toMap());
                                 }
+                                transactions.insert(0, transaction.toMap());
                                 ref.update({"transactions": transactions});
                                 CurrentUser.setTransactions = transactions;
+                                addTransaction(transactionToBeAddedToLocalList);
                               }
-
                               // ignore: use_build_context_synchronously
                               Navigator.pop(context);
                             },
@@ -256,27 +298,18 @@ class _HomePageTabState extends State<HomePageTab> {
           const SizedBox(
             height: defaultSpacing,
           ),
-          TransactionItem(
-            transaction: TransactionObject(
-                ItemCategory.income,
-                "Direct Deposit",
-                "NYIT",
-                "\$200.00",
-                "Nov, 27",
-                TransactionType.inflow),
-          ),
-          TransactionItem(
-            transaction: TransactionObject(
-                ItemCategory.fun,
-                "Water Park Tickets",
-                "Camel Beach",
-                "\$15.00",
-                "Nov, 27",
-                TransactionType.outflow),
-          )
+          Column(children: getWidgets()),
         ]),
       ),
     );
+  }
+
+  List<Widget> getWidgets() {
+    List<Widget> list = [];
+    for (TransactionObject i in transactionList) {
+      list.add(TransactionItem(transaction: i));
+    }
+    return list;
   }
 }
 

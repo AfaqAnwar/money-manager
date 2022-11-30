@@ -1,3 +1,5 @@
+import 'package:date_format/date_format.dart';
+
 enum TransactionType { outflow, inflow }
 
 enum ItemCategory {
@@ -44,34 +46,38 @@ class TransactionObject {
 
   TransactionObject.decoded(Map<String, dynamic> map) {
     switch (map["itemCategory"]) {
-      case "income":
+      case "ItemCategory.income":
         itemCategory = ItemCategory.income;
         break;
-      case "expense":
+      case "ItemCategory.expense":
         itemCategory = ItemCategory.expense;
         break;
-      case "finance":
+      case "ItemCategory.finance":
         itemCategory = ItemCategory.finance;
         break;
-      case "personal":
+      case "ItemCategory.personal":
         itemCategory = ItemCategory.personal;
         break;
-      case "food":
+      case "ItemCategory.food":
         itemCategory = ItemCategory.food;
         break;
-      case "clothes":
+      case "ItemCategory.clothes":
         itemCategory = ItemCategory.clothes;
         break;
-      case "health":
+      case "ItemCategory.health":
         itemCategory = ItemCategory.health;
         break;
-      case "electronics":
+      case "ItemCategory.electronics":
         itemCategory = ItemCategory.electronics;
         break;
-      case "fun":
+      case "ItemCategory.fun":
         itemCategory = ItemCategory.electronics;
         break;
-      case "other":
+      case "ItemCategory.other":
+        itemCategory = ItemCategory.other;
+        break;
+
+      default:
         itemCategory = ItemCategory.other;
         break;
     }
@@ -79,7 +85,7 @@ class TransactionObject {
     itemDescription = map["itemDescription"]!;
     itemCompany = map["itemCompany"]!;
     amount = map["amount"]!;
-    date = map["date"]!;
+    date = map["date"].split(" ")[0] + " " + map["date"].split(" ")[1];
 
     if (map["transactionType"]!.contains("inflow")) {
       transactionType = TransactionType.inflow;

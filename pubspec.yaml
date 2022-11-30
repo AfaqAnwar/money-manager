@@ -43,6 +43,7 @@ dependencies:
   firebase_database: ^10.0.6
   xen_popup_card: ^0.0.1
   simple_form_builder: ^0.0.22
+  date_format: ^2.0.7
 
 dev_dependencies:
   flutter_test:
