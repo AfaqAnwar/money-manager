@@ -77,6 +77,9 @@ class _HomePageState extends State<HomePage> {
             context, MaterialPageRoute(builder: (context) => const Survey()));
       });
     }
+
+    CurrentUser.updateUserIncomeAndExpense();
+    CurrentUser.updateTotalBalance();
   }
 
   // Fills advanced information about the user from the database.

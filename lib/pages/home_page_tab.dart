@@ -29,17 +29,22 @@ class _HomePageTabState extends State<HomePageTab> {
       var map = Map<String, dynamic>.from(CurrentUser.getTransactions[i]);
       transactionList.add(TransactionObject.decoded(map));
     }
+    CurrentUser.setTransctionObjectList = transactionList;
   }
 
   void addTransaction(TransactionObject obj) {
     setState(() {
       transactionList.insert(0, obj);
+      CurrentUser.updateUserIncomeAndExpense();
+      CurrentUser.updateTotalBalance();
     });
   }
 
   @override
   void initState() {
     transactionBuilder();
+    CurrentUser.updateUserIncomeAndExpense();
+    CurrentUser.updateTotalBalance();
   }
 
   XenCardGutter gutter = const XenCardGutter(
@@ -241,7 +246,7 @@ class _HomePageTabState extends State<HomePageTab> {
           Center(
             child: Column(children: [
               Text(
-                "\$4,569.00",
+                "\$${CurrentUser.getTotalBalance}",
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: fontSizeHeading, fontWeight: FontWeight.w800),
               ),
@@ -262,18 +267,22 @@ class _HomePageTabState extends State<HomePageTab> {
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Expanded(
                   child: IncomeExpenseCard(
                 expenseData: ExpenseData(
-                    "Income", "\$2,000.00", Icons.arrow_upward_rounded),
+                    "Income",
+                    "\$${CurrentUser.getUserLifetimeIncome}",
+                    Icons.arrow_upward_rounded),
               )),
-              SizedBox(
+              const SizedBox(
                 width: defaultSpacing,
               ),
               Expanded(
                 child: IncomeExpenseCard(
-                    expenseData: ExpenseData("Expense", "-\$9,000.00",
+                    expenseData: ExpenseData(
+                        "Expense",
+                        "-\$${CurrentUser.getUserLifetimeExpense}",
                         Icons.arrow_downward_rounded)),
               )
             ],
