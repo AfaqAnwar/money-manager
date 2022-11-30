@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moneymanager/data/transactionObject.dart';
 import 'package:moneymanager/pages/home_page_tab.dart';
 import 'package:moneymanager/pages/profile_tab.dart';
 import 'package:moneymanager/pages/survey.dart';
@@ -87,6 +90,7 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.setWeeklyEarning = double.parse(data.get('weekly income'));
     CurrentUser.setWeeklySpending = double.parse(data.get('weekly spending'));
     CurrentUser.setSurveyStatus = data.get('survey completed');
+    CurrentUser.setTransactions = data.get('transactions') as List;
   }
 
   Future checkForSurvey() async {

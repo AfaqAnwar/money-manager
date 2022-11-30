@@ -59,12 +59,14 @@ class _RegisterPageState extends State<RegisterPage> {
     DocumentReference ref = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid);
+    List<dynamic> transactions = [];
     ref.set({
       'first name': firstName,
       'last name': lastName,
       'sign up code': signUpCode,
       'email': email,
       'survey completed': hasCompletedSurvey,
+      'transactions': transactions,
     });
   }
 

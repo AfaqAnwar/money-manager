@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:moneymanager/data/transaction.dart';
+import 'package:moneymanager/data/transactionObject.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
 import 'package:moneymanager/widget/income_expense_card.dart';
@@ -34,6 +38,34 @@ class _HomePageTabState extends State<HomePageTab> {
       textAlign: TextAlign.center,
     ), // To remove shadow from appbar
   );
+
+  ItemCategory getCategory(String option) {
+    switch (option) {
+      case "Income":
+        return ItemCategory.income;
+      case "Expense":
+        return ItemCategory.expense;
+      case "Finance":
+        return ItemCategory.finance;
+      case "Personal":
+        return ItemCategory.personal;
+      case "Food":
+        return ItemCategory.food;
+      case "Clothes":
+        return ItemCategory.clothes;
+      case "Health":
+        return ItemCategory.health;
+      case "Electronics":
+        return ItemCategory.electronics;
+      case "Fun":
+        return ItemCategory.fun;
+      case "Other":
+        return ItemCategory.other;
+
+      default:
+        return ItemCategory.other;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +103,26 @@ class _HomePageTabState extends State<HomePageTab> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
                             widgetCrossAxisAlignment: CrossAxisAlignment.center,
-                            onSubmit: (value) {
+                            onSubmit: (value) async {
                               var json = jsonEncode(value.toJson());
                               var decoded = jsonDecode(json);
                               var incomeOrExpense =
                                   decoded["data"][0]["questions"][0]["answer"];
 
-                              var amount =
+                              var date =
                                   decoded["data"][0]["questions"][1]["answer"];
 
-                              var category =
+                              var amount =
                                   decoded["data"][0]["questions"][2]["answer"];
+
+                              var name =
+                                  decoded["data"][0]["questions"][3]["answer"];
+
+                              var company =
+                                  decoded["data"][0]["questions"][4]["answer"];
+
+                              var category =
+                                  decoded["data"][0]["questions"][5]["answer"];
 
                               final inputIsValid =
                                   RegExp(r'^[0-9]+$').hasMatch(amount);
@@ -102,8 +143,47 @@ class _HomePageTabState extends State<HomePageTab> {
                                           ],
                                         ));
                               } else {
-                                // Submit Data
+                                if (incomeOrExpense == "Income") {
+                                  incomeOrExpense = TransactionType.inflow;
+                                } else {
+                                  incomeOrExpense = TransactionType.outflow;
+                                }
+                                TransactionObject transaction =
+                                    TransactionObject(
+                                        getCategory(category),
+                                        name,
+                                        company,
+                                        amount,
+                                        date.toString(),
+                                        incomeOrExpense);
+
+                                DocumentSnapshot data = await FirebaseFirestore
+                                    .instance
+                                    .collection('users')
+                                    .doc(CurrentUser.firebaseUser?.uid)
+                                    .get();
+
+                                DocumentReference ref = FirebaseFirestore
+                                    .instance
+                                    .collection('users')
+                                    .doc(
+                                        FirebaseAuth.instance.currentUser!.uid);
+
+                                var transactions;
+
+                                try {
+                                  transactions = data.get("transactions");
+                                  transactions.add(transaction.toMap());
+                                } catch (e) {
+                                  List<dynamic> transactions = [];
+                                  transactions.add(transaction.toMap());
+                                }
+                                ref.update({"transactions": transactions});
+                                CurrentUser.setTransactions = transactions;
                               }
+
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
                             },
                           ),
                         ],
@@ -176,18 +256,23 @@ class _HomePageTabState extends State<HomePageTab> {
           const SizedBox(
             height: defaultSpacing,
           ),
-          // ..userdata.transactions.map(transction) => TransactionItem(transction:transaction)
-          const TransactionItem(
-            transaction: Transaction(ItemCategory.expense, "Shoes", "Nike",
-                "\$40.00", "Nov, 27", TransactionType.outflow),
+          TransactionItem(
+            transaction: TransactionObject(
+                ItemCategory.income,
+                "Direct Deposit",
+                "NYIT",
+                "\$200.00",
+                "Nov, 27",
+                TransactionType.inflow),
           ),
-          const TransactionItem(
-            transaction: Transaction(ItemCategory.income, "Direct Deposit",
-                "NYIT", "\$200.00", "Nov, 27", TransactionType.inflow),
-          ),
-          const TransactionItem(
-            transaction: Transaction(ItemCategory.food, "Burrito Bowl",
-                "Chipotle", "\$15.00", "Nov, 27", TransactionType.outflow),
+          TransactionItem(
+            transaction: TransactionObject(
+                ItemCategory.fun,
+                "Water Park Tickets",
+                "Camel Beach",
+                "\$15.00",
+                "Nov, 27",
+                TransactionType.outflow),
           )
         ]),
       ),

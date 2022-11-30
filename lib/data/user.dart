@@ -7,6 +7,8 @@ class CurrentUser {
   static String signUpCode = "";
   static bool surveyCompleted = false;
   static User? firebaseUser;
+  // Map<String, dynamic>.from(CurrentUser.getTransactions[i]) to get The Map For Later Use.
+  static List<dynamic> transactions = [];
 
   static int userAge = 0;
   static String userExperience = "";
@@ -85,5 +87,13 @@ class CurrentUser {
 
   static set setWeeklySpending(double definedWeeklySpending) {
     userWeeklyEarning = definedWeeklySpending;
+  }
+
+  static set setTransactions(List<dynamic> transactionList) {
+    transactions = transactionList;
+  }
+
+  static List<dynamic> get getTransactions {
+    return transactions;
   }
 }

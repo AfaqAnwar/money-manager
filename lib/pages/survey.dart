@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:moneymanager/pages/home_page_host.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:survey_kit/survey_kit.dart';
@@ -14,6 +11,7 @@ class Survey extends StatefulWidget {
   const Survey({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SurveyState createState() => _SurveyState();
 }
 
@@ -71,8 +69,8 @@ class _SurveyState extends State<Survey> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                                  title: Text('Whoops'),
-                                  content: Text(
+                                  title: const Text('Whoops'),
+                                  content: const Text(
                                       'You have to complete this survey before proceeding.'),
                                   actions: [
                                     TextButton(
@@ -81,14 +79,14 @@ class _SurveyState extends State<Survey> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const Survey())),
-                                        child: Text('Got It')),
+                                        child: const Text('Got It')),
                                   ],
                                 ));
                       }
                     },
                     task: task,
                     showProgress: true,
-                    localizations: {
+                    localizations: const {
                       'next': 'Next',
                     },
                     themeData: Theme.of(context).copyWith(
@@ -111,27 +109,27 @@ class _SurveyState extends State<Survey> {
                       iconTheme: const IconThemeData(
                         color: Colors.cyan,
                       ),
-                      textSelectionTheme: TextSelectionThemeData(
+                      textSelectionTheme: const TextSelectionThemeData(
                         cursorColor: Colors.cyan,
                         selectionColor: Colors.cyan,
                         selectionHandleColor: Colors.cyan,
                       ),
-                      cupertinoOverrideTheme: CupertinoThemeData(
+                      cupertinoOverrideTheme: const CupertinoThemeData(
                         primaryColor: Colors.cyan,
                       ),
                       outlinedButtonTheme: OutlinedButtonThemeData(
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
-                            Size(150.0, 60.0),
+                            const Size(150.0, 60.0),
                           ),
                           side: MaterialStateProperty.resolveWith(
                             (Set<MaterialState> state) {
                               if (state.contains(MaterialState.disabled)) {
-                                return BorderSide(
+                                return const BorderSide(
                                   color: Colors.grey,
                                 );
                               }
-                              return BorderSide(
+                              return const BorderSide(
                                 color: Colors.cyan,
                               );
                             },
@@ -170,7 +168,7 @@ class _SurveyState extends State<Survey> {
                           ),
                         ),
                       ),
-                      textTheme: TextTheme(
+                      textTheme: const TextTheme(
                         headline2: TextStyle(
                           fontSize: 28.0,
                           color: Colors.black,
@@ -188,7 +186,7 @@ class _SurveyState extends State<Survey> {
                           color: Colors.black,
                         ),
                       ),
-                      inputDecorationTheme: InputDecorationTheme(
+                      inputDecorationTheme: const InputDecorationTheme(
                         labelStyle: TextStyle(
                           color: Colors.black,
                         ),
@@ -199,7 +197,7 @@ class _SurveyState extends State<Survey> {
                     ),
                   );
                 }
-                return CircularProgressIndicator.adaptive();
+                return const CircularProgressIndicator.adaptive();
               },
             ),
           ),
@@ -220,7 +218,7 @@ class _SurveyState extends State<Survey> {
         ),
         QuestionStep(
           title: 'How old are you?',
-          answerFormat: IntegerAnswerFormat(
+          answerFormat: const IntegerAnswerFormat(
             defaultValue: 18,
             hint: 'Please enter your age',
           ),
@@ -228,7 +226,7 @@ class _SurveyState extends State<Survey> {
         ),
         QuestionStep(
             title: 'How familiar are you with saving & investing?',
-            answerFormat: SingleChoiceAnswerFormat(textChoices: [
+            answerFormat: const SingleChoiceAnswerFormat(textChoices: [
               TextChoice(text: 'Not Familiar', value: 'Not Familiar'),
               TextChoice(text: 'Somewhat Familiar', value: 'Somewhat Familiar'),
               TextChoice(text: 'Very Familiar', value: 'Very Familiar'),
@@ -238,7 +236,7 @@ class _SurveyState extends State<Survey> {
         QuestionStep(
           title: 'How much money do you earn per week?',
           text: 'This could be from allowances, work, etc.',
-          answerFormat: IntegerAnswerFormat(
+          answerFormat: const IntegerAnswerFormat(
             defaultValue: 0,
             hint: '',
           ),
@@ -247,7 +245,7 @@ class _SurveyState extends State<Survey> {
         QuestionStep(
           title: 'How much money do you spend per week?',
           text: 'Give us your best estimate.',
-          answerFormat: IntegerAnswerFormat(
+          answerFormat: const IntegerAnswerFormat(
             defaultValue: 0,
             hint: '',
           ),
