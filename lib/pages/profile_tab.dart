@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
+import 'package:xen_popup_card/xen_card.dart';
+import 'package:moneymanager/pages/home_page_tab.dart';
 
 // Profile Tab
 class ProfileTab extends StatelessWidget {
@@ -84,10 +86,28 @@ class ProfileTab extends StatelessWidget {
                     const SizedBox(
                       height: defaultSpacing * 1.5,
                     ),
-                    buildProfileTile(
-                      context,
-                      imageUrl: "assets/icons/info-circle.png",
-                      title: "About",
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (builder) => XenPopupCard(
+                                  appBar: buildXenAppBar(text: "About Us"),
+                                  body: Column(children: const [
+                                    Text(
+                                      "Money Manger is a product designed to help you track your expenses and income.\n",
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          TextStyle(fontSize: fontSizeHeading),
+                                    ),
+                                  ]),
+                                  gutter: buildXenGutter(text: "Okay"),
+                                ));
+                      },
+                      child: buildProfileTile(
+                        context,
+                        imageUrl: "assets/icons/info-circle.png",
+                        title: "About",
+                      ),
                     )
                   ],
                 ),
@@ -126,5 +146,25 @@ class ProfileTab extends StatelessWidget {
             color: Colors.black26,
           ),
         ));
+  }
+
+  XenCardAppBar buildXenAppBar({required String text}) {
+    return XenCardAppBar(
+      shadow: const BoxShadow(color: Colors.transparent),
+      child: Text(
+        text,
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+        textAlign: TextAlign.center,
+      ), // To remove shadow from appbar
+    );
+  }
+
+  XenCardGutter buildXenGutter({required String text}) {
+    return XenCardGutter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CustomButton(text: text),
+      ),
+    );
   }
 }
