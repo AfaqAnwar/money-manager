@@ -372,6 +372,9 @@ class _HomePageTabState extends State<HomePageTab> {
 
               ref.update({"transactions": transactionsFromDB});
               CurrentUser.setTransactions = transactionsFromDB;
+
+              CurrentUser.updateUserIncomeAndExpense();
+              CurrentUser.updateTotalBalance();
             });
           },
           confirmDismiss: (DismissDirection direction) async {
