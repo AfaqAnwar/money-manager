@@ -97,16 +97,13 @@ class _HomePageState extends State<HomePage> {
   Future checkAndFillDetails() async {
     await fillBasicUserDetails();
     try {
-      fillFullUserDetails();
+      await fillFullUserDetails();
     } catch (e) {
       rethrow;
     }
 
-    if (CurrentUser.getTransactionObjects.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
+    // Since detail filling is called using await, we can assume that the process will always be finished.
+    return true;
   }
 
   @override

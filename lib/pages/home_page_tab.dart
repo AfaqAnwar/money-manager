@@ -48,7 +48,7 @@ class _HomePageTabState extends State<HomePageTab> {
   }
 
   Future checkData() async {
-    if (CurrentUser.transctionObjects.isNotEmpty) {
+    if (CurrentUser.getFireUser != null) {
       return true;
     } else {
       return false;
@@ -104,7 +104,7 @@ class _HomePageTabState extends State<HomePageTab> {
     return FutureBuilder(
       future: checkData(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.data == true) {
+        if (snapshot.hasData == true) {
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(defaultSpacing),
