@@ -24,8 +24,8 @@ class HomePageTab extends StatefulWidget {
 class _HomePageTabState extends State<HomePageTab> {
   List<TransactionObject> transactionList = [];
 
-  void transactionBuilder() {
-    for (int i = 0; i < CurrentUser.transactions.length; i++) {
+  transactionBuilder() {
+    for (int i = 0; i < CurrentUser.getTransactionObjects.length; i++) {
       var map = Map<String, dynamic>.from(CurrentUser.getTransactions[i]);
       transactionList.add(TransactionObject.decoded(map));
     }
@@ -45,6 +45,14 @@ class _HomePageTabState extends State<HomePageTab> {
     transactionBuilder();
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
+  }
+
+  Future checkData() async {
+    if (CurrentUser.transctionObjects.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   XenCardGutter gutter = const XenCardGutter(
@@ -93,223 +101,251 @@ class _HomePageTabState extends State<HomePageTab> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(defaultSpacing),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(
-            height: defaultSpacing * 4,
-          ),
-          ListTile(
-              title: Text("Hey ${CurrentUser.firstName}!"),
-              leading: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.all(Radius.circular(defaultRadius)),
-                  child: Image.asset("assets/icons/user-1.png")),
-              trailing: InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (builder) => XenPopupCard(
-                      appBar: appBar,
-                      body: ListView(
-                        children: [
-                          FormBuilder(
-                            initialData: inputFormData,
-                            index: 0,
-                            showIndex: false,
-                            submitButtonDecoration: const BoxDecoration(
-                                color: Color(0xff6200ee),
-                                shape: BoxShape.rectangle),
-                            submitButtonText: "Add Transaction",
-                            submitTextDecoration: const TextStyle(
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                            widgetCrossAxisAlignment: CrossAxisAlignment.center,
-                            onSubmit: (value) async {
-                              var json = jsonEncode(value.toJson());
-                              var decoded = jsonDecode(json);
-                              var incomeOrExpense =
-                                  decoded["data"][0]["questions"][0]["answer"];
-
-                              var tempDate = decoded["data"][0]["questions"][1]
-                                      ["answer"]
-                                  .split(" ")[0]
-                                  .split("-");
-
-                              var finalDate = formatDate(
-                                  DateTime(
-                                      int.parse(tempDate[0]),
-                                      int.parse(tempDate[1]),
-                                      int.parse(tempDate[2])),
-                                  [M, ' ', d, ' ', yyyy]).toString();
-
-                              // ignore: prefer_interpolation_to_compose_strings
-                              var localDate = finalDate.split(" ")[0] +
-                                  " " +
-                                  finalDate.split(" ")[1];
-
-                              var amount =
-                                  decoded["data"][0]["questions"][2]["answer"];
-
-                              var name =
-                                  decoded["data"][0]["questions"][3]["answer"];
-
-                              var company =
-                                  decoded["data"][0]["questions"][4]["answer"];
-
-                              var category =
-                                  decoded["data"][0]["questions"][5]["answer"];
-
-                              final inputIsValid =
-                                  RegExp(r'^[0-9]+$').hasMatch(amount);
-
-                              if (inputIsValid == false) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: const Text('Whoops'),
-                                          content: const Text(
-                                              'You have to enter only numbers for the transaction amount'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: const Text("Okay"),
-                                            )
-                                          ],
-                                        ));
-                              } else {
-                                if (incomeOrExpense == "Income") {
-                                  incomeOrExpense = TransactionType.inflow;
-                                } else {
-                                  incomeOrExpense = TransactionType.outflow;
-                                }
-                                TransactionObject transaction =
-                                    TransactionObject(
-                                        getCategory(category),
-                                        name,
-                                        company,
-                                        amount,
-                                        finalDate.toString(),
-                                        incomeOrExpense);
-
-                                DocumentSnapshot data = await FirebaseFirestore
-                                    .instance
-                                    .collection('users')
-                                    .doc(CurrentUser.firebaseUser?.uid)
-                                    .get();
-
-                                DocumentReference ref = FirebaseFirestore
-                                    .instance
-                                    .collection('users')
-                                    .doc(
-                                        FirebaseAuth.instance.currentUser!.uid);
-
-                                TransactionObject
-                                    transactionToBeAddedToLocalList =
-                                    TransactionObject(
-                                        getCategory(category),
-                                        name,
-                                        company,
-                                        amount,
-                                        localDate,
-                                        incomeOrExpense);
-
-                                var transactions;
-
-                                try {
-                                  transactions = data.get("transactions");
-                                } catch (e) {
-                                  List<dynamic> transactions = [];
-                                }
-                                transactions.insert(0, transaction.toMap());
-                                ref.update({"transactions": transactions});
-                                CurrentUser.setTransactions = transactions;
-                                addTransaction(transactionToBeAddedToLocalList);
-                              }
-                              // ignore: use_build_context_synchronously
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+    return FutureBuilder(
+      future: checkData(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.data == true) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(defaultSpacing),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: defaultSpacing * 4,
                     ),
-                  );
-                },
-                child: Image.asset("assets/icons/plus.png"),
-              )),
-          const SizedBox(
-            height: defaultSpacing,
-          ),
-          Center(
-            child: Column(children: [
-              Text(
-                "\$${CurrentUser.getTotalBalance}",
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: fontSizeHeading, fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(
-                height: defaultSpacing / 2,
-              ),
-              Text(
-                "Total Balance",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    ?.copyWith(color: fontSubHeading),
-              )
-            ]),
-          ),
-          const SizedBox(
-            height: defaultSpacing * 2,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: IncomeExpenseCard(
-                expenseData: ExpenseData(
-                    "Income",
-                    "\$${CurrentUser.getUserLifetimeIncome}",
-                    Icons.arrow_upward_rounded),
-              )),
-              const SizedBox(
-                width: defaultSpacing,
-              ),
-              Expanded(
-                child: IncomeExpenseCard(
-                    expenseData: ExpenseData(
-                        "Expense",
-                        "-\$${CurrentUser.getUserLifetimeExpense}",
-                        Icons.arrow_downward_rounded)),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: defaultSpacing * 2,
-          ),
-          Text(
-            "Recent Transactions",
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(
-            height: defaultSpacing,
-          ),
-          const Text(
-            "Today",
-            style: TextStyle(color: fontSubHeading),
-          ),
-          const SizedBox(
-            height: defaultSpacing,
-          ),
-          Column(children: getWidgets()),
-        ]),
-      ),
+                    ListTile(
+                        title: Text("Hey ${CurrentUser.firstName}!"),
+                        leading: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(defaultRadius)),
+                            child: Image.asset("assets/icons/user-1.png")),
+                        trailing: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (builder) => XenPopupCard(
+                                appBar: appBar,
+                                body: ListView(
+                                  children: [
+                                    FormBuilder(
+                                      initialData: inputFormData,
+                                      index: 0,
+                                      showIndex: false,
+                                      submitButtonDecoration:
+                                          const BoxDecoration(
+                                              color: Color(0xff6200ee),
+                                              shape: BoxShape.rectangle),
+                                      submitButtonText: "Add Transaction",
+                                      submitTextDecoration: const TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500),
+                                      widgetCrossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      onSubmit: (value) async {
+                                        var json = jsonEncode(value.toJson());
+                                        var decoded = jsonDecode(json);
+                                        var incomeOrExpense = decoded["data"][0]
+                                            ["questions"][0]["answer"];
+
+                                        var tempDate = decoded["data"][0]
+                                                ["questions"][1]["answer"]
+                                            .split(" ")[0]
+                                            .split("-");
+
+                                        var finalDate = formatDate(
+                                            DateTime(
+                                                int.parse(tempDate[0]),
+                                                int.parse(tempDate[1]),
+                                                int.parse(tempDate[2])),
+                                            [M, ' ', d, ' ', yyyy]).toString();
+
+                                        var localDate =
+                                            // ignore: prefer_interpolation_to_compose_strings
+                                            finalDate.split(" ")[0] +
+                                                " " +
+                                                finalDate.split(" ")[1];
+
+                                        var amount = decoded["data"][0]
+                                            ["questions"][2]["answer"];
+
+                                        var name = decoded["data"][0]
+                                            ["questions"][3]["answer"];
+
+                                        var company = decoded["data"][0]
+                                            ["questions"][4]["answer"];
+
+                                        var category = decoded["data"][0]
+                                            ["questions"][5]["answer"];
+
+                                        final inputIsValid = RegExp(r'^[0-9]+$')
+                                            .hasMatch(amount);
+
+                                        if (inputIsValid == false) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                    title: const Text('Whoops'),
+                                                    content: const Text(
+                                                        'You have to enter only numbers for the transaction amount'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child:
+                                                            const Text("Okay"),
+                                                      )
+                                                    ],
+                                                  ));
+                                        } else {
+                                          if (incomeOrExpense == "Income") {
+                                            incomeOrExpense =
+                                                TransactionType.inflow;
+                                          } else {
+                                            incomeOrExpense =
+                                                TransactionType.outflow;
+                                          }
+                                          TransactionObject transaction =
+                                              TransactionObject(
+                                                  getCategory(category),
+                                                  name,
+                                                  company,
+                                                  amount,
+                                                  finalDate.toString(),
+                                                  incomeOrExpense);
+
+                                          DocumentSnapshot data =
+                                              await FirebaseFirestore.instance
+                                                  .collection('users')
+                                                  .doc(CurrentUser
+                                                      .firebaseUser?.uid)
+                                                  .get();
+
+                                          DocumentReference ref =
+                                              FirebaseFirestore.instance
+                                                  .collection('users')
+                                                  .doc(FirebaseAuth.instance
+                                                      .currentUser!.uid);
+
+                                          TransactionObject
+                                              transactionToBeAddedToLocalList =
+                                              TransactionObject(
+                                                  getCategory(category),
+                                                  name,
+                                                  company,
+                                                  amount,
+                                                  localDate,
+                                                  incomeOrExpense);
+
+                                          var transactions;
+
+                                          try {
+                                            transactions =
+                                                data.get("transactions");
+                                          } catch (e) {
+                                            List<dynamic> transactions = [];
+                                          }
+                                          transactions.insert(
+                                              0, transaction.toMap());
+                                          ref.update(
+                                              {"transactions": transactions});
+                                          CurrentUser.setTransactions =
+                                              transactions;
+                                          addTransaction(
+                                              transactionToBeAddedToLocalList);
+                                        }
+                                        // ignore: use_build_context_synchronously
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          child: Image.asset("assets/icons/plus.png"),
+                        )),
+                    const SizedBox(
+                      height: defaultSpacing,
+                    ),
+                    Center(
+                      child: Column(children: [
+                        Text(
+                          "\$${CurrentUser.getTotalBalance}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  fontSize: fontSizeHeading,
+                                  fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(
+                          height: defaultSpacing / 2,
+                        ),
+                        Text(
+                          "Total Balance",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.copyWith(color: fontSubHeading),
+                        )
+                      ]),
+                    ),
+                    const SizedBox(
+                      height: defaultSpacing * 2,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            child: IncomeExpenseCard(
+                          expenseData: ExpenseData(
+                              "Income",
+                              "\$${CurrentUser.getUserLifetimeIncome}",
+                              Icons.arrow_upward_rounded),
+                        )),
+                        const SizedBox(
+                          width: defaultSpacing,
+                        ),
+                        Expanded(
+                          child: IncomeExpenseCard(
+                              expenseData: ExpenseData(
+                                  "Expense",
+                                  "-\$${CurrentUser.getUserLifetimeExpense}",
+                                  Icons.arrow_downward_rounded)),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: defaultSpacing * 2,
+                    ),
+                    Text(
+                      "Recent Transactions",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(
+                      height: defaultSpacing,
+                    ),
+                    const Text(
+                      "Today",
+                      style: TextStyle(color: fontSubHeading),
+                    ),
+                    const SizedBox(
+                      height: defaultSpacing,
+                    ),
+                    Column(children: getWidgets()),
+                  ]),
+            ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
@@ -359,7 +395,8 @@ class _HomePageTabState extends State<HomePageTab> {
               },
             );
           },
-          child: TransactionItem(transaction: transactionList[i])));
+          child:
+              TransactionItem(transaction: CurrentUser.transctionObjects[i])));
     }
     return list;
   }
