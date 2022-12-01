@@ -5,7 +5,6 @@ import 'package:moneymanager/data/transactionObject.dart';
 import 'package:moneymanager/pages/home_page_tab.dart';
 import 'package:moneymanager/pages/profile_tab.dart';
 import 'package:moneymanager/pages/survey.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
 
