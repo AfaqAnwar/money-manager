@@ -315,8 +315,51 @@ class _HomePageTabState extends State<HomePageTab> {
 
   List<Widget> getWidgets() {
     List<Widget> list = [];
-    for (TransactionObject i in transactionList) {
-      list.add(TransactionItem(transaction: i));
+    for (int i = 0; i < transactionList.length; i++) {
+      list.add(Dismissible(
+          key: UniqueKey(),
+          direction: DismissDirection.endToStart,
+          onDismissed: (direction) async {
+            DocumentSnapshot data = await FirebaseFirestore.instance
+                .collection('users')
+                .doc(CurrentUser.firebaseUser?.uid)
+                .get();
+
+            DocumentReference ref = FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.uid);
+            setState(() {
+              transactionList.removeAt(i);
+
+              var transactionsFromDB = data.get("transactions");
+              transactionsFromDB.removeAt(i);
+
+              ref.update({"transactions": transactionsFromDB});
+              CurrentUser.setTransactions = transactionsFromDB;
+            });
+          },
+          confirmDismiss: (DismissDirection direction) async {
+            return await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Delete Confirmation"),
+                  content: const Text(
+                      "Are you sure you want to delete this transaction?"),
+                  actions: <Widget>[
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: const Text("Delete")),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text("Cancel"),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: TransactionItem(transaction: transactionList[i])));
     }
     return list;
   }

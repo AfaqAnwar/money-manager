@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:moneymanager/data/transactionObject.dart';
 import 'package:moneymanager/pages/home_page_tab.dart';
 import 'package:moneymanager/pages/profile_tab.dart';
 import 'package:moneymanager/pages/survey.dart';
@@ -47,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     try {
       fillFullUserDetails();
     } catch (e) {
-      print("User Information Error");
+      rethrow;
     }
   }
 
