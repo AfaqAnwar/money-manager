@@ -69,7 +69,7 @@ class TransactionObject {
         itemCategory = ItemCategory.electronics;
         break;
       case "ItemCategory.fun":
-        itemCategory = ItemCategory.electronics;
+        itemCategory = ItemCategory.fun;
         break;
       case "ItemCategory.other":
         itemCategory = ItemCategory.other;

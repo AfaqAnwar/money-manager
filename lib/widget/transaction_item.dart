@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/transactionObject.dart';
 
@@ -13,25 +14,25 @@ class TransactionItem extends StatelessWidget {
   Color getBgColor(TransactionObject type) {
     switch (type.itemCategory) {
       case ItemCategory.income:
-        return Colors.green;
+        return CupertinoColors.activeGreen;
       case ItemCategory.expense:
-        return Colors.red;
+        return CupertinoColors.systemRed;
       case ItemCategory.finance:
-        return Colors.greenAccent;
+        return CupertinoColors.systemGreen;
       case ItemCategory.personal:
-        return Colors.blue;
+        return CupertinoColors.activeBlue;
       case ItemCategory.food:
-        return Colors.orangeAccent;
+        return CupertinoColors.activeOrange;
       case ItemCategory.clothes:
-        return Colors.cyanAccent;
+        return CupertinoColors.systemIndigo;
       case ItemCategory.health:
-        return Colors.pinkAccent;
+        return CupertinoColors.systemPink;
       case ItemCategory.electronics:
-        return Colors.limeAccent;
+        return CupertinoColors.systemTeal;
       case ItemCategory.fun:
-        return Colors.purple;
+        return CupertinoColors.systemYellow;
       case ItemCategory.other:
-        return Colors.tealAccent;
+        return CupertinoColors.lightBackgroundGray;
 
       default:
         return Colors.grey;
@@ -58,25 +59,25 @@ class TransactionItem extends StatelessWidget {
   IconData getIcon(TransactionObject type) {
     switch (type.itemCategory) {
       case ItemCategory.income:
-        return Icons.money_rounded;
+        return CupertinoIcons.money_dollar;
       case ItemCategory.expense:
         return Icons.fireplace_rounded;
       case ItemCategory.finance:
-        return Icons.credit_card_rounded;
+        return CupertinoIcons.creditcard;
       case ItemCategory.personal:
-        return Icons.person;
+        return CupertinoIcons.person_circle;
       case ItemCategory.food:
         return Icons.restaurant_menu_rounded;
       case ItemCategory.clothes:
-        return Icons.storefront_rounded;
+        return Icons.store_rounded;
       case ItemCategory.health:
-        return Icons.local_hospital_rounded;
+        return Icons.health_and_safety;
       case ItemCategory.electronics:
-        return Icons.computer_rounded;
+        return Icons.laptop;
       case ItemCategory.fun:
-        return Icons.emoji_emotions_rounded;
+        return CupertinoIcons.smiley_fill;
       case ItemCategory.other:
-        return Icons.question_answer_rounded;
+        return CupertinoIcons.creditcard;
 
       default:
         return Icons.question_mark;
