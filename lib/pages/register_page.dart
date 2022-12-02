@@ -12,6 +12,7 @@ class RegisterPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -93,14 +94,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 style: GoogleFonts.bebasNeue(fontSize: 48, color: Colors.blue),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-              Text(
+              const Text(
                 'Fill Out Your Details To Continue',
                 style: TextStyle(fontSize: 20),
               ),
 
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
 
               // first name textfield
               Padding(
@@ -115,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
                       controller: firstNameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'First Name',
                       ),
@@ -124,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // last name controller
               Padding(
@@ -139,7 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
                       controller: lastNameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Last Name',
                       ),
@@ -148,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // email textfield
               Padding(
@@ -163,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
                       ),
@@ -172,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // password textfield
               Padding(
@@ -188,7 +189,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: TextField(
                       controller: passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
                       ),
@@ -197,7 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // confirm password textfield
               Padding(
@@ -213,7 +214,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: TextField(
                       controller: confirmPasswordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Confirm Password',
                       ),
@@ -221,7 +222,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // sign up code textfield
               Padding(
@@ -236,7 +237,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
                       controller: signUpCodeController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Sign Up Code (Optional)',
                       ),
@@ -245,7 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Sign Up Button
               Padding(
@@ -258,7 +259,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       'Sign Up',
                       style: TextStyle(
@@ -271,13 +272,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
 
               // Register
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Already A Member?',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -285,7 +286,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   GestureDetector(
                     onTap: widget.showLoginPage,
-                    child: Text(' Login Now',
+                    child: const Text(' Login Now',
                         style: TextStyle(
                           color: Colors.lightBlue,
                           fontWeight: FontWeight.bold,

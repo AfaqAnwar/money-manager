@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
 
               SizedBox(height: 10),
 
-              Text(
+              const Text(
                 'Login to Get Started!',
                 style: TextStyle(fontSize: 20),
               ),
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
                       ),
@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // password textfield
               Padding(
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextField(
                       controller: passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
                       ),
@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                           return ForgotPasswordPage();
                         }));
                       },
-                      child: Text('Forgot Password?',
+                      child: const Text('Forgot Password?',
                           style: TextStyle(
                             color: Colors.lightBlue,
                             fontWeight: FontWeight.bold,
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       'Sign In',
                       style: TextStyle(
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Not a member?',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -182,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: widget.showRegisterPage,
-                    child: Text(' Register Now',
+                    child: const Text(' Register Now',
                         style: TextStyle(
                           color: Colors.lightBlue,
                           fontWeight: FontWeight.bold,

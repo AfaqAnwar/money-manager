@@ -315,6 +315,7 @@ class _HomePageTabState extends State<HomePageTab> {
     );
   }
 
+// Builds each transaction widget.
   List<Widget> getWidgets() {
     List<Widget> list = [];
     for (int i = 0; i < transactionList.length; i++) {

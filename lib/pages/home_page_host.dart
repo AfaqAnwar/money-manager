@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {}
 
-  // Obtain user details from Firestore.
+  // Obtain user details from Firestore on first load.
   Future fillUserDetails() async {
     CurrentUser.firebaseUser = FirebaseAuth.instance.currentUser;
     DocumentSnapshot data = await FirebaseFirestore.instance
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.updateTotalBalance();
   }
 
-  // Fills advanced information about the user from the database.
+  // Fills advanced information about the user from the database, generally only after survey is complete.
   Future fillFullUserDetails() async {
     DocumentSnapshot data = await FirebaseFirestore.instance
         .collection('users')

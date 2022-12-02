@@ -8,6 +8,7 @@ class CurrentUser {
   static String signUpCode = "";
   static bool surveyCompleted = false;
   static User? firebaseUser;
+
   // Map<String, dynamic>.from(CurrentUser.getTransactions[i]) to get The Map For Later Use.
   static List<dynamic> transactions = [];
   static List<TransactionObject> transctionObjects = [];
