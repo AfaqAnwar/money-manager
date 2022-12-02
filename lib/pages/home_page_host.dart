@@ -17,6 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var rebuildbasic = true;
+  var rebuildFull = true;
+
   var currentIndex = 0;
 
   Future transactionBuilder() async {
@@ -45,12 +48,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Initially checks for survey completion to ensure proper data is present.
   @override
   void initState() {}
 
   // Obtain user details from Firestore.
-  Future fillBasicUserDetails() async {
+  Future fillUserDetails() async {
     CurrentUser.firebaseUser = FirebaseAuth.instance.currentUser;
     DocumentSnapshot data = await FirebaseFirestore.instance
         .collection('users')
@@ -62,16 +64,7 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.setSurveyStatus = data.get('survey completed');
     CurrentUser.setTransactions = data.get('transactions') as List;
 
-    // If survey has not been completed push the user to the survey.
-    if (CurrentUser.getSurveyStatus == false) {
-      Future.delayed(Duration.zero, () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Survey()));
-      });
-    }
-
-    transactionBuilder();
-
+    await transactionBuilder();
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
   }
@@ -89,19 +82,21 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.setSurveyStatus = data.get('survey completed');
   }
 
-  Future checkForSurvey() async {
-    return CurrentUser.getSurveyStatus;
-  }
-
   Future checkAndFillDetails() async {
-    await fillBasicUserDetails();
-    try {
-      await fillFullUserDetails();
-    } catch (e) {
-      rethrow;
-    }
+    if (rebuildbasic) {
+      await fillUserDetails();
+      rebuildbasic = false;
 
-    // Since detail filling is called using await, we can assume that the process will always be finished.
+      if (CurrentUser.getSurveyStatus == false) {
+        Future.delayed(Duration.zero, () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Survey()));
+        });
+      } else {
+        await fillFullUserDetails();
+        rebuildFull = false;
+      }
+    }
     return true;
   }
 
@@ -110,7 +105,7 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
         future: checkAndFillDetails(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData == true) {
+          if (snapshot.data == true) {
             return Scaffold(
               body: buildContentOfTab(currentIndex),
               bottomNavigationBar: BottomNavigationBar(
