@@ -60,10 +60,8 @@ class _SurveyState extends State<Survey> {
                             result.results[4].results[0].result.toString());
                         CurrentUser.setSurveyStatus = true;
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const HomePage()));
                       } catch (e) {
                         // Survey is mandatory and thus cannot be cancelled.
                         showDialog(

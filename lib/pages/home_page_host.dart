@@ -89,8 +89,8 @@ class _HomePageState extends State<HomePage> {
 
       if (CurrentUser.getSurveyStatus == false) {
         Future.delayed(Duration.zero, () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Survey()));
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const Survey()));
         });
       } else {
         await fillFullUserDetails();

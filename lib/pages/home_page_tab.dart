@@ -32,14 +32,6 @@ class _HomePageTabState extends State<HomePageTab> {
     CurrentUser.setTransctionObjectList = transactionList;
   }
 
-  void addTransaction(TransactionObject obj) {
-    setState(() {
-      transactionList.insert(0, obj);
-      CurrentUser.updateUserIncomeAndExpense();
-      CurrentUser.updateTotalBalance();
-    });
-  }
-
   @override
   void initState() {
     transactionBuilder();
@@ -226,10 +218,20 @@ class _HomePageTabState extends State<HomePageTab> {
                                   List<dynamic> transactions = [];
                                 }
                                 transactions.insert(0, transaction.toMap());
-                                ref.update({"transactions": transactions});
+                                await ref
+                                    .update({"transactions": transactions});
+
                                 CurrentUser.setTransactions = transactions;
-                                addTransaction(transactionToBeAddedToLocalList);
-                                Navigator.pop(context);
+                                transactionList.insert(
+                                    0, transactionToBeAddedToLocalList);
+
+                                if (mounted) {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    CurrentUser.updateUserIncomeAndExpense();
+                                    CurrentUser.updateTotalBalance();
+                                  });
+                                }
                               }
                             },
                           ),
