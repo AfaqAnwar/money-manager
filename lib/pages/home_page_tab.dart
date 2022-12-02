@@ -226,7 +226,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                     0, transactionToBeAddedToLocalList);
 
                                 if (mounted) {
-                                  Navigator.pop(context);
+                                  Navigator.of(builder).pop();
                                   setState(() {
                                     CurrentUser.updateUserIncomeAndExpense();
                                     CurrentUser.updateTotalBalance();
