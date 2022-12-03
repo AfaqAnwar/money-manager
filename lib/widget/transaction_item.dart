@@ -122,7 +122,7 @@ class TransactionItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "${getSign(transaction.transactionType)}${transaction.amount}",
+              "${getSign(transaction.transactionType)}\$${transaction.amount}",
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: getColor(transaction.transactionType),

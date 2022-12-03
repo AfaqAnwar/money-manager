@@ -105,117 +105,119 @@ class _HomePageTabState extends State<HomePageTab> {
                                 fontWeight: FontWeight.w500),
                             widgetCrossAxisAlignment: CrossAxisAlignment.center,
                             onSubmit: (value) async {
-                              var json = jsonEncode(value.toJson());
-                              var decoded = jsonDecode(json);
-                              var incomeOrExpense =
-                                  decoded["data"][0]["questions"][0]["answer"];
+                              if (value != null) {
+                                var json = jsonEncode(value.toJson());
+                                var decoded = jsonDecode(json);
+                                var incomeOrExpense = decoded["data"][0]
+                                    ["questions"][0]["answer"];
 
-                              var tempDate = decoded["data"][0]["questions"][1]
-                                      ["answer"]
-                                  .split(" ")[0]
-                                  .split("-");
+                                var tempDate = decoded["data"][0]["questions"]
+                                        [1]["answer"]
+                                    .split(" ")[0]
+                                    .split("-");
 
-                              var finalDate = formatDate(
-                                  DateTime(
-                                      int.parse(tempDate[0]),
-                                      int.parse(tempDate[1]),
-                                      int.parse(tempDate[2])),
-                                  [M, ' ', d, ' ', yyyy]).toString();
+                                var finalDate = formatDate(
+                                    DateTime(
+                                        int.parse(tempDate[0]),
+                                        int.parse(tempDate[1]),
+                                        int.parse(tempDate[2])),
+                                    [M, ' ', d, ' ', yyyy]).toString();
 
-                              var localDate =
-                                  // ignore: prefer_interpolation_to_compose_strings
-                                  finalDate.split(" ")[0] +
-                                      " " +
-                                      finalDate.split(" ")[1];
+                                var localDate =
+                                    // ignore: prefer_interpolation_to_compose_strings
+                                    finalDate.split(" ")[0] +
+                                        " " +
+                                        finalDate.split(" ")[1];
 
-                              var amount =
-                                  decoded["data"][0]["questions"][2]["answer"];
+                                var amount = decoded["data"][0]["questions"][2]
+                                    ["answer"];
 
-                              var name =
-                                  decoded["data"][0]["questions"][3]["answer"];
+                                var name = decoded["data"][0]["questions"][3]
+                                    ["answer"];
 
-                              var company =
-                                  decoded["data"][0]["questions"][4]["answer"];
+                                var company = decoded["data"][0]["questions"][4]
+                                    ["answer"];
 
-                              var category =
-                                  decoded["data"][0]["questions"][5]["answer"];
+                                var category = decoded["data"][0]["questions"]
+                                    [5]["answer"];
 
-                              final inputIsValid =
-                                  RegExp(r'^[0-9]+$').hasMatch(amount);
+                                final inputIsValid =
+                                    RegExp(r'^[0-9]+$').hasMatch(amount);
 
-                              if (inputIsValid == false) {
-                                return showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: const Text('Whoops'),
-                                          content: const Text(
-                                              'You have to enter only numbers for the transaction amount'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: const Text("Okay"),
-                                            )
-                                          ],
-                                        ));
-                              } else {
-                                if (incomeOrExpense == "Income") {
-                                  incomeOrExpense = TransactionType.inflow;
+                                if (inputIsValid == false) {
+                                  return showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: const Text('Whoops'),
+                                            content: const Text(
+                                                'You have to enter only numbers for the transaction amount'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: const Text("Okay"),
+                                              )
+                                            ],
+                                          ));
                                 } else {
-                                  incomeOrExpense = TransactionType.outflow;
-                                }
-                                TransactionObject transaction =
-                                    TransactionObject(
-                                        getCategory(category),
-                                        name,
-                                        company,
-                                        amount,
-                                        finalDate.toString(),
-                                        incomeOrExpense);
+                                  if (incomeOrExpense == "Income") {
+                                    incomeOrExpense = TransactionType.inflow;
+                                  } else {
+                                    incomeOrExpense = TransactionType.outflow;
+                                  }
+                                  TransactionObject transaction =
+                                      TransactionObject(
+                                          getCategory(category),
+                                          name,
+                                          company,
+                                          amount,
+                                          finalDate.toString(),
+                                          incomeOrExpense);
 
-                                DocumentSnapshot data = await FirebaseFirestore
-                                    .instance
-                                    .collection('users')
-                                    .doc(CurrentUser.firebaseUser?.uid)
-                                    .get();
+                                  DocumentSnapshot data =
+                                      await FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(CurrentUser.firebaseUser?.uid)
+                                          .get();
 
-                                DocumentReference ref = FirebaseFirestore
-                                    .instance
-                                    .collection('users')
-                                    .doc(
-                                        FirebaseAuth.instance.currentUser!.uid);
+                                  DocumentReference ref = FirebaseFirestore
+                                      .instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid);
 
-                                TransactionObject
-                                    transactionToBeAddedToLocalList =
-                                    TransactionObject(
-                                        getCategory(category),
-                                        name,
-                                        company,
-                                        amount,
-                                        localDate,
-                                        incomeOrExpense);
+                                  TransactionObject
+                                      transactionToBeAddedToLocalList =
+                                      TransactionObject(
+                                          getCategory(category),
+                                          name,
+                                          company,
+                                          amount,
+                                          localDate,
+                                          incomeOrExpense);
 
-                                var transactions;
+                                  var transactions;
 
-                                try {
-                                  transactions = data.get("transactions");
-                                } catch (e) {
-                                  List<dynamic> transactions = [];
-                                }
-                                transactions.insert(0, transaction.toMap());
-                                await ref
-                                    .update({"transactions": transactions});
+                                  try {
+                                    transactions = data.get("transactions");
+                                  } catch (e) {
+                                    List<dynamic> transactions = [];
+                                  }
+                                  transactions.insert(0, transaction.toMap());
+                                  await ref
+                                      .update({"transactions": transactions});
 
-                                CurrentUser.setTransactions = transactions;
-                                transactionList.insert(
-                                    0, transactionToBeAddedToLocalList);
+                                  CurrentUser.setTransactions = transactions;
+                                  transactionList.insert(
+                                      0, transactionToBeAddedToLocalList);
 
-                                if (mounted) {
-                                  Navigator.of(builder).pop();
-                                  setState(() {
-                                    CurrentUser.updateUserIncomeAndExpense();
-                                    CurrentUser.updateTotalBalance();
-                                  });
+                                  if (mounted) {
+                                    Navigator.of(builder).pop();
+                                    setState(() {
+                                      CurrentUser.updateUserIncomeAndExpense();
+                                      CurrentUser.updateTotalBalance();
+                                    });
+                                  }
                                 }
                               }
                             },
