@@ -72,7 +72,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   appBar: null,
                                   body: Column(
                                       children: [buildProfileManager(context)]),
-                                  gutter: getGutter("Go Back"),
+                                  gutter: null,
                                 )).then((value) => setState(
                               () {
                                 firstName = CurrentUser.getFirstName;

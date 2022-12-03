@@ -106,17 +106,17 @@ Widget buildProfileManager(BuildContext context) {
     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         'Profile Information',
-        style: GoogleFonts.bebasNeue(fontSize: 32, color: Colors.blue),
+        style: GoogleFonts.bebasNeue(fontSize: 36, color: Colors.blue),
       ),
 
       const SizedBox(height: 5),
 
       const Text(
         'Modify Your Details',
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 18),
       ),
 
-      const SizedBox(height: 10),
+      const SizedBox(height: 20),
 
       // first name textfield
       Padding(
@@ -237,7 +237,7 @@ Widget buildProfileManager(BuildContext context) {
         ),
       ),
 
-      const SizedBox(height: 40),
+      const SizedBox(height: 50),
 
       // current password textfield
       Padding(
@@ -344,7 +344,7 @@ Widget buildProfileManager(BuildContext context) {
             "Confirm Changes",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 17,
+              fontSize: 18,
               color: Colors.white,
               fontWeight: FontWeight.w500,
             ),
