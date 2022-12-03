@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.setLastName = data.get('last name');
     CurrentUser.setEmail = data.get('email');
     CurrentUser.setCode = data.get('sign up code');
+    CurrentUser.setAccountType = data.get('account type');
     CurrentUser.setSurveyStatus = data.get('survey completed');
     CurrentUser.setTransactions = data.get('transactions') as List;
 

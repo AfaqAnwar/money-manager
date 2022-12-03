@@ -23,6 +23,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final confirmPasswordController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+  String dropdownValue = "Student";
+  final List<String> list = <String>['Student', 'Parent', 'Teacher', 'Regular'];
   final signUpCodeController = TextEditingController();
 
   @override
@@ -67,6 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
       'last name': lastName,
       'sign up code': signUpCode,
       'email': email,
+      'account type': dropdownValue,
       'survey completed': hasCompletedSurvey,
       'transactions': transactions,
     });
@@ -75,6 +78,18 @@ class _RegisterPageState extends State<RegisterPage> {
   bool passwordConfirmed() {
     if (passwordController.text.trim() ==
         confirmPasswordController.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool allInputFieldsFilled() {
+    if (firstNameController.text.trim().isNotEmpty &&
+        lastNameController.text.trim().isNotEmpty &&
+        emailController.text.trim().isNotEmpty &&
+        passwordController.text.trim().isNotEmpty &&
+        confirmPasswordController.text.trim().isNotEmpty) {
       return true;
     } else {
       return false;
@@ -223,6 +238,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 10),
 
               // sign up code textfield
@@ -249,13 +265,130 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 20),
 
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'Select Your Account Type',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.grey),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+
+              // account type dropdown
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: DropdownButton(
+                      value: dropdownValue,
+                      items: list.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: const Text("Are you a Student, Parent or Teacher?"),
+                      onChanged: (value) {
+                        setState(() {
+                          dropdownValue = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
               // Sign Up Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: GestureDetector(
-                  onTap: signUp,
+                  onTap: () async {
+                    if (allInputFieldsFilled() == false) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: const Text('Sign Up Detail Error'),
+                                content: const Text(
+                                    "Please fill out all of your details."),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text("Okay"),
+                                  )
+                                ],
+                              ));
+                    } else {
+                      if (passwordConfirmed() == false) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: const Text("Sign Up Error"),
+                                  content:
+                                      const Text("Passwords do not match."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Okay"),
+                                    )
+                                  ],
+                                ));
+                      } else {
+                        try {
+                          await signUp();
+                        } on FirebaseException catch (e) {
+                          String errorMessage = "";
+
+                          switch (e.code) {
+                            case "invalid-email":
+                              errorMessage = "Specified email is not valid.";
+                              break;
+                            case "email-already-in-use":
+                              errorMessage =
+                                  "Email is already in use, please try another email";
+                              break;
+                            case "weak-password":
+                              errorMessage =
+                                  "Password is weak, please choose a password that is at least 6 characters in length.";
+                              break;
+                            case "operation-not-allowed":
+                              errorMessage = "User not allowed to sign up.";
+                              break;
+
+                            default:
+                              errorMessage = "Unknown Sign Up Error";
+                              break;
+                          }
+
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: const Text("Sign Up Error"),
+                                    content: Text(errorMessage.toString()),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text("Okay"),
+                                      )
+                                    ],
+                                  ));
+                        }
+                      }
+                    }
+                  },
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(12),
