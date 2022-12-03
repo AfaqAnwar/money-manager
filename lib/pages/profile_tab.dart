@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
@@ -18,6 +15,10 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  String firstName = CurrentUser.getFirstName;
+  String lastName = CurrentUser.getLastName;
+  String email = CurrentUser.getEmail;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +40,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             child: Image.asset("assets/icons/user.png"))),
                     Padding(
                       padding: const EdgeInsets.only(top: defaultSpacing / 2),
-                      child: Text(
-                          "${CurrentUser.getFirstName} ${CurrentUser.getLastName}"),
+                      child: Text("$firstName $lastName"),
                     ),
                     const SizedBox(
                       height: defaultSpacing * 0.25,
@@ -48,7 +48,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     Padding(
                       padding:
                           const EdgeInsets.only(bottom: defaultSpacing / 2),
-                      child: Text(CurrentUser.firebaseUser!.email.toString()),
+                      child: Text(email),
                     )
                   ],
                 ),
@@ -73,7 +73,13 @@ class _ProfileTabState extends State<ProfileTab> {
                                   body: Column(
                                       children: [buildProfileManager(context)]),
                                   gutter: getGutter("Go Back"),
-                                ));
+                                )).then((value) => setState(
+                              () {
+                                firstName = CurrentUser.getFirstName;
+                                lastName = CurrentUser.getLastName;
+                                email = CurrentUser.getEmail;
+                              },
+                            ));
                       },
                       child: buildProfileTile(
                         context,

@@ -270,7 +270,6 @@ Widget buildProfileManager(BuildContext context) {
             if (isEmpty() == false) {
               if (isCurrentPasswordPresent()) {
                 await reauth();
-                print(reauthFailed);
                 if (reauthFailed == true) {
                   showDialog(
                       context: context,
@@ -294,9 +293,10 @@ Widget buildProfileManager(BuildContext context) {
                                 'Are you sure you want to update your profile?'),
                             actions: [
                               TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     confirmChanges();
-
+                                    await CurrentUser.updateBasicUserDetails();
+                                    // ignore: use_build_context_synchronously
                                     Navigator.of(context)
                                         .popUntil((route) => route.isFirst);
                                   },

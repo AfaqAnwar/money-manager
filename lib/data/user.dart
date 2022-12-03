@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moneymanager/data/transactionObject.dart';
 
@@ -155,5 +156,22 @@ class CurrentUser {
         userLifetimeExpense = userLifetimeExpense + double.parse(i.amount);
       }
     }
+  }
+
+  static updateBasicUserDetails() async {
+    CurrentUser.firebaseUser = FirebaseAuth.instance.currentUser;
+    DocumentSnapshot data = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(CurrentUser.firebaseUser?.uid)
+        .get();
+    CurrentUser.setFirstName = data.get('first name');
+    CurrentUser.setLastName = data.get('last name');
+    CurrentUser.setEmail = data.get('email');
+    CurrentUser.setCode = data.get('sign up code');
+    CurrentUser.setSurveyStatus = data.get('survey completed');
+    CurrentUser.setAge = data.get('age');
+    CurrentUser.setExperience = data.get('experience');
+    CurrentUser.setWeeklyEarning = double.parse(data.get('weekly income'));
+    CurrentUser.setWeeklySpending = double.parse(data.get('weekly spending'));
   }
 }
