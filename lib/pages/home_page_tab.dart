@@ -9,6 +9,7 @@ import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
 import 'package:moneymanager/widget/income_expense_card.dart';
 import 'package:moneymanager/widget/transaction_item.dart';
+import 'package:moneymanager/widget/xen_card.dart';
 import 'package:xen_popup_card/xen_card.dart';
 import 'package:simple_form_builder/formbuilder.dart';
 import 'package:moneymanager/data/transaction_input.dart';
@@ -38,22 +39,6 @@ class _HomePageTabState extends State<HomePageTab> {
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
   }
-
-  XenCardGutter gutter = const XenCardGutter(
-    child: Padding(
-      padding: EdgeInsets.all(8.0),
-      child: CustomButton(text: "Add Transaction"),
-    ),
-  );
-
-  XenCardAppBar appBar = const XenCardAppBar(
-    shadow: BoxShadow(color: Colors.transparent),
-    child: Text(
-      "Add A Transaction",
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-      textAlign: TextAlign.center,
-    ), // To remove shadow from appbar
-  );
 
   ItemCategory getCategory(String option) {
     switch (option) {
@@ -103,7 +88,7 @@ class _HomePageTabState extends State<HomePageTab> {
                   showDialog(
                     context: context,
                     builder: (builder) => XenPopupCard(
-                      appBar: appBar,
+                      appBar: getAppBar("Add A Transaction"),
                       body: ListView(
                         children: [
                           FormBuilder(
@@ -368,37 +353,5 @@ class _HomePageTabState extends State<HomePageTab> {
           child: TransactionItem(transaction: transactionList[i])));
     }
     return list;
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({Key? key, required this.text, this.color})
-      : super(key: key);
-
-  final String text;
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.pop(context),
-      child: Material(
-        borderRadius: BorderRadius.circular(5),
-        color: const Color(0xff6200ee),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Center(
-              child: Text(text,
-                  style: const TextStyle(
-                      fontSize: 17,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500)),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

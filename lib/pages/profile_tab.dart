@@ -1,13 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
+import 'package:moneymanager/widget/profile_manager.dart';
+import 'package:moneymanager/widget/xen_card.dart';
 import 'package:xen_popup_card/xen_card.dart';
-import 'package:moneymanager/pages/home_page_tab.dart';
 
 // Profile Tab
-class ProfileTab extends StatelessWidget {
-  const ProfileTab({Key? key}) : super(key: key);
+class ProfileTab extends StatefulWidget {
+  const ProfileTab({super.key});
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +64,22 @@ class ProfileTab extends StatelessWidget {
                     const SizedBox(
                       height: defaultSpacing * 2,
                     ),
-                    buildProfileTile(
-                      context,
-                      imageUrl: "assets/icons/user-1.png",
-                      title: "My Account",
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (builder) => XenPopupCard(
+                                  appBar: null,
+                                  body: Column(
+                                      children: [buildProfileManager(context)]),
+                                  gutter: getGutter("Go Back"),
+                                ));
+                      },
+                      child: buildProfileTile(
+                        context,
+                        imageUrl: "assets/icons/user-1.png",
+                        title: "My Account",
+                      ),
                     ),
                     const SizedBox(
                       height: defaultSpacing * 1.5,
@@ -91,7 +113,7 @@ class ProfileTab extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (builder) => XenPopupCard(
-                                  appBar: buildXenAppBar(text: "About Us"),
+                                  appBar: getAppBar("About Us"),
                                   body: Column(children: const [
                                     Text(
                                       "Money Manger is a product designed to help you track your expenses and income.\n",
@@ -100,7 +122,7 @@ class ProfileTab extends StatelessWidget {
                                           TextStyle(fontSize: fontSizeHeading),
                                     ),
                                   ]),
-                                  gutter: buildXenGutter(text: "Okay"),
+                                  gutter: getGutter("Okay"),
                                 ));
                       },
                       child: buildProfileTile(
@@ -108,6 +130,44 @@ class ProfileTab extends StatelessWidget {
                         imageUrl: "assets/icons/info-circle.png",
                         title: "About",
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MaterialButton(
+                            onPressed: (() {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: const Text('Confirm Sign Out'),
+                                        content: const Text(
+                                            'Are you sure you want to sign out?'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                FirebaseAuth.instance.signOut();
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Yes")),
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: const Text("Cancel"),
+                                          )
+                                        ],
+                                      ));
+                            }),
+                            color: const Color(0xff6200ee),
+                            child: const Text(
+                              "Sign Out",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )),
+                      ],
                     )
                   ],
                 ),
@@ -146,25 +206,5 @@ class ProfileTab extends StatelessWidget {
             color: Colors.black26,
           ),
         ));
-  }
-
-  XenCardAppBar buildXenAppBar({required String text}) {
-    return XenCardAppBar(
-      shadow: const BoxShadow(color: Colors.transparent),
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-        textAlign: TextAlign.center,
-      ), // To remove shadow from appbar
-    );
-  }
-
-  XenCardGutter buildXenGutter({required String text}) {
-    return XenCardGutter(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: CustomButton(text: text),
-      ),
-    );
   }
 }

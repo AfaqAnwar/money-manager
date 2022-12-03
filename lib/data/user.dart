@@ -6,6 +6,7 @@ class CurrentUser {
   static String firstName = "";
   static String lastName = "";
   static String signUpCode = "";
+  static String email = "";
   static bool surveyCompleted = false;
   static User? firebaseUser;
 
@@ -53,6 +54,14 @@ class CurrentUser {
 
   static set setCode(String code) {
     signUpCode = code;
+  }
+
+  static String get getEmail {
+    return email;
+  }
+
+  static set setEmail(String emailString) {
+    email = emailString;
   }
 
   static bool get getSurveyStatus {
