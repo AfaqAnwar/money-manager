@@ -213,19 +213,14 @@ class _ProfileTabState extends State<ProfileTab> {
                                     Expanded(
                                       child: Scaffold(
                                         backgroundColor: Colors.white,
-                                        body: Center(
-                                          child: SingleChildScrollView(
-                                            child: Column(children: [
-                                              const SizedBox(height: 20),
-                                              Text(
+                                        body: SingleChildScrollView(
+                                            child: Text(
                                                 'Money Manager is a money management application designed to educate users about finance. In addition, we also offer tracking services with relation to tracking your income and expenses. We\'ve also made it easy to connect children with their parents and teachers through the "My Connections" feature. We hope you enjoy this application."',
                                                 style: GoogleFonts.roboto(
                                                     fontSize: 20,
-                                                    color: Colors.black),
-                                              )
-                                            ]),
-                                          ),
-                                        ),
+                                                    color: Colors.black,
+                                                    height: 2),
+                                                textAlign: TextAlign.start)),
                                       ),
                                     ),
                                   ]),
