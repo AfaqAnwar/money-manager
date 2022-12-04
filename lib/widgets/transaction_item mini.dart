@@ -93,14 +93,16 @@ class TransactionItemMini extends StatelessWidget {
             color: background,
             boxShadow: [
               BoxShadow(
-                  blurRadius: 4,
-                  color: Colors.black12,
-                  offset: Offset.zero,
-                  spreadRadius: 2)
+                blurRadius: 10,
+                color: Colors.black12,
+                offset: Offset.zero,
+                spreadRadius: 1,
+              )
             ],
             borderRadius: BorderRadius.all(Radius.circular(defaultRadius))),
         child: SizedBox(
-          width: 290,
+          width: 280,
+          height: 70,
           child: ListTile(
             leading: Container(
               width: 50,
@@ -117,12 +119,12 @@ class TransactionItemMini extends StatelessWidget {
               transaction.itemCompany,
               style: GoogleFonts.roboto(
                   color: fontHeading,
-                  fontSize: fontSizeTitle,
-                  fontWeight: FontWeight.w500),
+                  fontSize: fontSizeTitle * 0.9,
+                  fontWeight: FontWeight.w400),
             ),
             subtitle: Text(
               transaction.itemDescription,
-              style: GoogleFonts.roboto(fontSize: fontSizeBody),
+              style: GoogleFonts.roboto(fontSize: fontSizeBody * 0.85),
             ),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,15 +132,14 @@ class TransactionItemMini extends StatelessWidget {
                 Text(
                   "${getSign(transaction.transactionType)}\$${transaction.amount}",
                   style: GoogleFonts.roboto(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       color: getColor(transaction.transactionType),
-                      fontSize: fontSizeBody),
+                      fontSize: fontSizeBody * 0.9),
                 ),
-                const SizedBox(height: 5),
                 Text(
                   transaction.date,
                   style: GoogleFonts.roboto(
-                      color: fontSubHeading, fontSize: fontSizeBody),
+                      color: fontSubHeading, fontSize: fontSizeBody * 0.9),
                 )
               ],
             ),

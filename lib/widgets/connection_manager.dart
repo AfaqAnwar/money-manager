@@ -39,17 +39,13 @@ Widget buildConnectionManager(BuildContext context) {
                         size: 32.0,
                       ),
                     ]),
-                    const SizedBox(height: 5),
-                    Text(
-                      'You are a ${CurrentUser.accountType}',
-                      style: GoogleFonts.roboto(fontSize: 16),
-                    ),
                     const SizedBox(height: 10),
                     Text(
-                      "Viewing ${CurrentUser.connectedUsers[index].keys.elementAt(0)}'s Recent Transactions",
-                      style: GoogleFonts.roboto(fontSize: 16),
+                      "${CurrentUser.connectedUsers[index].keys.elementAt(0)}'s Recent Transactions",
+                      style: GoogleFonts.roboto(
+                          fontSize: 14, color: AppColor.customDarkGreen),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
