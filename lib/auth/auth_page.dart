@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moneymanager/pages/login_page.dart';
 import 'package:moneymanager/pages/register_page.dart';
 
+// Controlls if Login or Registration Page is Visible.
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -14,11 +15,11 @@ class _AuthPageState extends State<AuthPage> {
 
   void toggleScreens() {
     setState(() {
-        showLoginPage = !showLoginPage;
+      showLoginPage = !showLoginPage;
     });
   }
 
-  @override   
+  @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
       return LoginPage(showRegisterPage: toggleScreens);

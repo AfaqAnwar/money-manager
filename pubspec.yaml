@@ -31,13 +31,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  survey_kit: ^0.1.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_auth: ^4.1.2
+  firebase_auth: ^4.1.3
   google_fonts:
+  cloud_firestore: ^4.1.0
+  firebase_core: ^2.3.0
   firebase_database: ^10.0.6
+  xen_popup_card: ^0.0.1
+  simple_form_builder: ^0.0.22
+  date_format: ^2.0.7
+  loop_page_view: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +71,7 @@ flutter:
   assets:
     - assets/images/
     - assets/data/lessons.json
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
