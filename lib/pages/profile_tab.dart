@@ -200,13 +200,30 @@ class _ProfileTabState extends State<ProfileTab> {
                         showDialog(
                             context: context,
                             builder: (builder) => XenPopupCard(
-                                  appBar: getAppBar("About Us"),
-                                  body: Column(children: const [
+                                  appBar: null,
+                                  body: Column(children: [
                                     Text(
-                                      "Money Manger is a product designed to help you track your expenses and income.\n",
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          TextStyle(fontSize: fontSizeHeading),
+                                      'About Us',
+                                      style: GoogleFonts.bebasNeue(
+                                          fontSize: 32, color: Colors.blue),
+                                    ),
+                                    Expanded(
+                                      child: Scaffold(
+                                        backgroundColor: Colors.white,
+                                        body: Center(
+                                          child: SingleChildScrollView(
+                                            child: Column(children: [
+                                              const SizedBox(height: 20),
+                                              Text(
+                                                'Money Manager is a money management application designed to educate users about finance. In addition, we also offer tracking services with relation to tracking your income and expenses. We\'ve also made it easy to connect children with their parents and teachers through the "My Connections" feature. We hope you enjoy this application."',
+                                                style: GoogleFonts.raleway(
+                                                    fontSize: 20,
+                                                    color: Colors.black),
+                                              )
+                                            ]),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ]),
                                   gutter: getGutter("Okay"),
