@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:moneymanager/utils/colors.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
 // XenCard Builder Helpers
@@ -18,7 +20,7 @@ XenCardAppBar getAppBar(String text) {
     shadow: const BoxShadow(color: Colors.transparent),
     child: Text(
       text,
-      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+      style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 28),
       textAlign: TextAlign.center,
     ), // To remove shadow from appbar
   );
@@ -39,14 +41,14 @@ class CustomButton extends StatelessWidget {
       onTap: () => Navigator.pop(context),
       child: Material(
         borderRadius: BorderRadius.circular(5),
-        color: const Color(0xff6200ee),
+        color: AppColor.customDarkGreen,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Center(
               child: Text(text,
-                  style: const TextStyle(
+                  style: GoogleFonts.roboto(
                       fontSize: 17,
                       color: Colors.white,
                       fontWeight: FontWeight.w500)),

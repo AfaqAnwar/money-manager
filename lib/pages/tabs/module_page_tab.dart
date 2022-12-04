@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/utils/colors.dart' as color;
 import 'package:moneymanager/data/module_items.dart';
 import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
@@ -70,10 +71,10 @@ class _ModulePageState extends State<ModulePage> {
             appBar: AppBar(
               title: const Text('Modules'),
               backgroundColor: Colors.white,
-              titleTextStyle: TextStyle(
+              titleTextStyle: GoogleFonts.bebasNeue(
                   color: color.AppColor.homepageTitle,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800),
+                  fontSize: 32,
+                  fontWeight: FontWeight.w600),
             ),
             // backgrond color of the UI
             backgroundColor: color.AppColor.homepageBackground,
@@ -122,7 +123,7 @@ class _ModulePageState extends State<ModulePage> {
                         children: [
                           Text(
                             "Reminder",
-                            style: TextStyle(
+                            style: GoogleFonts.roboto(
                                 fontSize: 16,
                                 color: color.AppColor.homepagesecondTitle),
                           ),
@@ -131,7 +132,8 @@ class _ModulePageState extends State<ModulePage> {
                           ),
                           Text(
                             "Remember to log your expenses and income per day or week",
-                            style: TextStyle(fontSize: 22, color: Colors.white),
+                            style: GoogleFonts.roboto(
+                                fontSize: 20, color: Colors.white),
                           )
                         ],
                       ),
@@ -145,7 +147,7 @@ class _ModulePageState extends State<ModulePage> {
                         Text(
                           "Lessons Libaray",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: GoogleFonts.roboto(
                               fontSize: 25, fontWeight: FontWeight.w600),
                         )
                       ],
@@ -181,7 +183,7 @@ class _ModulePageState extends State<ModulePage> {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 moduleItems[0]["courseName"],
-                                style: TextStyle(
+                                style: GoogleFonts.roboto(
                                     fontSize: 20,
                                     color: color.AppColor.homepagesecondTitle),
                               ),
@@ -224,7 +226,7 @@ class _ModulePageState extends State<ModulePage> {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 moduleItems[1]["courseName"],
-                                style: TextStyle(
+                                style: GoogleFonts.roboto(
                                     fontSize: 20,
                                     color: color.AppColor.homepagesecondTitle),
                               ),
@@ -267,7 +269,7 @@ class _ModulePageState extends State<ModulePage> {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 moduleItems[2]["courseName"],
-                                style: TextStyle(
+                                style: GoogleFonts.roboto(
                                     fontSize: 20,
                                     color: color.AppColor.homepagesecondTitle),
                               ),

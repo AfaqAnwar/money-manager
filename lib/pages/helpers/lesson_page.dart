@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/utils/colors.dart' as colors;
 import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
 import 'package:moneymanager/pages/helpers/quiz_page.dart';
@@ -79,7 +80,8 @@ class LessonPageState extends State<LessonPage> {
                   ),
                   Text(
                     "Lesson # 2",
-                    style: TextStyle(fontSize: 22, color: Colors.white),
+                    style:
+                        GoogleFonts.roboto(fontSize: 22, color: Colors.white),
                   ),
                   SizedBox(
                     height: 30,
@@ -108,7 +110,7 @@ class LessonPageState extends State<LessonPage> {
                               ),
                               Text(
                                 "15 mins",
-                                style: TextStyle(
+                                style: GoogleFonts.roboto(
                                     fontSize: 16, color: Colors.white),
                               )
                             ]),
@@ -135,11 +137,11 @@ class LessonPageState extends State<LessonPage> {
                           child: Text(
                             widget.moduleItems[widget.index]['lesson2']
                                 ['lessonText'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w200,
-                            ),
+                            style: GoogleFonts.roboto(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w200,
+                                height: 2),
                             softWrap: true,
                             maxLines: 30,
                           ),

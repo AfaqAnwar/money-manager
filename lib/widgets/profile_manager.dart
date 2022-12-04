@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/data/user.dart';
+import 'package:moneymanager/utils/colors.dart';
 
 var emailController = TextEditingController();
 var currentPasswordController = TextEditingController();
@@ -106,14 +107,15 @@ Widget buildProfileManager(BuildContext context) {
     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         'Profile Information',
-        style: GoogleFonts.bebasNeue(fontSize: 36, color: Colors.blue),
+        style: GoogleFonts.bebasNeue(
+            fontSize: 36, color: AppColor.customLightGreen),
       ),
 
       const SizedBox(height: 5),
 
-      const Text(
+      Text(
         'Modify Your Details',
-        style: TextStyle(fontSize: 18),
+        style: GoogleFonts.roboto(fontSize: 18),
       ),
 
       const SizedBox(height: 20),
@@ -339,14 +341,14 @@ Widget buildProfileManager(BuildContext context) {
                       ));
             }
           }),
-          color: const Color(0xff6200ee),
-          child: const Text(
+          color: AppColor.customDarkGreen,
+          child: Text(
             "Confirm Changes",
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: GoogleFonts.roboto(
               fontSize: 18,
               color: Colors.white,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
             ),
           )),
     ]),

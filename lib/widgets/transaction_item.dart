@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/data/transactionObject.dart';
 
 import '../utils/constants.dart';
 
-// Defines a TransactionItemMini UI Element Used In Connections Alert.
-class TransactionItemMini extends StatelessWidget {
+// Defines a TransactionItem UI Element.
+class TransactionItem extends StatelessWidget {
   final TransactionObject transaction;
 
-  const TransactionItemMini({Key? key, required this.transaction})
+  const TransactionItem({Key? key, required this.transaction})
       : super(key: key);
 
   Color getBgColor(TransactionObject type) {
@@ -92,53 +93,52 @@ class TransactionItemMini extends StatelessWidget {
           color: background,
           boxShadow: [
             BoxShadow(
-                blurRadius: 4,
+                blurRadius: 12,
                 color: Colors.black12,
                 offset: Offset.zero,
-                spreadRadius: 2)
+                spreadRadius: 3)
           ],
           borderRadius: BorderRadius.all(Radius.circular(defaultRadius))),
-      child: SizedBox(
-        width: 290,
-        child: ListTile(
-          leading: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-                color: getBgColor(transaction),
-                borderRadius:
-                    const BorderRadius.all(Radius.circular(defaultRadius))),
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(getIcon(transaction))),
-          ),
-          title: Text(
-            transaction.itemCompany,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                ?.copyWith(color: fontHeading, fontSize: fontSizeTitle),
-          ),
-          subtitle: Text(transaction.itemDescription),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "${getSign(transaction.transactionType)}\$${transaction.amount}",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: getColor(transaction.transactionType),
-                    fontSize: fontSizeBody),
-              ),
-              Text(
-                transaction.date,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    ?.copyWith(color: fontSubHeading, fontSize: fontSizeBody),
-              )
-            ],
-          ),
+      child: ListTile(
+        leading: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+              color: getBgColor(transaction),
+              borderRadius:
+                  const BorderRadius.all(Radius.circular(defaultRadius))),
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(getIcon(transaction))),
+        ),
+        title: Text(
+          transaction.itemCompany,
+          style: GoogleFonts.roboto(
+              color: fontHeading,
+              fontSize: fontSizeTitle,
+              fontWeight: FontWeight.w500),
+        ),
+        subtitle: Text(
+          transaction.itemDescription,
+          style: GoogleFonts.roboto(fontSize: fontSizeBody),
+        ),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "${getSign(transaction.transactionType)}\$${transaction.amount}",
+              style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.w700,
+                  color: getColor(transaction.transactionType),
+                  fontSize: fontSizeBody),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              transaction.date,
+              style: GoogleFonts.roboto(
+                  color: fontSubHeading, fontSize: fontSizeBody),
+            )
+          ],
         ),
       ),
     );

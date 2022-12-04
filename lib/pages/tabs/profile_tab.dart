@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/data/user.dart';
+import 'package:moneymanager/utils/colors.dart';
 import 'package:moneymanager/utils/constants.dart';
-import 'package:moneymanager/widget/connection_manager.dart';
-import 'package:moneymanager/widget/profile_manager.dart';
-import 'package:moneymanager/widget/xen_card.dart';
+import 'package:moneymanager/widgets/connection_manager.dart';
+import 'package:moneymanager/widgets/profile_manager.dart';
+import 'package:moneymanager/widgets/xen_card.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
 // Profile Tab
@@ -44,7 +45,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         child: ClipRRect(
                             borderRadius: const BorderRadius.all(
                                 Radius.circular(defaultRadius)),
-                            child: Image.asset("assets/icons/user.png"))),
+                            child: Image.asset("assets/icons/user-big.png"))),
                     Padding(
                       padding: const EdgeInsets.only(top: defaultSpacing / 2),
                       child: Text("$firstName $lastName"),
@@ -138,7 +139,8 @@ class _ProfileTabState extends State<ProfileTab> {
                                             'Your Connections',
                                             style: GoogleFonts.bebasNeue(
                                                 fontSize: 32,
-                                                color: Colors.blue),
+                                                color:
+                                                    AppColor.customLightGreen),
                                           ),
                                           Expanded(
                                             child: Scaffold(
@@ -149,13 +151,13 @@ class _ProfileTabState extends State<ProfileTab> {
                                                     const SizedBox(height: 20),
                                                     Text(
                                                       'You are a ${CurrentUser.accountType}',
-                                                      style: const TextStyle(
+                                                      style: GoogleFonts.roboto(
                                                           fontSize: 16),
                                                     ),
                                                     const SizedBox(height: 10),
-                                                    const Text(
+                                                    Text(
                                                       'You have no connections.',
-                                                      style: TextStyle(
+                                                      style: GoogleFonts.roboto(
                                                           fontSize: 16),
                                                     ),
                                                   ]),
@@ -205,7 +207,8 @@ class _ProfileTabState extends State<ProfileTab> {
                                     Text(
                                       'About Us',
                                       style: GoogleFonts.bebasNeue(
-                                          fontSize: 32, color: Colors.blue),
+                                          fontSize: 32,
+                                          color: AppColor.customLightGreen),
                                     ),
                                     Expanded(
                                       child: Scaffold(
@@ -216,7 +219,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                               const SizedBox(height: 20),
                                               Text(
                                                 'Money Manager is a money management application designed to educate users about finance. In addition, we also offer tracking services with relation to tracking your income and expenses. We\'ve also made it easy to connect children with their parents and teachers through the "My Connections" feature. We hope you enjoy this application."',
-                                                style: GoogleFonts.raleway(
+                                                style: GoogleFonts.roboto(
                                                     fontSize: 20,
                                                     color: Colors.black),
                                               )
@@ -261,11 +264,11 @@ class _ProfileTabState extends State<ProfileTab> {
                                         ],
                                       ));
                             }),
-                            color: const Color(0xff6200ee),
-                            child: const Text(
+                            color: AppColor.customDarkGreen,
+                            child: Text(
                               "Sign Out",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: GoogleFonts.roboto(
                                 fontSize: 17,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,

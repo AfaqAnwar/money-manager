@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/pages/registration_signup/forgot_password_page.dart';
+import 'package:moneymanager/utils/colors.dart';
 
 // Login Page
 class LoginPage extends StatefulWidget {
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: AppColor.customWhite,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -51,7 +52,8 @@ class _LoginPageState extends State<LoginPage> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
                 'Money Manager',
-                style: GoogleFonts.bebasNeue(fontSize: 52, color: Colors.blue),
+                style: GoogleFonts.bebasNeue(
+                    fontSize: 52, color: AppColor.customLightGreen),
               ),
 
               const SizedBox(height: 10),
@@ -141,9 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                           return const ForgotPasswordPage();
                         }));
                       },
-                      child: const Text('Forgot Password?',
+                      child: Text('Forgot Password?',
                           style: TextStyle(
-                            color: Colors.lightBlue,
+                            color: AppColor.customDarkGreen,
                             fontWeight: FontWeight.bold,
                           )),
                     ),
@@ -222,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: AppColor.customLightGreen,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Center(
@@ -252,9 +254,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: widget.showRegisterPage,
-                    child: const Text(' Register Now',
+                    child: Text(' Register Now',
                         style: TextStyle(
-                          color: Colors.lightBlue,
+                          color: AppColor.customDarkGreen,
                           fontWeight: FontWeight.bold,
                         )),
                   )

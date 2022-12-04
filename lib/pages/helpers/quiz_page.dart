@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/utils/colors.dart' as colors;
 import 'package:moneymanager/data/module_items.dart';
 import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
@@ -81,11 +82,11 @@ class QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: colors.AppColor.homepageBackground,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text('Question 1/2'),
           backgroundColor: colors.AppColor.homepageTitle,
-          titleTextStyle: TextStyle(
+          titleTextStyle: GoogleFonts.roboto(
               color: colors.AppColor.homepageTitle,
               fontSize: 25,
               fontWeight: FontWeight.w800),
@@ -133,7 +134,7 @@ class QuizPageState extends State<QuizPage> {
         ),
         Text(
           question.text,
-          style: TextStyle(
+          style: GoogleFonts.roboto(
             fontSize: 25,
             color: colors.AppColor.homepageTitle,
           ),
@@ -161,8 +162,9 @@ class QuizPageState extends State<QuizPage> {
   }
 
 // Functin to handle the backend for the next button
-  ElevatedButton buildElevatedButton() {
-    return ElevatedButton(
+  MaterialButton buildElevatedButton() {
+    return MaterialButton(
+      color: colors.AppColor.customDarkGreen,
       // when pressed and it is less than the number of questions go to the next questions
       onPressed: () {
         if (_questionNumber < dataQuestions.length) {
@@ -185,9 +187,16 @@ class QuizPageState extends State<QuizPage> {
         }
       },
       // Change the UI text for the Next button
-      child: Text(_questionNumber < dataQuestions.length
-          ? 'Next Page'
-          : 'Finished the test'),
+      child: Text(
+        _questionNumber < dataQuestions.length
+            ? 'Next Page'
+            : 'Finished the test',
+        style: GoogleFonts.roboto(
+          fontSize: 18,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }

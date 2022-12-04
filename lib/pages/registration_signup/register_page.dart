@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moneymanager/utils/colors.dart';
 
 // Registration Page
 class RegisterPage extends StatefulWidget {
@@ -99,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: AppColor.customWhite,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -107,7 +108,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
                 'Get Started',
-                style: GoogleFonts.bebasNeue(fontSize: 48, color: Colors.blue),
+                style: GoogleFonts.bebasNeue(
+                    fontSize: 48, color: AppColor.customLightGreen),
               ),
 
               const SizedBox(height: 10),
@@ -267,11 +269,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'Select Your Account Type',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.grey),
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.customDarkGreen),
                   ),
                 ],
               ),
@@ -390,7 +393,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: AppColor.customLightGreen,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Center(
@@ -420,9 +423,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   GestureDetector(
                     onTap: widget.showLoginPage,
-                    child: const Text(' Login Now',
+                    child: Text(' Login Now',
                         style: TextStyle(
-                          color: Colors.lightBlue,
+                          color: AppColor.customDarkGreen,
                           fontWeight: FontWeight.bold,
                         )),
                   )
