@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
 import 'package:moneymanager/widget/connection_manager.dart';
@@ -13,6 +14,10 @@ class ProfileTab extends StatefulWidget {
 
   @override
   State<ProfileTab> createState() => _ProfileTabState();
+}
+
+Future updateInfo() async {
+  return CurrentUser.noCodeMatch();
 }
 
 class _ProfileTabState extends State<ProfileTab> {
@@ -98,25 +103,78 @@ class _ProfileTabState extends State<ProfileTab> {
                     const SizedBox(
                       height: defaultSpacing * 1.5,
                     ),
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (builder) => XenPopupCard(
-                                  appBar: null,
-                                  body: Column(children: [
-                                    buildConnectionManager(context)
-                                  ]),
-                                  gutter: null,
-                                )).then((value) => setState(
-                              () {},
-                            ));
+                    FutureBuilder(
+                      future: updateInfo(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        if (snapshot.data == false) {
+                          return InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (builder) => XenPopupCard(
+                                        appBar: null,
+                                        body: Column(children: [
+                                          buildConnectionManager(context)
+                                        ]),
+                                        gutter: null,
+                                      ));
+                            },
+                            child: buildProfileTile(
+                              context,
+                              imageUrl: "assets/icons/connection.png",
+                              title: "My Connections",
+                            ),
+                          );
+                        } else {
+                          return InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (builder) => XenPopupCard(
+                                        appBar: null,
+                                        body: Column(children: [
+                                          Text(
+                                            'Your Connections',
+                                            style: GoogleFonts.bebasNeue(
+                                                fontSize: 32,
+                                                color: Colors.blue),
+                                          ),
+                                          Expanded(
+                                            child: Scaffold(
+                                              backgroundColor: Colors.white,
+                                              body: Center(
+                                                child: SingleChildScrollView(
+                                                  child: Column(children: [
+                                                    const SizedBox(height: 20),
+                                                    Text(
+                                                      'You are a ${CurrentUser.accountType}',
+                                                      style: const TextStyle(
+                                                          fontSize: 16),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    const Text(
+                                                      'You have no connections.',
+                                                      style: TextStyle(
+                                                          fontSize: 16),
+                                                    ),
+                                                  ]),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                        gutter: null,
+                                      ));
+                            },
+                            child: buildProfileTile(
+                              context,
+                              imageUrl: "assets/icons/connection.png",
+                              title: "My Connections",
+                            ),
+                          );
+                        }
                       },
-                      child: buildProfileTile(
-                        context,
-                        imageUrl: "assets/icons/connection.png",
-                        title: "My Connections",
-                      ),
                     ),
                     const SizedBox(
                       height: defaultSpacing * 1.5,

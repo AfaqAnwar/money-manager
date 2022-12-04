@@ -216,4 +216,28 @@ class CurrentUser {
       }
     }
   }
+
+  static Future<bool> noCodeMatch() async {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection('users');
+
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    // Get data from docs and convert map to List
+    List<dynamic> allData =
+        querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    for (int i = 0; i < allData.length; i++) {
+      var map = Map<String, dynamic>.from(allData[i]);
+
+      if (map.values.elementAt(10) == signUpCode &&
+          map.values.elementAt(1) == "Student" &&
+          map.values.elementAt(7) != email) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
