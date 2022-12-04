@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moneymanager/pages/forgot_password_page.dart';
+import 'package:moneymanager/pages/registration_signup/forgot_password_page.dart';
 
 // Login Page
 class LoginPage extends StatefulWidget {

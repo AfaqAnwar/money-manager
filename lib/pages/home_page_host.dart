@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/transactionObject.dart';
-import 'package:moneymanager/pages/home_page_tab.dart';
-import 'package:moneymanager/pages/profile_tab.dart';
-import 'package:moneymanager/pages/survey.dart';
+import 'package:moneymanager/pages/tabs/home_page_tab.dart';
+import 'package:moneymanager/pages/tabs/module_page_tab.dart';
+import 'package:moneymanager/pages/tabs/profile_tab.dart';
+import 'package:moneymanager/pages/registration_signup/survey.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
 
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return const HomePageTab();
       case 1:
-        return Container();
+        return const ModulePage();
       case 2:
         return Container();
       case 3:

@@ -1,29 +1,34 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:moneymanager/colors.dart' as colors;
-import 'package:moneymanager/pages/lesson_goal_page.dart';
-import 'package:moneymanager/pages/quiz_page.dart';
+import 'package:moneymanager/utils/colors.dart' as colors;
+import 'package:moneymanager/pages/helpers/lesson_page.dart';
+import 'package:moneymanager/pages/tabs/module_page_tab.dart';
 
-class LessonPage extends StatefulWidget {
+class GoalPage extends StatefulWidget {
   // index of the module they selected
   final index;
   final List moduleItems;
 
-  const LessonPage({Key? key, required this.moduleItems, required this.index})
+  // when the user clicks on a module you want to pass the module they clicked on so we need to pass the index
+  const GoalPage({Key? key, required this.moduleItems, required this.index})
       : super(key: key);
+  //const GoalPage({Key? key}) : super(key: key);
 
   @override
-  State<LessonPage> createState() => LessonPageState();
+  State<GoalPage> createState() => GoalPageState();
 }
 
-class LessonPageState extends State<LessonPage> {
+class GoalPageState extends State<GoalPage> {
+  String goalDescription = "";
+
 // In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
   void initState() {
     super.initState();
   }
 
+// UI Section
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +83,7 @@ class LessonPageState extends State<LessonPage> {
                     height: 30,
                   ),
                   Text(
-                    "Lesson # 2",
+                    "Lesson # 1",
                     style: TextStyle(fontSize: 22, color: Colors.white),
                   ),
                   SizedBox(
@@ -107,7 +112,7 @@ class LessonPageState extends State<LessonPage> {
                                 width: 5,
                               ),
                               Text(
-                                "15 mins",
+                                "5 mins",
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white),
                               )
@@ -130,18 +135,19 @@ class LessonPageState extends State<LessonPage> {
                   children: [
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(top: 390, left: 30)),
+                        Padding(padding: EdgeInsets.only(top: 250, left: 20)),
                         Expanded(
                           child: Text(
-                            widget.moduleItems[widget.index]['lesson2']
-                                ['lessonText'],
+                            widget.moduleItems[widget.index]['lesson1']
+                                    ['lessonText']
+                                .toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w200,
                             ),
                             softWrap: true,
-                            maxLines: 30,
+                            maxLines: 20,
                           ),
                         ),
                       ],
@@ -158,15 +164,14 @@ class LessonPageState extends State<LessonPage> {
 
   _navigateToNextScreen() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => QuizPage(
-              moduleItems: widget.moduleItems,
+        builder: (context) => LessonPage(
               index: widget.index,
+              moduleItems: widget.moduleItems,
             )));
   }
 
   _navigateToPreviousScreen() {
-    Navigator.of(context).pop(MaterialPageRoute(
-        builder: (context) =>
-            GoalPage(index: widget.index, moduleItems: widget.moduleItems)));
+    Navigator.of(context)
+        .pop(MaterialPageRoute(builder: (context) => ModulePage()));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanager/pages/login_page.dart';
-import 'package:moneymanager/pages/register_page.dart';
+import 'package:moneymanager/pages/registration_signup/login_page.dart';
+import 'package:moneymanager/pages/registration_signup/register_page.dart';
 
 // Controlls if Login or Registration Page is Visible.
 class AuthPage extends StatefulWidget {

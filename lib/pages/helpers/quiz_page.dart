@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
-import 'package:moneymanager/colors.dart' as colors;
-import 'package:moneymanager/module_items.dart';
-import 'package:moneymanager/pages/lesson_goal_page.dart';
+import 'package:moneymanager/utils/colors.dart' as colors;
+import 'package:moneymanager/data/module_items.dart';
+import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
 
 class QuizPage extends StatefulWidget {
   // index of the module they selected

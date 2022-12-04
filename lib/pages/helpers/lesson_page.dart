@@ -1,34 +1,29 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:moneymanager/colors.dart' as colors;
-import 'package:moneymanager/pages/lesson_page.dart';
-import 'package:moneymanager/pages/module_page.dart';
+import 'package:moneymanager/utils/colors.dart' as colors;
+import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
+import 'package:moneymanager/pages/helpers/quiz_page.dart';
 
-class GoalPage extends StatefulWidget {
+class LessonPage extends StatefulWidget {
   // index of the module they selected
   final index;
   final List moduleItems;
 
-  // when the user clicks on a module you want to pass the module they clicked on so we need to pass the index
-  const GoalPage({Key? key, required this.moduleItems, required this.index})
+  const LessonPage({Key? key, required this.moduleItems, required this.index})
       : super(key: key);
-  //const GoalPage({Key? key}) : super(key: key);
 
   @override
-  State<GoalPage> createState() => GoalPageState();
+  State<LessonPage> createState() => LessonPageState();
 }
 
-class GoalPageState extends State<GoalPage> {
-  String goalDescription = "";
-
+class LessonPageState extends State<LessonPage> {
 // In the Module Page we want to run the UI components and the method to get the data from the Firebase database on the ui
   @override
   void initState() {
     super.initState();
   }
 
-// UI Section
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +78,7 @@ class GoalPageState extends State<GoalPage> {
                     height: 30,
                   ),
                   Text(
-                    "Lesson # 1",
+                    "Lesson # 2",
                     style: TextStyle(fontSize: 22, color: Colors.white),
                   ),
                   SizedBox(
@@ -112,7 +107,7 @@ class GoalPageState extends State<GoalPage> {
                                 width: 5,
                               ),
                               Text(
-                                "5 mins",
+                                "15 mins",
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white),
                               )
@@ -135,19 +130,18 @@ class GoalPageState extends State<GoalPage> {
                   children: [
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(top: 250, left: 20)),
+                        Padding(padding: EdgeInsets.only(top: 390, left: 30)),
                         Expanded(
                           child: Text(
-                            widget.moduleItems[widget.index]['lesson1']
-                                    ['lessonText']
-                                .toString(),
+                            widget.moduleItems[widget.index]['lesson2']
+                                ['lessonText'],
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w200,
                             ),
                             softWrap: true,
-                            maxLines: 20,
+                            maxLines: 30,
                           ),
                         ),
                       ],
@@ -164,14 +158,15 @@ class GoalPageState extends State<GoalPage> {
 
   _navigateToNextScreen() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => LessonPage(
-              index: widget.index,
+        builder: (context) => QuizPage(
               moduleItems: widget.moduleItems,
+              index: widget.index,
             )));
   }
 
   _navigateToPreviousScreen() {
-    Navigator.of(context)
-        .pop(MaterialPageRoute(builder: (context) => ModulePage()));
+    Navigator.of(context).pop(MaterialPageRoute(
+        builder: (context) =>
+            GoalPage(index: widget.index, moduleItems: widget.moduleItems)));
   }
 }
