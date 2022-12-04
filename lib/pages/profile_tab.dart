@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/user.dart';
 import 'package:moneymanager/utils/constants.dart';
+import 'package:moneymanager/widget/connection_manager.dart';
 import 'package:moneymanager/widget/profile_manager.dart';
 import 'package:moneymanager/widget/xen_card.dart';
 import 'package:xen_popup_card/xen_card.dart';
@@ -18,6 +19,7 @@ class _ProfileTabState extends State<ProfileTab> {
   String firstName = CurrentUser.getFirstName;
   String lastName = CurrentUser.getLastName;
   String email = CurrentUser.getEmail;
+  String code = CurrentUser.getCode;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +80,12 @@ class _ProfileTabState extends State<ProfileTab> {
                                 firstName = CurrentUser.getFirstName;
                                 lastName = CurrentUser.getLastName;
                                 email = CurrentUser.getEmail;
+
+                                if (code != CurrentUser.getCode &&
+                                    CurrentUser.accountType == "Parent") {
+                                  CurrentUser.updateConnectedUsers();
+                                }
+                                code = CurrentUser.getCode;
                               },
                             ));
                       },
@@ -90,10 +98,25 @@ class _ProfileTabState extends State<ProfileTab> {
                     const SizedBox(
                       height: defaultSpacing * 1.5,
                     ),
-                    buildProfileTile(
-                      context,
-                      imageUrl: "assets/icons/school.png",
-                      title: "School Connection",
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (builder) => XenPopupCard(
+                                  appBar: null,
+                                  body: Column(children: [
+                                    buildConnectionManager(context)
+                                  ]),
+                                  gutter: null,
+                                )).then((value) => setState(
+                              () {},
+                            ));
+                      },
+                      child: buildProfileTile(
+                        context,
+                        imageUrl: "assets/icons/connection.png",
+                        title: "My Connections",
+                      ),
                     ),
                     const SizedBox(
                       height: defaultSpacing * 1.5,

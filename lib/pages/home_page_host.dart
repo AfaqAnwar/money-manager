@@ -82,6 +82,10 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.setWeeklyEarning = double.parse(data.get('weekly income'));
     CurrentUser.setWeeklySpending = double.parse(data.get('weekly spending'));
     CurrentUser.setSurveyStatus = data.get('survey completed');
+
+    if (CurrentUser.getAccountType == "Parent") {
+      CurrentUser.updateConnectedUsers();
+    }
   }
 
   Future checkAndFillDetails() async {

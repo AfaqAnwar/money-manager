@@ -205,7 +205,7 @@ Widget buildProfileManager(BuildContext context) {
               controller: signUpCodeController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: "Sign Up Code: ${CurrentUser.getCode}",
+                hintText: "Connection Code: ${CurrentUser.getCode}",
               ),
             ),
           ),

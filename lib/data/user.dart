@@ -15,6 +15,7 @@ class CurrentUser {
   // Map<String, dynamic>.from(CurrentUser.getTransactions[i]) to get The Map For Later Use.
   static List<dynamic> transactions = [];
   static List<TransactionObject> transctionObjects = [];
+  static List<Map<String, List<TransactionObject>>> connectedUsers = [];
 
   static int userAge = 0;
   static String userExperience = "";
@@ -182,5 +183,37 @@ class CurrentUser {
     CurrentUser.setExperience = data.get('experience');
     CurrentUser.setWeeklyEarning = double.parse(data.get('weekly income'));
     CurrentUser.setWeeklySpending = double.parse(data.get('weekly spending'));
+  }
+
+  static updateConnectedUsers() async {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection('users');
+
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    // Get data from docs and convert map to List
+    List<dynamic> allData =
+        querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    for (int i = 0; i < allData.length; i++) {
+      var map = Map<String, dynamic>.from(allData[i]);
+      var userMap = <String, List<TransactionObject>>{};
+      if (map.values.elementAt(10) == signUpCode &&
+          map.values.elementAt(1) == "Student" &&
+          map.values.elementAt(7) != email) {
+        var nameKey = map.values.elementAt(0) + " " + map.values.elementAt(2);
+        List<TransactionObject> tranasctionObjectsList = [];
+        var transactionList = map.values.elementAt(9);
+
+        for (int i = 0; i < transactionList.length; i++) {
+          TransactionObject transaction =
+              TransactionObject.decoded(transactionList[i]);
+          tranasctionObjectsList.add(transaction);
+        }
+        userMap.putIfAbsent(nameKey, () => tranasctionObjectsList);
+        connectedUsers.add(userMap);
+      }
+    }
   }
 }

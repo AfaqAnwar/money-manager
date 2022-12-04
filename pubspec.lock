@@ -317,6 +317,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  loop_page_view:
+    dependency: "direct main"
+    description:
+      name: loop_page_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   lottie:
     dependency: transitive
     description:

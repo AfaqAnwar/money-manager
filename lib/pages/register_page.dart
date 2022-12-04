@@ -256,7 +256,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: signUpCodeController,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Sign Up Code (Optional)',
+                        hintText: 'Connection Code (Optional)',
                       ),
                     ),
                   ),
