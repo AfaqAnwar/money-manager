@@ -1,13 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/auth/main_page.dart';
-import 'package:moneymanager/pages/login_page.dart';
-import 'package:moneymanager/pages/calculator_page.dart';
-import 'package:moneymanager/pages/register_page.dart';
-import 'package:moneymanager/pages/survey.dart';
-import 'package:moneymanager/pages/visualize_page.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:moneymanager/utils/colors.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,12 +17,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: VisualizePage(),
+      theme: ThemeData(
+          fontFamily: GoogleFonts.sourceSansPro().fontFamily,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: AppColor.customLightGreen,
+          )),
+      home: const MainPage(),
     );
   }
 }
