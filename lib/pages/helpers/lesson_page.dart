@@ -79,12 +79,20 @@ class LessonPageState extends State<LessonPage> {
                     height: 30,
                   ),
                   Text(
-                    "Lesson # 2",
+                    widget.moduleItems[widget.index]['courseName'],
                     style:
                         GoogleFonts.roboto(fontSize: 22, color: Colors.white),
                   ),
+                  Padding(padding: EdgeInsets.only(top: 10)),
+                  Text(
+                    "Lesson # 2",
+                    style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic),
+                  ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Row(
                     children: [
@@ -120,30 +128,35 @@ class LessonPageState extends State<LessonPage> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
             // Second container: having the lesson desription
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                      BorderRadius.only(topRight: Radius.circular(75)),
+                      BorderRadius.only(topRight: Radius.circular(10)),
                 ),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(top: 390, left: 30)),
+                        Padding(padding: EdgeInsets.only(top: 45, left: 15)),
                         Expanded(
                           child: Text(
                             widget.moduleItems[widget.index]['lesson2']
                                 ['lessonText'],
+                            overflow: TextOverflow.visible,
+                            textWidthBasis: TextWidthBasis.longestLine,
                             style: GoogleFonts.roboto(
                                 color: Colors.black,
-                                fontSize: 18,
+                                fontSize: 17,
                                 fontWeight: FontWeight.w200,
                                 height: 2),
                             softWrap: true,
-                            maxLines: 30,
+                            maxLines: 50,
                           ),
                         ),
                       ],

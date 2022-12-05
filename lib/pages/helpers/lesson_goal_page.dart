@@ -84,12 +84,20 @@ class GoalPageState extends State<GoalPage> {
                     height: 30,
                   ),
                   Text(
-                    "Lesson # 1",
+                    widget.moduleItems[widget.index]['courseName'],
                     style:
                         GoogleFonts.roboto(fontSize: 22, color: Colors.white),
                   ),
+                  Padding(padding: EdgeInsets.only(top: 10)),
+                  Text(
+                    "Lesson # 1",
+                    style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic),
+                  ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Row(
                     children: [
@@ -109,14 +117,11 @@ class GoalPageState extends State<GoalPage> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.timer, size: 20, color: Colors.white),
-                              SizedBox(
-                                width: 5,
-                              ),
+                              Icon(Icons.timer, size: 13, color: Colors.white),
                               Text(
                                 "5 mins",
                                 style: GoogleFonts.roboto(
-                                    fontSize: 16, color: Colors.white),
+                                    fontSize: 13, color: Colors.white),
                               )
                             ]),
                       )
@@ -125,31 +130,38 @@ class GoalPageState extends State<GoalPage> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
             // Second container: having the lesson desription
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.only(topRight: Radius.circular(75)),
-                ),
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(10))),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(top: 250, left: 20)),
+                        Padding(padding: EdgeInsets.only(top: 45, left: 15)),
                         Expanded(
-                          child: Text(
-                            widget.moduleItems[widget.index]['lesson1']
-                                    ['lessonText']
-                                .toString(),
-                            style: GoogleFonts.roboto(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w200,
-                                height: 2),
-                            softWrap: true,
-                            maxLines: 20,
+                          child: Flexible(
+                            child: RichText(
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 50,
+                              text: TextSpan(
+                                text: widget.moduleItems[widget.index]
+                                        ['lesson1']['lessonText']
+                                    .toString(),
+                                style: GoogleFonts.roboto(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w200,
+                                    height: 2),
+                              ),
+                            ),
                           ),
                         ),
                       ],

@@ -44,22 +44,21 @@ class _ModulePageState extends State<ModulePage> {
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Modules'),
-              backgroundColor: Colors.white,
-              titleTextStyle: GoogleFonts.bebasNeue(
-                  color: color.AppColor.homepageTitle,
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600),
-            ),
             // backgrond color of the UI
             backgroundColor: color.AppColor.homepageBackground,
             body: Container(
               // use paddding to move the containter down
               padding: const EdgeInsets.only(
-                  top: 15, bottom: 35, left: 20, right: 20),
+                  top: 100, bottom: 35, left: 20, right: 20),
               child: Column(
                 children: [
+                  Text(
+                    "Modules",
+                    style: GoogleFonts.roboto(
+                        fontSize: 25,
+                        color: color.AppColor.homepagesecondTitle,
+                        fontWeight: FontWeight.bold),
+                  ),
                   Row(
                     children: [
                       // Lesson Module App
