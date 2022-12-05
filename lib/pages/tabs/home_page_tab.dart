@@ -3,13 +3,16 @@ import 'package:date_format/date_format.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/data/transactionObject.dart';
 import 'package:moneymanager/data/user.dart';
+import 'package:moneymanager/utils/colors.dart';
 import 'package:moneymanager/utils/constants.dart';
-import 'package:moneymanager/widget/income_expense_card.dart';
-import 'package:moneymanager/widget/transaction_item.dart';
-import 'package:moneymanager/widget/xen_card.dart';
+import 'package:moneymanager/widgets/income_expense_card.dart';
+import 'package:moneymanager/widgets/transaction_item.dart';
+import 'package:moneymanager/widgets/xen_card.dart';
 import 'package:xen_popup_card/xen_card.dart';
 import 'package:simple_form_builder/formbuilder.dart';
 import 'package:moneymanager/data/transaction_input.dart';
@@ -38,6 +41,7 @@ class _HomePageTabState extends State<HomePageTab> {
     transactionBuilder();
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
+    CurrentUser.parseTransactionsMonthly();
   }
 
   ItemCategory getCategory(String option) {
@@ -95,14 +99,14 @@ class _HomePageTabState extends State<HomePageTab> {
                             initialData: inputFormData,
                             index: 0,
                             showIndex: false,
-                            submitButtonDecoration: const BoxDecoration(
-                                color: Color(0xff6200ee),
+                            submitButtonDecoration: BoxDecoration(
+                                color: AppColor.customDarkGreen,
                                 shape: BoxShape.rectangle),
                             submitButtonText: "Add Transaction",
-                            submitTextDecoration: const TextStyle(
+                            submitTextDecoration: GoogleFonts.roboto(
                                 fontSize: 17,
                                 color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.w600),
                             widgetCrossAxisAlignment: CrossAxisAlignment.center,
                             onSubmit: (value) async {
                               if (value != null) {
@@ -128,6 +132,8 @@ class _HomePageTabState extends State<HomePageTab> {
                                     finalDate.split(" ")[0] +
                                         " " +
                                         finalDate.split(" ")[1];
+
+                                var year = finalDate.split(" ")[2];
 
                                 var amount = decoded["data"][0]["questions"][2]
                                     ["answer"];
@@ -172,6 +178,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                           company,
                                           amount,
                                           finalDate.toString(),
+                                          year,
                                           incomeOrExpense);
 
                                   DocumentSnapshot data =
@@ -194,6 +201,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                           company,
                                           amount,
                                           localDate,
+                                          year,
                                           incomeOrExpense);
 
                                   var transactions;
@@ -216,6 +224,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                     setState(() {
                                       CurrentUser.updateUserIncomeAndExpense();
                                       CurrentUser.updateTotalBalance();
+                                      CurrentUser.parseTransactionsMonthly();
                                     });
                                   }
                                 }
@@ -236,18 +245,16 @@ class _HomePageTabState extends State<HomePageTab> {
             child: Column(children: [
               Text(
                 "\$${CurrentUser.getTotalBalance}",
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: fontSizeHeading, fontWeight: FontWeight.w800),
+                style: GoogleFonts.roboto(
+                    fontSize: fontSizeHeading * 1.5,
+                    fontWeight: FontWeight.w800),
               ),
               const SizedBox(
                 height: defaultSpacing / 2,
               ),
               Text(
                 "Total Balance",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    ?.copyWith(color: fontSubHeading),
+                style: GoogleFonts.roboto(color: fontSubHeading),
               )
             ]),
           ),
@@ -262,7 +269,7 @@ class _HomePageTabState extends State<HomePageTab> {
                 expenseData: ExpenseData(
                     "Income",
                     "\$${CurrentUser.getUserLifetimeIncome}",
-                    Icons.arrow_upward_rounded),
+                    CupertinoIcons.arrow_up),
               )),
               const SizedBox(
                 width: defaultSpacing,
@@ -272,7 +279,7 @@ class _HomePageTabState extends State<HomePageTab> {
                     expenseData: ExpenseData(
                         "Expense",
                         "-\$${CurrentUser.getUserLifetimeExpense}",
-                        Icons.arrow_downward_rounded)),
+                        CupertinoIcons.arrow_down)),
               )
             ],
           ),
@@ -281,17 +288,15 @@ class _HomePageTabState extends State<HomePageTab> {
           ),
           Text(
             "Recent Transactions",
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(fontWeight: FontWeight.w700),
+            style: GoogleFonts.roboto(
+                fontWeight: FontWeight.w700, fontSize: fontSizeTitle),
           ),
           const SizedBox(
-            height: defaultSpacing,
+            height: defaultSpacing / 3,
           ),
-          const Text(
+          Text(
             "Today",
-            style: TextStyle(color: fontSubHeading),
+            style: GoogleFonts.roboto(color: fontSubHeading),
           ),
           const SizedBox(
             height: defaultSpacing,
@@ -329,6 +334,7 @@ class _HomePageTabState extends State<HomePageTab> {
 
               CurrentUser.updateUserIncomeAndExpense();
               CurrentUser.updateTotalBalance();
+              CurrentUser.parseTransactionsMonthly();
             });
           },
           confirmDismiss: (DismissDirection direction) async {

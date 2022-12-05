@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/data/user.dart';
-import 'package:moneymanager/widget/transaction_item%20mini.dart';
+import 'package:moneymanager/utils/colors.dart';
+import 'package:moneymanager/widgets/transaction_item%20mini.dart';
 import 'package:loop_page_view/loop_page_view.dart';
 
 // ignore: prefer_typing_uninitialized_variables
@@ -28,7 +29,7 @@ Widget buildConnectionManager(BuildContext context) {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.bebasNeue(
                               fontSize: 32,
-                              color: Colors.blue,
+                              color: AppColor.customLightGreen,
                             ),
                           ),
                         ),
@@ -38,17 +39,13 @@ Widget buildConnectionManager(BuildContext context) {
                         size: 32.0,
                       ),
                     ]),
-                    const SizedBox(height: 5),
-                    Text(
-                      'You are a ${CurrentUser.accountType}',
-                      style: const TextStyle(fontSize: 16),
-                    ),
                     const SizedBox(height: 10),
                     Text(
-                      "Viewing ${CurrentUser.connectedUsers[index].keys.elementAt(0)}'s Recent Transactions",
-                      style: const TextStyle(fontSize: 16),
+                      "${CurrentUser.connectedUsers[index].keys.elementAt(0)}'s Recent Transactions",
+                      style: GoogleFonts.roboto(
+                          fontSize: 14, color: AppColor.customDarkGreen),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

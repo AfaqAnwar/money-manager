@@ -16,6 +16,7 @@ class CurrentUser {
   static List<dynamic> transactions = [];
   static List<TransactionObject> transctionObjects = [];
   static List<Map<String, List<TransactionObject>>> connectedUsers = [];
+  static Map<int, int> monthlyIncome = {};
 
   static int userAge = 0;
   static String userExperience = "";
@@ -81,6 +82,10 @@ class CurrentUser {
 
   static set setSurveyStatus(bool definedStatus) {
     surveyCompleted = definedStatus;
+  }
+
+  static Map<int, int> get getMonthlyIncomeMap {
+    return monthlyIncome;
   }
 
   static int get getAge {
@@ -239,5 +244,71 @@ class CurrentUser {
     }
 
     return true;
+  }
+
+  static void parseTransactionsMonthly() {
+    monthlyIncome.clear();
+    for (int i = 0; i < transctionObjects.length; i++) {
+      var currentTransaction = transctionObjects[i];
+      var monthOfCurrentTransaction = currentTransaction.date.split(" ")[0];
+      var yearOfCurrentTransaction = currentTransaction.getDateYear;
+
+      DateTime now = DateTime.now();
+      DateTime date = DateTime(now.year, now.month, now.day);
+      String currentYear =
+          date.toString().replaceAll("00:00:00.000", "").split("-")[0];
+
+      int month = 0;
+      switch (monthOfCurrentTransaction) {
+        case "Jan":
+          month = 1;
+          break;
+        case "Feb":
+          month = 2;
+          break;
+        case "Mar":
+          month = 3;
+          break;
+        case "Apr":
+          month = 4;
+          break;
+        case "May":
+          month = 5;
+          break;
+        case "June":
+          month = 6;
+          break;
+        case "July":
+          month = 7;
+          break;
+        case "Aug":
+          month = 8;
+          break;
+        case "Sep":
+          month = 9;
+          break;
+        case "Oct":
+          month = 10;
+          break;
+        case "Nov":
+          month = 11;
+          break;
+        case "Dec":
+          month = 12;
+          break;
+      }
+      if (currentTransaction.getTransactionType == TransactionType.inflow &&
+          currentTransaction.getDateYear == currentYear) {
+        if (monthlyIncome.containsKey(month)) {
+          var currentIncome = 0;
+          currentIncome = monthlyIncome[month]!;
+          currentIncome += int.parse(currentTransaction.getItemAmount);
+          monthlyIncome.update(month, (value) => currentIncome);
+        } else {
+          monthlyIncome.putIfAbsent(
+              month, () => int.parse(currentTransaction.getItemAmount));
+        }
+      }
+    }
   }
 }

@@ -7,6 +7,7 @@ import 'package:moneymanager/pages/tabs/module_page_tab.dart';
 import 'package:moneymanager/pages/tabs/profile_tab.dart';
 import 'package:moneymanager/pages/registration_signup/survey.dart';
 import 'package:moneymanager/data/user.dart';
+import 'package:moneymanager/utils/colors.dart';
 import 'package:moneymanager/utils/constants.dart';
 
 // Home Page Host
@@ -70,6 +71,7 @@ class _HomePageState extends State<HomePage> {
     await transactionBuilder();
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
+    CurrentUser.parseTransactionsMonthly();
   }
 
   // Fills advanced information about the user from the database, generally only after survey is complete.
@@ -123,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                     currentIndex = index;
                   });
                 },
-                selectedItemColor: secondaryDark,
+                selectedItemColor: AppColor.customLightGreen,
                 unselectedItemColor: fontLight,
                 items: [
                   BottomNavigationBarItem(

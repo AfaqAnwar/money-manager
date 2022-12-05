@@ -1,8 +1,8 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/auth/main_page.dart';
+import 'package:moneymanager/utils/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,13 +15,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // ignore: prefer_const_constructors
-      home: MainPage(),
+      theme: ThemeData(
+          fontFamily: GoogleFonts.sourceSansPro().fontFamily,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: AppColor.customLightGreen,
+          )),
+      home: const MainPage(),
     );
   }
 }

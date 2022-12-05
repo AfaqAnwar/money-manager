@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/utils/constants.dart';
 
 // Defines the Income & Expense UI Widget
@@ -19,7 +20,7 @@ class IncomeExpenseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 85,
       padding: const EdgeInsets.all(defaultSpacing),
       decoration: BoxDecoration(
           boxShadow: const [
@@ -38,17 +39,16 @@ class IncomeExpenseCard extends StatelessWidget {
             children: [
               Text(
                 expenseData.label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    ?.copyWith(color: Colors.white),
+                style: GoogleFonts.roboto(color: Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: defaultSpacing / 3),
                 child: Text(
                   expenseData.amount,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.w600),
+                  style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24),
                 ),
               )
             ],
