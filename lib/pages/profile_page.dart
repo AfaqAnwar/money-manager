@@ -14,18 +14,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> {
-
   // Initially checks for survey completion to ensure proper data is present.
   @override
-  void initState() {
-    
-  }    
+  void initState() {}
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-    )
-
+    return Scaffold();
   }
 }
-
