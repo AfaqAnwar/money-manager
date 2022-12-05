@@ -276,13 +276,27 @@ Widget buildProfileManager(BuildContext context) {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0))),
+                            titleTextStyle: GoogleFonts.roboto(
+                                color: AppColor.customLightGreen,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 24),
+                            contentTextStyle: GoogleFonts.roboto(
+                                color: Colors.black, fontSize: 16),
                             title: const Text('Whoops'),
                             content:
                                 const Text('You current password is invalid'),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Text("Try again"),
+                                child: Text(
+                                  "Try again",
+                                  style: GoogleFonts.roboto(
+                                      color: AppColor.customDarkGreen,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               )
                             ],
                           ));
@@ -290,6 +304,15 @@ Widget buildProfileManager(BuildContext context) {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0))),
+                            titleTextStyle: GoogleFonts.roboto(
+                                color: AppColor.customLightGreen,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 24),
+                            contentTextStyle: GoogleFonts.roboto(
+                                color: Colors.black, fontSize: 16),
                             title: const Text('Confirm Changes'),
                             content: const Text(
                                 'Are you sure you want to update your profile?'),
@@ -302,10 +325,16 @@ Widget buildProfileManager(BuildContext context) {
                                     Navigator.of(context)
                                         .popUntil((route) => route.isFirst);
                                   },
-                                  child: const Text("Yes")),
+                                  child: Text("Yes",
+                                      style: GoogleFonts.roboto(
+                                          color: AppColor.customDarkGreen,
+                                          fontWeight: FontWeight.w600))),
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Text("Cancel"),
+                                child: Text("Cancel",
+                                    style: GoogleFonts.roboto(
+                                        color: AppColor.customDarkGreen,
+                                        fontWeight: FontWeight.w600)),
                               )
                             ],
                           ));
@@ -314,13 +343,25 @@ Widget buildProfileManager(BuildContext context) {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          titleTextStyle: GoogleFonts.roboto(
+                              color: AppColor.customLightGreen,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 24),
+                          contentTextStyle: GoogleFonts.roboto(
+                              color: Colors.black, fontSize: 16),
                           title: const Text('Whoops'),
                           content: const Text(
                               'You must enter your current password to make any changes'),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
-                              child: const Text("Okay"),
+                              child: Text("Okay",
+                                  style: GoogleFonts.roboto(
+                                      color: AppColor.customDarkGreen,
+                                      fontWeight: FontWeight.w600)),
                             )
                           ],
                         ));
@@ -329,13 +370,25 @@ Widget buildProfileManager(BuildContext context) {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        titleTextStyle: GoogleFonts.roboto(
+                            color: AppColor.customLightGreen,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 24),
+                        contentTextStyle: GoogleFonts.roboto(
+                            color: Colors.black, fontSize: 16),
                         title: const Text('Whoops'),
                         content: const Text(
                             'You did not make any changes to your profile...'),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text("Okay"),
+                            child: Text("Okay",
+                                style: GoogleFonts.roboto(
+                                    color: AppColor.customDarkGreen,
+                                    fontWeight: FontWeight.w600)),
                           )
                         ],
                       ));

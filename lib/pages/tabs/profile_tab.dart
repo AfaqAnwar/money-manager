@@ -241,6 +241,15 @@ class _ProfileTabState extends State<ProfileTab> {
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0))),
+                                        titleTextStyle: GoogleFonts.roboto(
+                                            color: AppColor.customLightGreen,
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 24),
+                                        contentTextStyle: GoogleFonts.roboto(
+                                            color: Colors.black, fontSize: 16),
                                         title: const Text('Confirm Sign Out'),
                                         content: const Text(
                                             'Are you sure you want to sign out?'),
@@ -250,11 +259,21 @@ class _ProfileTabState extends State<ProfileTab> {
                                                 FirebaseAuth.instance.signOut();
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text("Yes")),
+                                              child: Text("Yes",
+                                                  style: GoogleFonts.roboto(
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w600))),
                                           TextButton(
                                             onPressed: () =>
                                                 Navigator.pop(context),
-                                            child: const Text("Cancel"),
+                                            child: Text("Cancel",
+                                                style: GoogleFonts.roboto(
+                                                    color: AppColor
+                                                        .customDarkGreen,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
                                           )
                                         ],
                                       ));
