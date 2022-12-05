@@ -31,6 +31,30 @@ class TransactionObject {
     this.transactionType,
   );
 
+  get getItemCategory {
+    return itemCategory;
+  }
+
+  get getItemDescription {
+    return itemDescription;
+  }
+
+  get getItemCompany {
+    return itemCompany;
+  }
+
+  get getItemAmount {
+    return amount;
+  }
+
+  get getDate {
+    return date;
+  }
+
+  get getTransactionType {
+    return transactionType;
+  }
+
   Map<String, String> toMap() {
     return {
       "itemCategory": itemCategory.toString(),
