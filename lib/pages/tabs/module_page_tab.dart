@@ -158,20 +158,12 @@ class _ModulePageState extends State<ModulePage> {
                           child: Center(
                             child: Align(
                               alignment: Alignment.bottomCenter,
-<<<<<<< HEAD
-                              child: Text(moduleItems[0]["courseName"],
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color:
-                                          color.AppColor.homepagesecondTitle)),
-=======
                               child: Text(
                                 moduleItems[0]["courseName"],
                                 style: GoogleFonts.roboto(
                                     fontSize: 20,
                                     color: color.AppColor.homepagesecondTitle),
                               ),
->>>>>>> ef5caca5a9d8df6c20bb4f426d8fe6deb3d07b9f
                             ),
                           ),
                         ),
