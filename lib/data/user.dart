@@ -223,6 +223,9 @@ class CurrentUser {
   }
 
   static Future<bool> noCodeMatch() async {
+    if (signUpCode == "") {
+      return true;
+    }
     CollectionReference collectionRef =
         FirebaseFirestore.instance.collection('users');
 
