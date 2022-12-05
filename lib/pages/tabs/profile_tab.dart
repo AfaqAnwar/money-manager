@@ -109,7 +109,6 @@ class _ProfileTabState extends State<ProfileTab> {
                       builder: (BuildContext context,
                           AsyncSnapshot<dynamic> snapshot) {
                         if (snapshot.data == false) {
-                          print("true");
                           return InkWell(
                             onTap: () {
                               showDialog(
