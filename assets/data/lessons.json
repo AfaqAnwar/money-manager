@@ -89,8 +89,8 @@
             "question3":
             {
                 "question":"When you are budgeting if you notice that your expenses are greater than your income, should you keep your expenses the same?",
-                "choices": ["True", "False"],
-                "answer": "False"
+                "choices": ["Yes", "No"],
+                "answer": "No"
             }
         }
     ]

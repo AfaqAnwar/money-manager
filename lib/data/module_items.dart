@@ -1,6 +1,5 @@
 // Module List Item a class that will create an module object for the three modules
 class ModulesItems {
-
 // the instances every module class would have
   String moduleTitle;
   Map<String, String> lessons;
@@ -10,21 +9,24 @@ class ModulesItems {
   ModulesItems(this.moduleTitle, this.lessons, this.quiz);
 
   // Set Methods to set the following instance fields: moduleTitle, Lessons, Quizs
-  void setModuleTitle(String title){
+  void setModuleTitle(String title) {
     moduleTitle = title;
   }
-  void setLesson(Map<String, String> lesson){
+
+  void setLesson(Map<String, String> lesson) {
     lessons = lesson;
   }
-  void setQuiz(Set<dynamic> quiz){
+
+  void setQuiz(Set<dynamic> quiz) {
     quiz = quiz;
   }
 
   // Get the methods
-  String getModuleTitle(){
+  String getModuleTitle() {
     return moduleTitle;
   }
-  List<String> getLesson(){
+
+  List<String> getLesson() {
     List<String> l = [];
     lessons.forEach((key, value) {
       //print('Lesson Title: $key' + "and " + "Lesson Description: $value");
@@ -36,9 +38,9 @@ class ModulesItems {
       l.add(value);
     });
     return l;
-
   }
-  Set<dynamic> getQuiz(){
+
+  Set<dynamic> getQuiz() {
     return quiz;
   }
 }
@@ -50,24 +52,17 @@ class Question {
   bool isLocked;
   Option? selectedOption;
 
-  Question({
-    required this.text,
-    required this.options,
-    this.isLocked = false,
-    this.selectedOption
-  });
+  Question(
+      {required this.text,
+      required this.options,
+      this.isLocked = false,
+      this.selectedOption});
 }
 
 // Class the hold the multiple choice for each question
 class Option {
   final String text;
   final bool isCorrect;
-  
 
-  const Option({
-    required this.text,
-    required this.isCorrect
-  });
-
-
+  const Option({required this.text, required this.isCorrect});
 }
