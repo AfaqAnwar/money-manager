@@ -322,13 +322,27 @@ class _RegisterPageState extends State<RegisterPage> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.0))),
+                                titleTextStyle: GoogleFonts.roboto(
+                                    color: AppColor.customLightGreen,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 24),
+                                contentTextStyle: GoogleFonts.roboto(
+                                    color: Colors.black, fontSize: 16),
                                 title: const Text('Sign Up Detail Error'),
                                 content: const Text(
                                     "Please fill out all of your details."),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: const Text("Okay"),
+                                    child: Text(
+                                      "Okay",
+                                      style: GoogleFonts.roboto(
+                                          color: AppColor.customDarkGreen,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   )
                                 ],
                               ));
@@ -337,13 +351,27 @@ class _RegisterPageState extends State<RegisterPage> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0))),
+                                  titleTextStyle: GoogleFonts.roboto(
+                                      color: AppColor.customLightGreen,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 24),
+                                  contentTextStyle: GoogleFonts.roboto(
+                                      color: Colors.black, fontSize: 16),
                                   title: const Text("Sign Up Error"),
                                   content:
                                       const Text("Passwords do not match."),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text("Okay"),
+                                      child: Text(
+                                        "Okay",
+                                        style: GoogleFonts.roboto(
+                                            color: AppColor.customDarkGreen,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     )
                                   ],
                                 ));
@@ -377,12 +405,26 @@ class _RegisterPageState extends State<RegisterPage> {
                           showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20.0))),
+                                    titleTextStyle: GoogleFonts.roboto(
+                                        color: AppColor.customLightGreen,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 24),
+                                    contentTextStyle: GoogleFonts.roboto(
+                                        color: Colors.black, fontSize: 16),
                                     title: const Text("Sign Up Error"),
                                     content: Text(errorMessage.toString()),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(context),
-                                        child: const Text("Okay"),
+                                        child: Text(
+                                          "Okay",
+                                          style: GoogleFonts.roboto(
+                                              color: AppColor.customDarkGreen,
+                                              fontWeight: FontWeight.w600),
+                                        ),
                                       )
                                     ],
                                   ));

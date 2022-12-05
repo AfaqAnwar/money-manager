@@ -164,13 +164,25 @@ class _LoginPageState extends State<LoginPage> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.0))),
+                                titleTextStyle: GoogleFonts.roboto(
+                                    color: AppColor.customLightGreen,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 24),
+                                contentTextStyle: GoogleFonts.roboto(
+                                    color: Colors.black, fontSize: 16),
                                 title: const Text('Login Input Error'),
                                 content: const Text(
                                     'Please fill out both your email & password before attempting to sign in.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: const Text("Okay"),
+                                    child: Text("Okay",
+                                        style: GoogleFonts.roboto(
+                                            color: AppColor.customDarkGreen,
+                                            fontWeight: FontWeight.w600)),
                                   )
                                 ],
                               ));
@@ -209,12 +221,24 @@ class _LoginPageState extends State<LoginPage> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0))),
+                                  titleTextStyle: GoogleFonts.roboto(
+                                      color: AppColor.customLightGreen,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 24),
+                                  contentTextStyle: GoogleFonts.roboto(
+                                      color: Colors.black, fontSize: 16),
                                   title: const Text('Login Error'),
                                   content: Text(errorMessage.toString()),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text("Okay"),
+                                      child: Text("Okay",
+                                          style: GoogleFonts.roboto(
+                                              color: AppColor.customDarkGreen,
+                                              fontWeight: FontWeight.w600)),
                                     )
                                   ],
                                 ));
