@@ -1,12 +1,4 @@
-import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:moneymanager/model/chart_data.dart';
-import 'package:moneymanager/pages/survey.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:moneymanager/style/app_style.dart';
-import 'package:moneymanager/user.dart';
 
 // Main Page
 class CalculatorPage extends StatefulWidget {
@@ -41,7 +33,7 @@ class CalculatorPageState extends State<CalculatorPage> {
 
       sussy = num1; //how much they start out with per week
 
-      result = num2!; //how much they spend a week
+      result = num2; //how much they spend a week
 
       goob = num3; //how much they wish to save a week
 

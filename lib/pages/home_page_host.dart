@@ -7,6 +7,7 @@ import 'package:moneymanager/pages/tabs/module_page_tab.dart';
 import 'package:moneymanager/pages/tabs/profile_tab.dart';
 import 'package:moneymanager/pages/registration_signup/survey.dart';
 import 'package:moneymanager/data/user.dart';
+import 'package:moneymanager/pages/tabs/visualize_tab.dart';
 import 'package:moneymanager/utils/colors.dart';
 import 'package:moneymanager/utils/constants.dart';
 
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return const ModulePage();
       case 2:
-        return Container();
+        return const VisualizePage();
       case 3:
         return const ProfileTab();
 
