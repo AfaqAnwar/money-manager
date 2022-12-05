@@ -36,30 +36,6 @@ class _ModulePageState extends State<ModulePage> {
     return true;
   }
 
-  Widget progressBar(BuildContext context) {
-    final size = MediaQuery.of(context).size.width;
-    return Container(
-      width: size,
-      height: 150,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            color.AppColor.gradientFirst,
-            color.AppColor.gradientSecond
-          ], begin: Alignment.bottomLeft, end: Alignment.centerRight),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-              topRight: Radius.circular(80)),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(4, 10),
-                blurRadius: 20,
-                color: color.AppColor.gradientSecond.withOpacity(0.2))
-          ]),
-    );
-  }
-
 // UI Design
   @override
   Widget build(BuildContext context) {
@@ -95,7 +71,7 @@ class _ModulePageState extends State<ModulePage> {
                   // Progress Bar
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 150,
+                    height: 130,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
@@ -160,7 +136,7 @@ class _ModulePageState extends State<ModulePage> {
                         child: Container(
                           width: 385,
                           height: 120,
-                          margin: EdgeInsets.only(left: 5, bottom: 20, top: 20),
+                          margin: EdgeInsets.only(left: 5, top: 10),
                           // show an image for each module
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -178,15 +154,24 @@ class _ModulePageState extends State<ModulePage> {
                                     offset: Offset(-5, -5),
                                     color: Color.fromARGB(255, 246, 243, 243)),
                               ]),
+
                           child: Center(
                             child: Align(
                               alignment: Alignment.bottomCenter,
+<<<<<<< HEAD
+                              child: Text(moduleItems[0]["courseName"],
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color:
+                                          color.AppColor.homepagesecondTitle)),
+=======
                               child: Text(
                                 moduleItems[0]["courseName"],
                                 style: GoogleFonts.roboto(
                                     fontSize: 20,
                                     color: color.AppColor.homepagesecondTitle),
                               ),
+>>>>>>> ef5caca5a9d8df6c20bb4f426d8fe6deb3d07b9f
                             ),
                           ),
                         ),
@@ -202,7 +187,7 @@ class _ModulePageState extends State<ModulePage> {
                         child: Container(
                           width: 385,
                           height: 120,
-                          margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
+                          margin: EdgeInsets.only(left: 5, bottom: 10, top: 10),
                           padding: EdgeInsets.only(bottom: 5),
                           // show an image for each module
                           decoration: BoxDecoration(
@@ -245,7 +230,7 @@ class _ModulePageState extends State<ModulePage> {
                         child: Container(
                           width: 385,
                           height: 120,
-                          margin: EdgeInsets.only(left: 5, bottom: 15, top: 20),
+                          margin: EdgeInsets.only(left: 5, bottom: 10, top: 10),
                           padding: EdgeInsets.only(bottom: 5),
                           // show an image for each module
                           decoration: BoxDecoration(

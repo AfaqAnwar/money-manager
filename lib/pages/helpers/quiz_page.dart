@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/utils/colors.dart' as colors;
 import 'package:moneymanager/data/module_items.dart';
-import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
+import 'package:moneymanager/pages/helpers/result_page.dart';
 
 class QuizPage extends StatefulWidget {
   // index of the module they selected
@@ -30,11 +30,16 @@ class QuizPageState extends State<QuizPage> {
   // variable to hold what question we are on
   int _questionNumber = 1;
 
+  int results = 0;
+
+  bool _isLocked = false;
+
   @override
   // ignore: must_call_super
   void initState() {
     _controller = PageController(initialPage: 0);
 
+// load all the JSON questions into a Option and question object
     dataQuestions.add(Question(
         text: widget.moduleItems[widget.index]["question1"]["question"]
             .toString(),
@@ -64,15 +69,15 @@ class QuizPageState extends State<QuizPage> {
         ]));
 
     dataQuestions.add(Question(
-        text: widget.moduleItems[widget.index]["question2"]["question"]
+        text: widget.moduleItems[widget.index]["question3"]["question"]
             .toString(),
         options: [
           Option(
-              text: widget.moduleItems[widget.index]["question2"]["choices"][0]
+              text: widget.moduleItems[widget.index]["question3"]["choices"][0]
                   .toString(),
               isCorrect: false),
           Option(
-              text: widget.moduleItems[widget.index]["question2"]["choices"][1]
+              text: widget.moduleItems[widget.index]["question3"]["choices"][1]
                   .toString(),
               isCorrect: true)
         ]));
@@ -112,7 +117,8 @@ class QuizPageState extends State<QuizPage> {
                     })),
               ),
               // This is the Next button UI
-              buildElevatedButton(),
+              // if the user did not select an answer then we do not show the button to preceed the quiz
+              _isLocked ? buildElevatedButton() : const SizedBox.shrink(),
               const SizedBox(
                 height: 300,
               ),
@@ -153,6 +159,11 @@ class QuizPageState extends State<QuizPage> {
                   question.isLocked = true;
                   question.selectedOption = option;
                 });
+                _isLocked = question.isLocked;
+                // if the user selected the correct answer then increase the score by 1
+                if (question.selectedOption!.isCorrect) {
+                  results++;
+                }
               }
             },
           ),
@@ -174,16 +185,17 @@ class QuizPageState extends State<QuizPage> {
           );
           setState(() {
             _questionNumber++;
+            _isLocked = false;
           });
         }
         // else if they completed all the questions go to the resulting page
         else {
-          // To - Do make a result page
-          Navigator.of(context).pop(MaterialPageRoute(
-              builder: (context) => GoalPage(
-                    moduleItems: [],
-                    index: null,
-                  )));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResultsPage(result: results),
+            ),
+          );
         }
       },
       // Change the UI text for the Next button
@@ -203,6 +215,7 @@ class QuizPageState extends State<QuizPage> {
 
 // Class for the option weidget for all the question multiple choices
 class OptionWidget extends StatelessWidget {
+  // for each question and if the user selects an option
   final Question question;
   final ValueChanged<Option> onClickedOption;
 
@@ -224,10 +237,14 @@ class OptionWidget extends StatelessWidget {
 // build the UI for the multiple choices
 
   Widget buildOption(BuildContext context, Option option) {
+    // Get the color for the correct and incorrect answer for the user to see
     final color = getColorForOption(option, question);
+    // when a gesture is recognized
     return GestureDetector(
+        // the user taps on a selected answer
         onTap: () => onClickedOption(option),
         child: Container(
+          // add spacing between each multiple choice answer
           height: 50,
           padding: const EdgeInsets.all(12),
           margin: const EdgeInsets.symmetric(vertical: 8),
@@ -236,12 +253,13 @@ class OptionWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(19),
               border: Border.all(color: color)),
           child: Row(
+            // the style for the multiple choice text
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 option.text,
                 style: const TextStyle(fontSize: 10),
-              )
+              ),
             ],
           ),
         ));
@@ -250,14 +268,18 @@ class OptionWidget extends StatelessWidget {
 
 // Color Scheme for the correct and wrong question selected
 Color getColorForOption(Option option, Question question) {
+  // the user selects an option
   final isSelected = option == question.selectedOption;
   if (question.isLocked) {
     if (isSelected) {
+      // when the user selects an option it will show a color surronding the options
       return option.isCorrect
-          ? Color.fromARGB(255, 255, 255, 255)
+          // when the user locks in on an answer the correct answer will be highlighted in green and incorrect in red
+          ? Color.fromARGB(255, 19, 89, 1)
           : Color.fromARGB(255, 255, 17, 0);
     } else if (option.isCorrect) {
-      return Color.fromARGB(255, 255, 255, 255);
+      // if the user selects the wrong answer the correct answer will be in black
+      return Color.fromARGB(255, 10, 0, 0);
     }
   }
   return Colors.white;
