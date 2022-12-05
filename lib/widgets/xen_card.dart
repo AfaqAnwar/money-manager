@@ -20,7 +20,10 @@ XenCardAppBar getAppBar(String text) {
     shadow: const BoxShadow(color: Colors.transparent),
     child: Text(
       text,
-      style: GoogleFonts.bebasNeue(fontWeight: FontWeight.normal, fontSize: 32),
+      style: GoogleFonts.bebasNeue(
+          fontWeight: FontWeight.normal,
+          fontSize: 32,
+          color: AppColor.customLightGreen),
       textAlign: TextAlign.center,
     ), // To remove shadow from appbar
   );
