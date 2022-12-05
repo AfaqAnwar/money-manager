@@ -45,6 +45,7 @@ class _HomePageTabState extends State<HomePageTab> {
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
     CurrentUser.parseTransactionsMonthly();
+    CurrentUser.parseExpensesMonthly();
 
     DateTime now = DateTime.now();
     DateTime date = DateTime(now.year, now.month, now.day);
@@ -180,23 +181,9 @@ class _HomePageTabState extends State<HomePageTab> {
                                 var category = decoded["data"][0]["questions"]
                                     [4]["answer"];
 
-                                final inputIsValid =
-                                    RegExp(r'^[0-9]\d{0,9}(\.\d{1,3})?%?$')
-                                        .hasMatch(amount);
+                                final isValid = inputIsValid(amount.toString());
 
-                                final containsTwoPlaces =
-                                    RegExp(r'^\d+\.\d\d$').hasMatch(amount);
-
-                                String errorMessage =
-                                    'You have to enter only numbers for the transaction amount';
-
-                                if (containsTwoPlaces == false) {
-                                  errorMessage =
-                                      "You may only enter a transaction with two decimal places. (EX: 1.31)";
-                                }
-
-                                if (inputIsValid == false ||
-                                    containsTwoPlaces == false) {
+                                if (!isValid) {
                                   return showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
@@ -213,7 +200,8 @@ class _HomePageTabState extends State<HomePageTab> {
                                                     color: Colors.black,
                                                     fontSize: 16),
                                             title: const Text('Whoops'),
-                                            content: Text(errorMessage),
+                                            content: const Text(
+                                                'Please provide a valid amount.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () =>
@@ -228,6 +216,9 @@ class _HomePageTabState extends State<HomePageTab> {
                                             ],
                                           ));
                                 } else {
+                                  amount =
+                                      double.parse(amount).toStringAsFixed(2);
+                                  print(amount);
                                   if (incomeOrExpense == "Income") {
                                     incomeOrExpense = TransactionType.inflow;
                                   } else {
@@ -288,6 +279,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                       CurrentUser.updateUserIncomeAndExpense();
                                       CurrentUser.updateTotalBalance();
                                       CurrentUser.parseTransactionsMonthly();
+                                      CurrentUser.parseExpensesMonthly();
                                     });
                                   }
                                 }
@@ -398,6 +390,7 @@ class _HomePageTabState extends State<HomePageTab> {
               CurrentUser.updateUserIncomeAndExpense();
               CurrentUser.updateTotalBalance();
               CurrentUser.parseTransactionsMonthly();
+              CurrentUser.parseExpensesMonthly();
             });
           },
           confirmDismiss: (DismissDirection direction) async {
@@ -438,5 +431,20 @@ class _HomePageTabState extends State<HomePageTab> {
           child: TransactionItem(transaction: transactionList[i])));
     }
     return list;
+  }
+
+  bool inputIsValid(String s) {
+    if (s.isEmpty) {
+      return false;
+    } else if (s.contains(RegExp(r'^(\d*\.)?\d+$'))) {
+      return true;
+    } else if (s.contains(".")) {
+      if (s.indexOf(".") != 0) {
+        if (s.substring(0, s.indexOf(".")).contains(RegExp(r'^(\d*\.)?\d+$'))) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

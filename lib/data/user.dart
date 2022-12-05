@@ -17,6 +17,7 @@ class CurrentUser {
   static List<TransactionObject> transctionObjects = [];
   static List<Map<String, List<TransactionObject>>> connectedUsers = [];
   static Map<int, double> monthlyIncome = {};
+  static Map<int, double> monthlyExpense = {};
 
   static int userAge = 0;
   static String userExperience = "";
@@ -86,6 +87,10 @@ class CurrentUser {
 
   static Map<int, double> get getMonthlyIncomeMap {
     return monthlyIncome;
+  }
+
+  static Map<int, double> get getMonthlyExpenseMap {
+    return monthlyExpense;
   }
 
   static int get getAge {
@@ -158,7 +163,9 @@ class CurrentUser {
   }
 
   static void updateTotalBalance() {
-    totalBalance = userLifetimeIncome - userLifetimeExpense;
+    var roundedBalance =
+        (userLifetimeIncome - userLifetimeExpense).toStringAsFixed(2);
+    totalBalance = double.parse(roundedBalance);
   }
 
   static void updateUserIncomeAndExpense() {
@@ -171,6 +178,9 @@ class CurrentUser {
         userLifetimeExpense = userLifetimeExpense + double.parse(i.amount);
       }
     }
+
+    userLifetimeIncome = double.parse(userLifetimeIncome.toStringAsFixed(2));
+    userLifetimeExpense = double.parse(userLifetimeExpense.toStringAsFixed(2));
   }
 
   static updateBasicUserDetails() async {
@@ -310,6 +320,73 @@ class CurrentUser {
           monthlyIncome.update(month, (value) => currentIncome);
         } else {
           monthlyIncome.putIfAbsent(
+              month, () => double.parse(currentTransaction.getItemAmount));
+        }
+      }
+    }
+  }
+
+  static void parseExpensesMonthly() {
+    monthlyExpense.clear();
+    for (int i = 0; i < transctionObjects.length; i++) {
+      var currentTransaction = transctionObjects[i];
+      var monthOfCurrentTransaction = currentTransaction.date.split(" ")[0];
+      var yearOfCurrentTransaction = currentTransaction.getDateYear;
+
+      DateTime now = DateTime.now();
+      DateTime date = DateTime(now.year, now.month, now.day);
+      String currentYear =
+          date.toString().replaceAll("00:00:00.000", "").split("-")[0];
+
+      int month = 0;
+      switch (monthOfCurrentTransaction) {
+        case "Jan":
+          month = 1;
+          break;
+        case "Feb":
+          month = 2;
+          break;
+        case "Mar":
+          month = 3;
+          break;
+        case "Apr":
+          month = 4;
+          break;
+        case "May":
+          month = 5;
+          break;
+        case "Jun":
+          month = 6;
+          break;
+        case "Jul":
+          month = 7;
+          break;
+        case "Aug":
+          month = 8;
+          break;
+        case "Sep":
+          month = 9;
+          break;
+        case "Oct":
+          month = 10;
+          break;
+        case "Nov":
+          month = 11;
+          break;
+        case "Dec":
+          month = 12;
+          break;
+      }
+
+      if (currentTransaction.getTransactionType == TransactionType.outflow &&
+          currentTransaction.getDateYear == currentYear) {
+        if (monthlyExpense.containsKey(month)) {
+          var currentExpense = 0.0;
+          currentExpense = monthlyExpense[month]!;
+          currentExpense += double.parse(currentTransaction.getItemAmount);
+          monthlyExpense.update(month, (value) => currentExpense);
+        } else {
+          monthlyExpense.putIfAbsent(
               month, () => double.parse(currentTransaction.getItemAmount));
         }
       }

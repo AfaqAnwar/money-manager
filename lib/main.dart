@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/auth/main_page.dart';
 import 'package:moneymanager/utils/colors.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
