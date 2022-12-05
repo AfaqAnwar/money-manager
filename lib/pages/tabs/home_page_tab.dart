@@ -148,6 +148,9 @@ class _HomePageTabState extends State<HomePageTab> {
                             index: 0,
                             showIndex: false,
                             submitButtonDecoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                                 color: AppColor.customDarkGreen,
                                 shape: BoxShape.rectangle),
                             submitButtonText: "Add Transaction",

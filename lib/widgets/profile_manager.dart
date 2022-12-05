@@ -268,6 +268,8 @@ Widget buildProfileManager(BuildContext context) {
 
       // Sign Up Button
       MaterialButton(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           onPressed: (() async {
             if (isEmpty() == false) {
               if (isCurrentPasswordPresent()) {

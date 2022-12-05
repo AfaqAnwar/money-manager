@@ -237,6 +237,9 @@ class _ProfileTabState extends State<ProfileTab> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0))),
                             onPressed: (() {
                               showDialog(
                                   context: context,

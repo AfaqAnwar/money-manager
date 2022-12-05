@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moneymanager/pages/tabs/home_page_tab.dart';
 import 'package:moneymanager/pages/tabs/module_page_tab.dart';
 import 'package:moneymanager/utils/colors.dart' as colors;
@@ -42,13 +43,10 @@ class ResultsPageState extends State<ResultsPage> {
           children: [
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(top: 300, right: 20),
+              padding: const EdgeInsets.only(top: 300, right: 20),
               child: Text(
                 "Congrats your score is: ${widget.result.toString()} / 3",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.roboto(fontSize: 20, color: Colors.white),
                 softWrap: true,
                 maxLines: 5,
               ),
@@ -63,16 +61,21 @@ class ResultsPageState extends State<ResultsPage> {
 }
 
 // UI for button to take back to module page
-ElevatedButton buildElevatedButton(BuildContext context) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+MaterialButton buildElevatedButton(BuildContext context) {
+  return MaterialButton(
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15.0))),
     onPressed: () {
       Navigator.of(context)
           .pop(MaterialPageRoute(builder: (context) => HomePage()));
     },
-    child: const Text(
-      "Done",
-      style: TextStyle(color: Colors.black),
-    ),
+    color: colors.AppColor.customDarkGreen,
+    child: Text("Done",
+        textAlign: TextAlign.center,
+        style: GoogleFonts.roboto(
+          fontSize: 18,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        )),
   );
 }
