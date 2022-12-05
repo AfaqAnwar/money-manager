@@ -67,7 +67,7 @@ MaterialButton buildElevatedButton(BuildContext context) {
         borderRadius: BorderRadius.all(Radius.circular(15.0))),
     onPressed: () {
       Navigator.of(context)
-          .pop(MaterialPageRoute(builder: (context) => HomePage()));
+          .pop(MaterialPageRoute(builder: (context) => const ModulePage()));
     },
     color: colors.AppColor.customDarkGreen,
     child: Text("Done",

@@ -26,7 +26,6 @@ class VisualizePageState extends State<VisualizePage> {
   void initState() {
     _chartData = getChartData();
     _expenseData = getChartExpenseData();
-    print(_expenseData);
     _tooltipBehavior = TooltipBehavior(enable: true);
     super.initState();
   }
