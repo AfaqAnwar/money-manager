@@ -148,6 +148,9 @@ class _HomePageTabState extends State<HomePageTab> {
                             index: 0,
                             showIndex: false,
                             submitButtonDecoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                                 color: AppColor.customDarkGreen,
                                 shape: BoxShape.rectangle),
                             submitButtonText: "Add Transaction",
@@ -178,9 +181,22 @@ class _HomePageTabState extends State<HomePageTab> {
                                     [4]["answer"];
 
                                 final inputIsValid =
-                                    RegExp(r'^[0-9]+$').hasMatch(amount);
+                                    RegExp(r'^[0-9]\d{0,9}(\.\d{1,3})?%?$')
+                                        .hasMatch(amount);
 
-                                if (inputIsValid == false) {
+                                final containsTwoPlaces =
+                                    RegExp(r'^\d+\.\d\d$').hasMatch(amount);
+
+                                String errorMessage =
+                                    'You have to enter only numbers for the transaction amount';
+
+                                if (containsTwoPlaces == false) {
+                                  errorMessage =
+                                      "You may only enter a transaction with two decimal places. (EX: 1.31)";
+                                }
+
+                                if (inputIsValid == false ||
+                                    containsTwoPlaces == false) {
                                   return showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
@@ -197,8 +213,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                                     color: Colors.black,
                                                     fontSize: 16),
                                             title: const Text('Whoops'),
-                                            content: const Text(
-                                                'You have to enter only numbers for the transaction amount'),
+                                            content: Text(errorMessage),
                                             actions: [
                                               TextButton(
                                                 onPressed: () =>
@@ -390,17 +405,31 @@ class _HomePageTabState extends State<HomePageTab> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  titleTextStyle: GoogleFonts.roboto(
+                      color: AppColor.customLightGreen,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 24),
+                  contentTextStyle:
+                      GoogleFonts.roboto(color: Colors.black, fontSize: 16),
                   title: const Text("Delete Confirmation"),
                   content: const Text(
                       "Are you sure you want to delete this transaction?"),
                   actions: <Widget>[
                     TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text("Delete")),
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(false),
-                      child: const Text("Cancel"),
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: Text("Delete",
+                          style: GoogleFonts.roboto(
+                              color: AppColor.customDarkGreen,
+                              fontWeight: FontWeight.w600)),
                     ),
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text("Cancel",
+                            style: GoogleFonts.roboto(
+                                color: AppColor.customDarkGreen,
+                                fontWeight: FontWeight.w600))),
                   ],
                 );
               },

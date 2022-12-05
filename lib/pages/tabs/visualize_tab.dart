@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/data/user.dart';
+import 'package:moneymanager/utils/colors.dart';
 import 'package:moneymanager/utils/constants.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 // ignore: depend_on_referenced_packages
@@ -16,7 +17,7 @@ class VisualizePage extends StatefulWidget {
 class VisualizePageState extends State<VisualizePage> {
   // Initially checks for survey completion to ensure proper data is present.
 
-  late List<incomeData> _chartData;
+  late List<IncomeData> _chartData;
   late TooltipBehavior _tooltipBehavior;
 
   @override
@@ -35,17 +36,19 @@ class VisualizePageState extends State<VisualizePage> {
             padding: const EdgeInsets.all(defaultSpacing),
             child: SfCartesianChart(
               title: ChartTitle(
-                  text: 'Investments',
-                  textStyle: TextStyle(fontSize: 20)), //SIZE OF FONT
+                  text: 'Savings Throughout This Year',
+                  textStyle: const TextStyle(fontSize: 20)), //SIZE OF FONT
               legend: Legend(isVisible: true),
               tooltipBehavior: _tooltipBehavior,
               series: <ChartSeries>[
-                LineSeries<incomeData, double>(
-                    name: 'Amount Invested',
+                LineSeries<IncomeData, double>(
+                    color: AppColor.customDarkGreen,
+                    name: 'Amount of Income',
                     dataSource: _chartData,
-                    xValueMapper: (incomeData month, _) => month.month,
-                    yValueMapper: (incomeData month, _) => month.income,
-                    dataLabelSettings: DataLabelSettings(isVisible: true),
+                    xValueMapper: (IncomeData month, _) => month.month,
+                    yValueMapper: (IncomeData month, _) => month.income,
+                    dataLabelSettings: DataLabelSettings(
+                        isVisible: false, color: AppColor.customDarkGreen),
                     enableTooltip: true),
               ],
               primaryXAxis:
@@ -57,21 +60,20 @@ class VisualizePageState extends State<VisualizePage> {
         ));
   }
 
-  List<incomeData> getChartData() {
-    List<incomeData> chartData = [];
-    Map<int, int> incomeMap = CurrentUser.getMonthlyIncomeMap;
+  List<IncomeData> getChartData() {
+    List<IncomeData> chartData = [];
+    Map<int, double> incomeMap = CurrentUser.getMonthlyIncomeMap;
     for (int i = 1; i < 12; i++) {
       if (incomeMap.containsKey(i)) {
-        var doubleIncome = incomeMap[i]!.toDouble();
-        chartData.add(incomeData(i.toDouble(), doubleIncome));
+        chartData.add(IncomeData(i.toDouble(), incomeMap[i]!));
       }
     }
     return chartData;
   }
 }
 
-class incomeData {
-  incomeData(this.month, this.income);
+class IncomeData {
+  IncomeData(this.month, this.income);
   final double month;
   final double income;
 }

@@ -175,6 +175,8 @@ class QuizPageState extends State<QuizPage> {
 // Functin to handle the backend for the next button
   MaterialButton buildElevatedButton() {
     return MaterialButton(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))),
       color: colors.AppColor.customDarkGreen,
       // when pressed and it is less than the number of questions go to the next questions
       onPressed: () {

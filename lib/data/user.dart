@@ -16,7 +16,7 @@ class CurrentUser {
   static List<dynamic> transactions = [];
   static List<TransactionObject> transctionObjects = [];
   static List<Map<String, List<TransactionObject>>> connectedUsers = [];
-  static Map<int, int> monthlyIncome = {};
+  static Map<int, double> monthlyIncome = {};
 
   static int userAge = 0;
   static String userExperience = "";
@@ -84,7 +84,7 @@ class CurrentUser {
     surveyCompleted = definedStatus;
   }
 
-  static Map<int, int> get getMonthlyIncomeMap {
+  static Map<int, double> get getMonthlyIncomeMap {
     return monthlyIncome;
   }
 
@@ -223,6 +223,9 @@ class CurrentUser {
   }
 
   static Future<bool> noCodeMatch() async {
+    if (signUpCode == "") {
+      return true;
+    }
     CollectionReference collectionRef =
         FirebaseFirestore.instance.collection('users');
 
@@ -301,13 +304,13 @@ class CurrentUser {
       if (currentTransaction.getTransactionType == TransactionType.inflow &&
           currentTransaction.getDateYear == currentYear) {
         if (monthlyIncome.containsKey(month)) {
-          var currentIncome = 0;
+          var currentIncome = 0.0;
           currentIncome = monthlyIncome[month]!;
-          currentIncome += int.parse(currentTransaction.getItemAmount);
+          currentIncome += double.parse(currentTransaction.getItemAmount);
           monthlyIncome.update(month, (value) => currentIncome);
         } else {
           monthlyIncome.putIfAbsent(
-              month, () => int.parse(currentTransaction.getItemAmount));
+              month, () => double.parse(currentTransaction.getItemAmount));
         }
       }
     }
