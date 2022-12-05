@@ -106,13 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  equatable:
-    dependency: transitive
+  date_format:
+    dependency: "direct main"
     description:
-      name: equatable
+      name: date_format
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.5"
+    version: "2.0.7"
   fake_async:
     dependency: transitive
     description:
@@ -134,6 +134,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: transitive
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.3"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -197,13 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1+16"
-  fl_chart:
-    dependency: "direct main"
-    description:
-      name: fl_chart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.55.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -230,6 +230,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.7"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -310,6 +317,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  loop_page_view:
+    dependency: "direct main"
+    description:
+      name: loop_page_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   lottie:
     dependency: transitive
     description:
@@ -436,6 +450,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.4"
+  simple_form_builder:
+    dependency: "direct main"
+    description:
+      name: simple_form_builder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.22"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -476,17 +497,17 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
-  syncfusion_flutter_charts:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_charts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "20.3.59"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.3.59"
+  syncfusion_flutter_datepicker:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datepicker
       url: "https://pub.dartlang.org"
     source: hosted
     version: "20.3.59"
@@ -574,6 +595,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+2"
+  xen_popup_card:
+    dependency: "direct main"
+    description:
+      name: xen_popup_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
 sdks:
   dart: ">=2.18.4 <3.0.0"
   flutter: ">=3.3.0"
