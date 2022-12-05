@@ -16,6 +16,7 @@ import 'package:moneymanager/widgets/xen_card.dart';
 import 'package:xen_popup_card/xen_card.dart';
 import 'package:simple_form_builder/formbuilder.dart';
 import 'package:moneymanager/data/transaction_input.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class HomePageTab extends StatefulWidget {
   const HomePageTab({super.key});
@@ -26,6 +27,8 @@ class HomePageTab extends StatefulWidget {
 
 // Home Page Tab that displays user information
 class _HomePageTabState extends State<HomePageTab> {
+  late String selectedDate;
+
   List<TransactionObject> transactionList = [];
 
   transactionBuilder() {
@@ -42,6 +45,22 @@ class _HomePageTabState extends State<HomePageTab> {
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
     CurrentUser.parseTransactionsMonthly();
+
+    DateTime now = DateTime.now();
+    DateTime date = DateTime(now.year, now.month, now.day);
+    selectedDate = buildDate(date);
+  }
+
+  String buildDate(DateTime date) {
+    var splitDate =
+        date.toString().replaceAll("00:00:00.000", "").trim().split('-');
+
+    String finalDateString = formatDate(
+        DateTime(int.parse(splitDate[0]), int.parse(splitDate[1]),
+            int.parse(splitDate[2])),
+        [M, ' ', d, ' ', yyyy]).toString();
+
+    return finalDateString;
   }
 
   ItemCategory getCategory(String option) {
@@ -95,6 +114,35 @@ class _HomePageTabState extends State<HomePageTab> {
                       appBar: getAppBar("Add A Transaction"),
                       body: ListView(
                         children: [
+                          SfDateRangePicker(
+                            yearCellStyle: DateRangePickerYearCellStyle(
+                                todayTextStyle:
+                                    TextStyle(color: AppColor.customDarkGreen)),
+                            monthCellStyle: DateRangePickerMonthCellStyle(
+                                todayTextStyle:
+                                    TextStyle(color: AppColor.customDarkGreen),
+                                todayCellDecoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: AppColor.customLightGreen,
+                                        width: 2),
+                                    shape: BoxShape.circle)),
+                            initialSelectedDate: DateTime.now(),
+                            backgroundColor: Colors.white,
+                            todayHighlightColor: AppColor.customLightGreen,
+                            selectionTextStyle:
+                                const TextStyle(color: Colors.white),
+                            selectionColor: AppColor.customDarkGreen,
+                            view: DateRangePickerView.month,
+                            selectionMode: DateRangePickerSelectionMode.single,
+                            onSelectionChanged:
+                                (dateRangePickerSelectionChangedArgs) {
+                              var selectedDateOfCalendar =
+                                  dateRangePickerSelectionChangedArgs.value;
+
+                              selectedDate = buildDate(selectedDateOfCalendar);
+                            },
+                          ),
                           FormBuilder(
                             initialData: inputFormData,
                             index: 0,
@@ -115,37 +163,19 @@ class _HomePageTabState extends State<HomePageTab> {
                                 var incomeOrExpense = decoded["data"][0]
                                     ["questions"][0]["answer"];
 
-                                var tempDate = decoded["data"][0]["questions"]
-                                        [1]["answer"]
-                                    .split(" ")[0]
-                                    .split("-");
+                                var year = selectedDate.split(" ")[2];
 
-                                var finalDate = formatDate(
-                                    DateTime(
-                                        int.parse(tempDate[0]),
-                                        int.parse(tempDate[1]),
-                                        int.parse(tempDate[2])),
-                                    [M, ' ', d, ' ', yyyy]).toString();
-
-                                var localDate =
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    finalDate.split(" ")[0] +
-                                        " " +
-                                        finalDate.split(" ")[1];
-
-                                var year = finalDate.split(" ")[2];
-
-                                var amount = decoded["data"][0]["questions"][2]
+                                var amount = decoded["data"][0]["questions"][1]
                                     ["answer"];
 
-                                var name = decoded["data"][0]["questions"][3]
+                                var name = decoded["data"][0]["questions"][2]
                                     ["answer"];
 
-                                var company = decoded["data"][0]["questions"][4]
+                                var company = decoded["data"][0]["questions"][3]
                                     ["answer"];
 
                                 var category = decoded["data"][0]["questions"]
-                                    [5]["answer"];
+                                    [4]["answer"];
 
                                 final inputIsValid =
                                     RegExp(r'^[0-9]+$').hasMatch(amount);
@@ -177,7 +207,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                           name,
                                           company,
                                           amount,
-                                          finalDate.toString(),
+                                          selectedDate,
                                           year,
                                           incomeOrExpense);
 
@@ -200,7 +230,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                           name,
                                           company,
                                           amount,
-                                          localDate,
+                                          "${selectedDate.split(" ")[0]} ${selectedDate.split(" ")[1]}",
                                           year,
                                           incomeOrExpense);
 

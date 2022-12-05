@@ -18,16 +18,6 @@ Map<String, dynamic> inputFormData = {
           "question_id": "1",
           "fields": [],
           "_id": "1",
-          "title": "When Did This Transaction Occur?",
-          "description": "Please specify the date of the transaction.",
-          "remark": false,
-          "type": "date",
-          "is_mandatory": true
-        },
-        {
-          "question_id": "2",
-          "fields": [],
-          "_id": "2",
           "title": "USD Amount",
           "description": "Please enter the \$ amount of the transaction.",
           "type": "text",
@@ -36,9 +26,9 @@ Map<String, dynamic> inputFormData = {
           "is_mandatory": true
         },
         {
-          "question_id": "3",
+          "question_id": "2",
           "fields": [],
-          "_id": "3",
+          "_id": "2",
           "title": "Transaction Item Detail",
           "description": "Description of item bought or received.",
           "remark": false,
@@ -46,7 +36,7 @@ Map<String, dynamic> inputFormData = {
           "is_mandatory": true
         },
         {
-          "question_id": "4",
+          "question_id": "3",
           "fields": [],
           "_id": "4",
           "title": "Transaction Company",
@@ -56,7 +46,7 @@ Map<String, dynamic> inputFormData = {
           "is_mandatory": true
         },
         {
-          "question_id": "5",
+          "question_id": "3",
           "fields": [
             "Income",
             "Expense",
@@ -69,7 +59,7 @@ Map<String, dynamic> inputFormData = {
             "Fun",
             "Other"
           ],
-          "_id": "5",
+          "_id": "4",
           "title": "Transaction Cateogry",
           "description": "please select one of the options below.",
           "remark": false,
