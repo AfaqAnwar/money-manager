@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
     await transactionBuilder();
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
+    CurrentUser.parseTransactionsMonthly();
   }
 
   // Fills advanced information about the user from the database, generally only after survey is complete.

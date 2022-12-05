@@ -20,6 +20,7 @@ class TransactionObject {
   late String itemCompany;
   late String amount;
   late String date;
+  late String dateYear;
   late TransactionType transactionType;
 
   TransactionObject(
@@ -28,6 +29,7 @@ class TransactionObject {
     this.itemCompany,
     this.amount,
     this.date,
+    this.dateYear,
     this.transactionType,
   );
 
@@ -53,6 +55,10 @@ class TransactionObject {
 
   get getTransactionType {
     return transactionType;
+  }
+
+  get getDateYear {
+    return dateYear;
   }
 
   Map<String, String> toMap() {
@@ -108,6 +114,7 @@ class TransactionObject {
     itemCompany = map["itemCompany"]!;
     amount = map["amount"]!;
     date = map["date"].split(" ")[0] + " " + map["date"].split(" ")[1];
+    dateYear = map["date"].split(" ")[2];
 
     if (map["transactionType"]!.contains("inflow")) {
       transactionType = TransactionType.inflow;

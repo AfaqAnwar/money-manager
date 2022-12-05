@@ -41,6 +41,7 @@ class _HomePageTabState extends State<HomePageTab> {
     transactionBuilder();
     CurrentUser.updateUserIncomeAndExpense();
     CurrentUser.updateTotalBalance();
+    CurrentUser.parseTransactionsMonthly();
   }
 
   ItemCategory getCategory(String option) {
@@ -132,6 +133,8 @@ class _HomePageTabState extends State<HomePageTab> {
                                         " " +
                                         finalDate.split(" ")[1];
 
+                                var year = finalDate.split(" ")[2];
+
                                 var amount = decoded["data"][0]["questions"][2]
                                     ["answer"];
 
@@ -175,6 +178,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                           company,
                                           amount,
                                           finalDate.toString(),
+                                          year,
                                           incomeOrExpense);
 
                                   DocumentSnapshot data =
@@ -197,6 +201,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                           company,
                                           amount,
                                           localDate,
+                                          year,
                                           incomeOrExpense);
 
                                   var transactions;
@@ -219,6 +224,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                     setState(() {
                                       CurrentUser.updateUserIncomeAndExpense();
                                       CurrentUser.updateTotalBalance();
+                                      CurrentUser.parseTransactionsMonthly();
                                     });
                                   }
                                 }
@@ -328,6 +334,7 @@ class _HomePageTabState extends State<HomePageTab> {
 
               CurrentUser.updateUserIncomeAndExpense();
               CurrentUser.updateTotalBalance();
+              CurrentUser.parseTransactionsMonthly();
             });
           },
           confirmDismiss: (DismissDirection direction) async {
