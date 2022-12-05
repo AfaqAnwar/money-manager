@@ -201,6 +201,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                   } else {
                                     incomeOrExpense = TransactionType.outflow;
                                   }
+
                                   TransactionObject transaction =
                                       TransactionObject(
                                           getCategory(category),

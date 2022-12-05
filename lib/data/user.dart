@@ -275,10 +275,10 @@ class CurrentUser {
         case "May":
           month = 5;
           break;
-        case "June":
+        case "Jun":
           month = 6;
           break;
-        case "July":
+        case "Jul":
           month = 7;
           break;
         case "Aug":
@@ -297,6 +297,7 @@ class CurrentUser {
           month = 12;
           break;
       }
+
       if (currentTransaction.getTransactionType == TransactionType.inflow &&
           currentTransaction.getDateYear == currentYear) {
         if (monthlyIncome.containsKey(month)) {
