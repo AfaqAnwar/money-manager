@@ -266,7 +266,7 @@ Widget buildProfileManager(BuildContext context) {
 
       const SizedBox(height: 20),
 
-      // Sign Up Button
+      // Confirm Changes Button
       MaterialButton(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),

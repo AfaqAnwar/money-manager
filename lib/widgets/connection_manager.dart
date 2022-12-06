@@ -27,7 +27,7 @@ Widget buildConnectionManager(BuildContext context) {
                             'Your Connections',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.bebasNeue(
-                              fontSize: 32,
+                              fontSize: 36,
                               color: AppColor.customLightGreen,
                             ),
                           ),

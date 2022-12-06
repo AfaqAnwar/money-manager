@@ -218,7 +218,7 @@ class _HomePageTabState extends State<HomePageTab> {
                                 } else {
                                   amount =
                                       double.parse(amount).toStringAsFixed(2);
-                                  print(amount);
+
                                   if (incomeOrExpense == "Income") {
                                     incomeOrExpense = TransactionType.inflow;
                                   } else {
@@ -435,6 +435,8 @@ class _HomePageTabState extends State<HomePageTab> {
 
   bool inputIsValid(String s) {
     if (s.isEmpty) {
+      return false;
+    } else if (s.length == 1 && s.contains("0")) {
       return false;
     } else if (s.contains(RegExp(r'^(\d*\.)?\d+$'))) {
       return true;

@@ -207,7 +207,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                     Text(
                                       'About Us',
                                       style: GoogleFonts.bebasNeue(
-                                          fontSize: 32,
+                                          fontSize: 36,
                                           color: AppColor.customLightGreen),
                                     ),
                                     Expanded(
