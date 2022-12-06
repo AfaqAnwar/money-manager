@@ -34,6 +34,13 @@ bool checkAllControllers() {
       inputIsValid(plannedSavingController.text.trim());
 }
 
+@override
+void dispose() {
+  weeklyEstimateController.dispose();
+  weeklySpendingController.dispose();
+  plannedSavingController.dispose();
+}
+
 Widget buildFutureCalculator(BuildContext context) {
   return Column(children: [
     Text(
