@@ -136,127 +136,57 @@ Widget buildFutureCalculator(BuildContext context) {
                                 builder: (builder) => XenPopupCard(
                                       appBar:
                                           getAppBar("A Look Into The Future"),
-                                      body: Column(children: [
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You make ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$weeklyIncome per week.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ]),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You spend ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$weeklySpending per week.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ]),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'You Save ',
-                                              style: GoogleFonts.bebasNeue(
-                                                  fontSize: 26,
-                                                  color:
-                                                      AppColor.customLightGreen,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            Text(
-                                              "\$$weeklyPlannedSavings per week.",
-                                              style: GoogleFonts.bebasNeue(
-                                                  fontSize: 26,
-                                                  color:
-                                                      AppColor.customDarkGreen,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 25),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You make ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$monthlyIncome per month.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ]),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You spend ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$monthlySpending per month.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ]),
-                                        const SizedBox(height: 15),
-                                        Row(
+                                      body: SingleChildScrollView(
+                                        child: Column(children: [
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You make ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$weeklyIncome per week.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You spend ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$weeklySpending per week.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 15),
+                                          Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
@@ -270,7 +200,7 @@ Widget buildFutureCalculator(BuildContext context) {
                                                         FontWeight.w400),
                                               ),
                                               Text(
-                                                "\$$monthlySaving per month.",
+                                                "\$$weeklyPlannedSavings per week.",
                                                 style: GoogleFonts.bebasNeue(
                                                     fontSize: 26,
                                                     color: AppColor
@@ -278,80 +208,154 @@ Widget buildFutureCalculator(BuildContext context) {
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                            ]),
-                                        const SizedBox(height: 25),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You make ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$yearlyIncome per year.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ]),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You spend ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$yearlySpending per year.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ]),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'You Save ',
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customLightGreen,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              Text(
-                                                "\$$yearlySaving per year.",
-                                                style: GoogleFonts.bebasNeue(
-                                                    fontSize: 26,
-                                                    color: AppColor
-                                                        .customDarkGreen,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ])
-                                      ]),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 25),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You make ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$monthlyIncome per month.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You spend ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$monthlySpending per month.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You Save ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$monthlySaving per month.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 25),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You make ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$yearlyIncome per year.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You spend ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$yearlySpending per year.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ]),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You Save ',
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "\$$yearlySaving per year.",
+                                                  style: GoogleFonts.bebasNeue(
+                                                      fontSize: 26,
+                                                      color: AppColor
+                                                          .customDarkGreen,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ])
+                                        ]),
+                                      ),
                                       gutter: getGutter("Okay"),
                                     ));
                           } else {
