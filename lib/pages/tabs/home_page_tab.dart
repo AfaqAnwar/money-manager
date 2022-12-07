@@ -28,6 +28,7 @@ class HomePageTab extends StatefulWidget {
 // Home Page Tab that displays user information
 class _HomePageTabState extends State<HomePageTab> {
   late String selectedDate;
+  late double fontSize;
 
   List<TransactionObject> transactionList = [];
 
@@ -50,6 +51,12 @@ class _HomePageTabState extends State<HomePageTab> {
     DateTime now = DateTime.now();
     DateTime date = DateTime(now.year, now.month, now.day);
     selectedDate = buildDate(date);
+
+    if (CurrentUser.getUserLifetimeIncome.toString().length > 7) {
+      fontSize = 18;
+    } else {
+      fontSize = 24;
+    }
   }
 
   String buildDate(DateTime date) {
@@ -289,6 +296,14 @@ class _HomePageTabState extends State<HomePageTab> {
                                         CurrentUser.updateTotalBalance();
                                         CurrentUser.parseTransactionsMonthly();
                                         CurrentUser.parseExpensesMonthly();
+                                        if (CurrentUser.getUserLifetimeIncome
+                                                .toString()
+                                                .length >
+                                            7) {
+                                          fontSize = 18;
+                                        } else {
+                                          fontSize = 24;
+                                        }
                                       });
                                     }
                                   }
@@ -333,7 +348,8 @@ class _HomePageTabState extends State<HomePageTab> {
                   expenseData: ExpenseData(
                       "Income",
                       "\$${CurrentUser.getUserLifetimeIncome}",
-                      CupertinoIcons.arrow_up),
+                      CupertinoIcons.arrow_up,
+                      fontSize),
                 )),
                 const SizedBox(
                   width: defaultSpacing,
@@ -343,7 +359,8 @@ class _HomePageTabState extends State<HomePageTab> {
                       expenseData: ExpenseData(
                           "Expense",
                           "-\$${CurrentUser.getUserLifetimeExpense}",
-                          CupertinoIcons.arrow_down)),
+                          CupertinoIcons.arrow_down,
+                          fontSize)),
                 )
               ],
             ),
@@ -401,6 +418,12 @@ class _HomePageTabState extends State<HomePageTab> {
               CurrentUser.updateTotalBalance();
               CurrentUser.parseTransactionsMonthly();
               CurrentUser.parseExpensesMonthly();
+
+              if (CurrentUser.getUserLifetimeIncome.toString().length > 7) {
+                fontSize = 18;
+              } else {
+                fontSize = 24;
+              }
             });
           },
           confirmDismiss: (DismissDirection direction) async {

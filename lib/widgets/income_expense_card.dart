@@ -7,8 +7,9 @@ class ExpenseData {
   final String label;
   final String amount;
   final IconData icon;
+  final double fontSize;
 
-  const ExpenseData(this.label, this.amount, this.icon);
+  const ExpenseData(this.label, this.amount, this.icon, this.fontSize);
 }
 
 class IncomeExpenseCard extends StatelessWidget {
@@ -16,6 +17,8 @@ class IncomeExpenseCard extends StatelessWidget {
 
   const IncomeExpenseCard({Key? key, required this.expenseData})
       : super(key: key);
+
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class IncomeExpenseCard extends StatelessWidget {
                   style: GoogleFonts.roboto(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
-                      fontSize: 24),
+                      fontSize: expenseData.fontSize),
                 ),
               )
             ],
