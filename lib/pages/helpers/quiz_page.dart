@@ -119,7 +119,7 @@ class QuizPageState extends State<QuizPage> {
               // This is the Next button UI
               // if the user did not select an answer then we do not show the button to preceed the quiz
               _isLocked ? buildElevatedButton() : const SizedBox.shrink(),
-              const SizedBox(),
+              const SafeArea(child: SizedBox()),
             ],
           ),
         ));
