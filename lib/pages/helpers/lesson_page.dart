@@ -139,29 +139,31 @@ class LessonPageState extends State<LessonPage> {
                   borderRadius:
                       BorderRadius.only(topRight: Radius.circular(10)),
                 ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 45, left: 15)),
-                        Expanded(
-                          child: Text(
-                            widget.moduleItems[widget.index]['lesson2']
-                                ['lessonText'],
-                            overflow: TextOverflow.visible,
-                            textWidthBasis: TextWidthBasis.longestLine,
-                            style: GoogleFonts.roboto(
-                                color: Colors.black,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w200,
-                                height: 2),
-                            softWrap: true,
-                            maxLines: 50,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 45, left: 15)),
+                          Expanded(
+                            child: Text(
+                              widget.moduleItems[widget.index]['lesson2']
+                                  ['lessonText'],
+                              overflow: TextOverflow.visible,
+                              textWidthBasis: TextWidthBasis.longestLine,
+                              style: GoogleFonts.roboto(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w200,
+                                  height: 2),
+                              softWrap: true,
+                              maxLines: 50,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

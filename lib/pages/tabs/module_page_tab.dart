@@ -9,6 +9,7 @@ import 'package:moneymanager/utils/colors.dart' as color;
 import 'package:moneymanager/data/module_items.dart';
 import 'package:moneymanager/pages/helpers/lesson_goal_page.dart';
 import 'package:moneymanager/pages/helpers/lesson_page.dart';
+import 'package:moneymanager/utils/constants.dart';
 
 class ModulePage extends StatefulWidget {
   const ModulePage({Key? key}) : super(key: key);
@@ -46,223 +47,233 @@ class _ModulePageState extends State<ModulePage> {
           return Scaffold(
             // backgrond color of the UI
             backgroundColor: color.AppColor.homepageBackground,
-            body: Container(
-              // use paddding to move the containter down
-              padding: const EdgeInsets.only(
-                  top: 100, bottom: 35, left: 20, right: 20),
-              child: Column(
-                children: [
-                  Text(
-                    "Modules",
-                    style: GoogleFonts.roboto(
-                        fontSize: 25,
-                        color: color.AppColor.homepagesecondTitle,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Row(
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(defaultSpacing),
+                child: SafeArea(
+                  child: Column(
                     children: [
-                      // Lesson Module App
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // Progress Bar
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 130,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [
-                              color.AppColor.gradientFirst,
-                              color.AppColor.gradientSecond
-                            ],
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.centerRight),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                            topRight: Radius.circular(80)),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(4, 10),
-                              blurRadius: 20,
-                              color: color.AppColor.gradientSecond
-                                  .withOpacity(0.2))
-                        ]),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 20, top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Text(
+                        "Modules",
+                        style: GoogleFonts.roboto(
+                            fontSize: 25,
+                            color: color.AppColor.homepagesecondTitle,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Row(
                         children: [
-                          Text(
-                            "Reminder",
-                            style: GoogleFonts.roboto(
-                                fontSize: 16,
-                                color: color.AppColor.homepagesecondTitle),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Remember to log your expenses and income per day or week",
-                            style: GoogleFonts.roboto(
-                                fontSize: 20, color: Colors.white),
-                          )
+                          // Lesson Module App
                         ],
                       ),
-                    ),
-                  ),
-                  // UI for the three types of Modules
-                  Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 5),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Lessons Libaray",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                              fontSize: 25, fontWeight: FontWeight.w600),
-                        )
-                      ],
-                    ),
-                  ),
-                  // UI for the lessons
-                  Column(
-                    children: [
-                      InkWell(
+                      SizedBox(
+                        height: 10,
+                      ),
+                      // Progress Bar
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 130,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  color.AppColor.gradientFirst,
+                                  color.AppColor.gradientSecond
+                                ],
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.centerRight),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                                topRight: Radius.circular(80)),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(4, 10),
+                                  blurRadius: 20,
+                                  color: color.AppColor.gradientSecond
+                                      .withOpacity(0.2))
+                            ]),
                         child: Container(
-                          width: 385,
-                          height: 120,
-                          margin: EdgeInsets.only(left: 5, top: 10),
-                          // show an image for each module
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/income.png")),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 3,
-                                    offset: Offset(5, 5),
-                                    color: Colors.white),
-                                BoxShadow(
-                                    blurRadius: 3,
-                                    offset: Offset(-5, -5),
-                                    color: Color.fromARGB(255, 246, 243, 243)),
-                              ]),
+                          padding: const EdgeInsets.only(left: 20, top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Reminder",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 16,
+                                    color: color.AppColor.homepagesecondTitle),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "Remember to log your expenses and income per day or week",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 20, color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      // UI for the three types of Modules
+                      Container(
+                        padding: const EdgeInsets.only(top: 10, bottom: 5),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Lessons Libaray",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.roboto(
+                                  fontSize: 25, fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                      ),
+                      // UI for the lessons
+                      Column(
+                        children: [
+                          InkWell(
+                            child: Container(
+                              width: 385,
+                              height: 120,
+                              margin: EdgeInsets.only(left: 5, top: 10),
+                              // show an image for each module
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/income.png")),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 3,
+                                        offset: Offset(5, 5),
+                                        color: Colors.white),
+                                    BoxShadow(
+                                        blurRadius: 3,
+                                        offset: Offset(-5, -5),
+                                        color:
+                                            Color.fromARGB(255, 246, 243, 243)),
+                                  ]),
 
-                          child: Center(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                moduleItems[0]["courseName"],
-                                style: GoogleFonts.roboto(
-                                    fontSize: 20,
-                                    color: color.AppColor.homepagesecondTitle),
+                              child: Center(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    moduleItems[0]["courseName"],
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 20,
+                                        color:
+                                            color.AppColor.homepagesecondTitle),
+                                  ),
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GoalPage(
+                                          moduleItems: moduleItems, index: 0)));
+                            },
                           ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GoalPage(
-                                      moduleItems: moduleItems, index: 0)));
-                        },
-                      ),
-                      InkWell(
-                        child: Container(
-                          width: 385,
-                          height: 120,
-                          margin: EdgeInsets.only(left: 5, bottom: 10, top: 10),
-                          padding: EdgeInsets.only(bottom: 5),
-                          // show an image for each module
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/expenses.png")),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 3,
-                                    offset: Offset(5, 5),
-                                    color: Colors.white),
-                                BoxShadow(
-                                    blurRadius: 3,
-                                    offset: Offset(-5, -5),
-                                    color: Color.fromARGB(255, 246, 243, 243)),
-                              ]),
-                          child: Center(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                moduleItems[1]["courseName"],
-                                style: GoogleFonts.roboto(
-                                    fontSize: 20,
-                                    color: color.AppColor.homepagesecondTitle),
+                          InkWell(
+                            child: Container(
+                              width: 385,
+                              height: 120,
+                              margin:
+                                  EdgeInsets.only(left: 5, bottom: 10, top: 10),
+                              padding: EdgeInsets.only(bottom: 5),
+                              // show an image for each module
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/expenses.png")),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 3,
+                                        offset: Offset(5, 5),
+                                        color: Colors.white),
+                                    BoxShadow(
+                                        blurRadius: 3,
+                                        offset: Offset(-5, -5),
+                                        color:
+                                            Color.fromARGB(255, 246, 243, 243)),
+                                  ]),
+                              child: Center(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    moduleItems[1]["courseName"],
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 20,
+                                        color:
+                                            color.AppColor.homepagesecondTitle),
+                                  ),
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GoalPage(
+                                          moduleItems: moduleItems, index: 1)));
+                            },
                           ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GoalPage(
-                                      moduleItems: moduleItems, index: 1)));
-                        },
-                      ),
-                      InkWell(
-                        child: Container(
-                          width: 385,
-                          height: 120,
-                          margin: EdgeInsets.only(left: 5, bottom: 10, top: 10),
-                          padding: EdgeInsets.only(bottom: 5),
-                          // show an image for each module
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/savings.png")),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 3,
-                                    offset: Offset(5, 5),
-                                    color: Colors.white),
-                                BoxShadow(
-                                    blurRadius: 3,
-                                    offset: Offset(-5, -5),
-                                    color: Color.fromARGB(255, 246, 243, 243)),
-                              ]),
-                          child: Center(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                moduleItems[2]["courseName"],
-                                style: GoogleFonts.roboto(
-                                    fontSize: 20,
-                                    color: color.AppColor.homepagesecondTitle),
+                          InkWell(
+                            child: Container(
+                              width: 385,
+                              height: 120,
+                              margin:
+                                  EdgeInsets.only(left: 5, bottom: 10, top: 10),
+                              padding: EdgeInsets.only(bottom: 5),
+                              // show an image for each module
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/savings.png")),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 3,
+                                        offset: Offset(5, 5),
+                                        color: Colors.white),
+                                    BoxShadow(
+                                        blurRadius: 3,
+                                        offset: Offset(-5, -5),
+                                        color:
+                                            Color.fromARGB(255, 246, 243, 243)),
+                                  ]),
+                              child: Center(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    moduleItems[2]["courseName"],
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 20,
+                                        color:
+                                            color.AppColor.homepagesecondTitle),
+                                  ),
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GoalPage(
+                                          moduleItems: moduleItems, index: 2)));
+                            },
                           ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GoalPage(
-                                      moduleItems: moduleItems, index: 2)));
-                        },
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           );

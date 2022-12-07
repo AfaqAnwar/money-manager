@@ -97,267 +97,277 @@ class _HomePageTabState extends State<HomePageTab> {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(defaultSpacing),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(
-            height: defaultSpacing * 4,
-          ),
-          ListTile(
-              title: Text("Hey ${CurrentUser.firstName}!"),
-              leading: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.all(Radius.circular(defaultRadius)),
-                  child: Image.asset("assets/icons/user-1.png")),
-              trailing: InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (builder) => XenPopupCard(
-                      appBar: getAppBar("Add A Transaction"),
-                      body: ListView(
-                        children: [
-                          SfDateRangePicker(
-                            yearCellStyle: DateRangePickerYearCellStyle(
-                                todayTextStyle:
-                                    TextStyle(color: AppColor.customDarkGreen)),
-                            monthCellStyle: DateRangePickerMonthCellStyle(
-                                todayTextStyle:
-                                    TextStyle(color: AppColor.customDarkGreen),
-                                todayCellDecoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: AppColor.customLightGreen,
-                                        width: 2),
-                                    shape: BoxShape.circle)),
-                            initialSelectedDate: DateTime.now(),
-                            backgroundColor: Colors.white,
-                            todayHighlightColor: AppColor.customLightGreen,
-                            selectionTextStyle:
-                                const TextStyle(color: Colors.white),
-                            selectionColor: AppColor.customDarkGreen,
-                            view: DateRangePickerView.month,
-                            selectionMode: DateRangePickerSelectionMode.single,
-                            onSelectionChanged:
-                                (dateRangePickerSelectionChangedArgs) {
-                              var selectedDateOfCalendar =
-                                  dateRangePickerSelectionChangedArgs.value;
+        child: SafeArea(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            ListTile(
+                title: Text("Hey ${CurrentUser.firstName}!"),
+                leading: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(defaultRadius)),
+                    child: Image.asset("assets/icons/user-1.png")),
+                trailing: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (builder) => XenPopupCard(
+                        appBar: getAppBar("Add A Transaction"),
+                        body: ListView(
+                          children: [
+                            SfDateRangePicker(
+                              yearCellStyle: DateRangePickerYearCellStyle(
+                                  todayTextStyle: TextStyle(
+                                      color: AppColor.customDarkGreen)),
+                              monthCellStyle: DateRangePickerMonthCellStyle(
+                                  todayTextStyle: TextStyle(
+                                      color: AppColor.customDarkGreen),
+                                  todayCellDecoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: AppColor.customLightGreen,
+                                          width: 2),
+                                      shape: BoxShape.circle)),
+                              initialSelectedDate: DateTime.now(),
+                              backgroundColor: Colors.white,
+                              todayHighlightColor: AppColor.customLightGreen,
+                              selectionTextStyle:
+                                  const TextStyle(color: Colors.white),
+                              selectionColor: AppColor.customDarkGreen,
+                              view: DateRangePickerView.month,
+                              selectionMode:
+                                  DateRangePickerSelectionMode.single,
+                              onSelectionChanged:
+                                  (dateRangePickerSelectionChangedArgs) {
+                                var selectedDateOfCalendar =
+                                    dateRangePickerSelectionChangedArgs.value;
 
-                              selectedDate = buildDate(selectedDateOfCalendar);
-                            },
-                          ),
-                          FormBuilder(
-                            initialData: inputFormData,
-                            index: 0,
-                            showIndex: false,
-                            submitButtonDecoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
-                                color: AppColor.customDarkGreen,
-                                shape: BoxShape.rectangle),
-                            submitButtonText: "Add Transaction",
-                            submitTextDecoration: GoogleFonts.roboto(
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600),
-                            widgetCrossAxisAlignment: CrossAxisAlignment.center,
-                            onSubmit: (value) async {
-                              if (value != null) {
-                                var json = jsonEncode(value.toJson());
-                                var decoded = jsonDecode(json);
-                                var incomeOrExpense = decoded["data"][0]
-                                    ["questions"][0]["answer"];
+                                selectedDate =
+                                    buildDate(selectedDateOfCalendar);
+                              },
+                            ),
+                            FormBuilder(
+                              initialData: inputFormData,
+                              index: 0,
+                              showIndex: false,
+                              submitButtonDecoration: BoxDecoration(
+                                  border: Border.all(color: Colors.white),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                  color: AppColor.customDarkGreen,
+                                  shape: BoxShape.rectangle),
+                              submitButtonText: "Add Transaction",
+                              submitTextDecoration: GoogleFonts.roboto(
+                                  fontSize: 17,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                              widgetCrossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                              onSubmit: (value) async {
+                                if (value != null) {
+                                  var json = jsonEncode(value.toJson());
+                                  var decoded = jsonDecode(json);
+                                  var incomeOrExpense = decoded["data"][0]
+                                      ["questions"][0]["answer"];
 
-                                var year = selectedDate.split(" ")[2];
+                                  var year = selectedDate.split(" ")[2];
 
-                                var amount = decoded["data"][0]["questions"][1]
-                                    ["answer"];
+                                  var amount = decoded["data"][0]["questions"]
+                                      [1]["answer"];
 
-                                var name = decoded["data"][0]["questions"][2]
-                                    ["answer"];
+                                  var name = decoded["data"][0]["questions"][2]
+                                      ["answer"];
 
-                                var company = decoded["data"][0]["questions"][3]
-                                    ["answer"];
+                                  var company = decoded["data"][0]["questions"]
+                                      [3]["answer"];
 
-                                var category = decoded["data"][0]["questions"]
-                                    [4]["answer"];
+                                  var category = decoded["data"][0]["questions"]
+                                      [4]["answer"];
 
-                                final isValid = inputIsValid(amount.toString());
+                                  final isValid =
+                                      inputIsValid(amount.toString());
 
-                                if (!isValid) {
-                                  return showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20.0))),
-                                            titleTextStyle: GoogleFonts.roboto(
-                                                color:
-                                                    AppColor.customLightGreen,
-                                                fontWeight: FontWeight.w800,
-                                                fontSize: 24),
-                                            contentTextStyle:
-                                                GoogleFonts.roboto(
-                                                    color: Colors.black,
-                                                    fontSize: 16),
-                                            title: const Text('Whoops'),
-                                            content: const Text(
-                                                'Please provide a valid amount.'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () =>
-                                                    Navigator.pop(context),
-                                                child: Text("Okay",
-                                                    style: GoogleFonts.roboto(
-                                                        color: AppColor
-                                                            .customDarkGreen,
-                                                        fontWeight:
-                                                            FontWeight.w600)),
-                                              )
-                                            ],
-                                          ));
-                                } else {
-                                  amount =
-                                      double.parse(amount).toStringAsFixed(2);
-
-                                  if (incomeOrExpense == "Income") {
-                                    incomeOrExpense = TransactionType.inflow;
+                                  if (!isValid) {
+                                    return showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.0))),
+                                              titleTextStyle:
+                                                  GoogleFonts.roboto(
+                                                      color: AppColor
+                                                          .customLightGreen,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontSize: 24),
+                                              contentTextStyle:
+                                                  GoogleFonts.roboto(
+                                                      color: Colors.black,
+                                                      fontSize: 16),
+                                              title: const Text('Whoops'),
+                                              content: const Text(
+                                                  'Please provide a valid amount.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text("Okay",
+                                                      style: GoogleFonts.roboto(
+                                                          color: AppColor
+                                                              .customDarkGreen,
+                                                          fontWeight:
+                                                              FontWeight.w600)),
+                                                )
+                                              ],
+                                            ));
                                   } else {
-                                    incomeOrExpense = TransactionType.outflow;
-                                  }
+                                    amount =
+                                        double.parse(amount).toStringAsFixed(2);
 
-                                  TransactionObject transaction =
-                                      TransactionObject(
-                                          getCategory(category),
-                                          name,
-                                          company,
-                                          amount,
-                                          selectedDate,
-                                          year,
-                                          incomeOrExpense);
+                                    if (incomeOrExpense == "Income") {
+                                      incomeOrExpense = TransactionType.inflow;
+                                    } else {
+                                      incomeOrExpense = TransactionType.outflow;
+                                    }
 
-                                  DocumentSnapshot data =
-                                      await FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(CurrentUser.firebaseUser?.uid)
-                                          .get();
+                                    TransactionObject transaction =
+                                        TransactionObject(
+                                            getCategory(category),
+                                            name,
+                                            company,
+                                            amount,
+                                            selectedDate,
+                                            year,
+                                            incomeOrExpense);
 
-                                  DocumentReference ref = FirebaseFirestore
-                                      .instance
-                                      .collection('users')
-                                      .doc(FirebaseAuth
-                                          .instance.currentUser!.uid);
+                                    DocumentSnapshot data =
+                                        await FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(CurrentUser.firebaseUser?.uid)
+                                            .get();
 
-                                  TransactionObject
-                                      transactionToBeAddedToLocalList =
-                                      TransactionObject(
-                                          getCategory(category),
-                                          name,
-                                          company,
-                                          amount,
-                                          "${selectedDate.split(" ")[0]} ${selectedDate.split(" ")[1]}",
-                                          year,
-                                          incomeOrExpense);
+                                    DocumentReference ref = FirebaseFirestore
+                                        .instance
+                                        .collection('users')
+                                        .doc(FirebaseAuth
+                                            .instance.currentUser!.uid);
 
-                                  var transactions;
+                                    TransactionObject
+                                        transactionToBeAddedToLocalList =
+                                        TransactionObject(
+                                            getCategory(category),
+                                            name,
+                                            company,
+                                            amount,
+                                            "${selectedDate.split(" ")[0]} ${selectedDate.split(" ")[1]}",
+                                            year,
+                                            incomeOrExpense);
 
-                                  try {
-                                    transactions = data.get("transactions");
-                                  } catch (e) {
-                                    List<dynamic> transactions = [];
-                                  }
-                                  transactions.insert(0, transaction.toMap());
-                                  await ref
-                                      .update({"transactions": transactions});
+                                    var transactions;
 
-                                  CurrentUser.setTransactions = transactions;
-                                  transactionList.insert(
-                                      0, transactionToBeAddedToLocalList);
+                                    try {
+                                      transactions = data.get("transactions");
+                                    } catch (e) {
+                                      List<dynamic> transactions = [];
+                                    }
+                                    transactions.insert(0, transaction.toMap());
+                                    await ref
+                                        .update({"transactions": transactions});
 
-                                  if (mounted) {
-                                    Navigator.of(builder).pop();
-                                    setState(() {
-                                      CurrentUser.updateUserIncomeAndExpense();
-                                      CurrentUser.updateTotalBalance();
-                                      CurrentUser.parseTransactionsMonthly();
-                                      CurrentUser.parseExpensesMonthly();
-                                    });
+                                    CurrentUser.setTransactions = transactions;
+                                    transactionList.insert(
+                                        0, transactionToBeAddedToLocalList);
+
+                                    if (mounted) {
+                                      Navigator.of(builder).pop();
+                                      setState(() {
+                                        CurrentUser
+                                            .updateUserIncomeAndExpense();
+                                        CurrentUser.updateTotalBalance();
+                                        CurrentUser.parseTransactionsMonthly();
+                                        CurrentUser.parseExpensesMonthly();
+                                      });
+                                    }
                                   }
                                 }
-                              }
-                            },
-                          ),
-                        ],
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: Image.asset("assets/icons/plus.png"),
-              )),
-          const SizedBox(
-            height: defaultSpacing,
-          ),
-          Center(
-            child: Column(children: [
-              Text(
-                "\$${CurrentUser.getTotalBalance}",
-                style: GoogleFonts.roboto(
-                    fontSize: fontSizeHeading * 1.5,
-                    fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(
-                height: defaultSpacing / 2,
-              ),
-              Text(
-                "Total Balance",
-                style: GoogleFonts.roboto(color: fontSubHeading),
-              )
-            ]),
-          ),
-          const SizedBox(
-            height: defaultSpacing * 2,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
+                    );
+                  },
+                  child: Image.asset("assets/icons/plus.png"),
+                )),
+            const SizedBox(
+              height: defaultSpacing,
+            ),
+            Center(
+              child: Column(children: [
+                Text(
+                  "\$${CurrentUser.getTotalBalance}",
+                  style: GoogleFonts.roboto(
+                      fontSize: fontSizeHeading * 1.5,
+                      fontWeight: FontWeight.w800),
+                ),
+                const SizedBox(
+                  height: defaultSpacing / 2,
+                ),
+                Text(
+                  "Total Balance",
+                  style: GoogleFonts.roboto(color: fontSubHeading),
+                )
+              ]),
+            ),
+            const SizedBox(
+              height: defaultSpacing * 2,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: IncomeExpenseCard(
+                  expenseData: ExpenseData(
+                      "Income",
+                      "\$${CurrentUser.getUserLifetimeIncome}",
+                      CupertinoIcons.arrow_up),
+                )),
+                const SizedBox(
+                  width: defaultSpacing,
+                ),
+                Expanded(
                   child: IncomeExpenseCard(
-                expenseData: ExpenseData(
-                    "Income",
-                    "\$${CurrentUser.getUserLifetimeIncome}",
-                    CupertinoIcons.arrow_up),
-              )),
-              const SizedBox(
-                width: defaultSpacing,
-              ),
-              Expanded(
-                child: IncomeExpenseCard(
-                    expenseData: ExpenseData(
-                        "Expense",
-                        "-\$${CurrentUser.getUserLifetimeExpense}",
-                        CupertinoIcons.arrow_down)),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: defaultSpacing * 2,
-          ),
-          Text(
-            "Recent Transactions",
-            style: GoogleFonts.roboto(
-                fontWeight: FontWeight.w700, fontSize: fontSizeTitle),
-          ),
-          const SizedBox(
-            height: defaultSpacing / 3,
-          ),
-          Text(
-            "Today",
-            style: GoogleFonts.roboto(color: fontSubHeading),
-          ),
-          const SizedBox(
-            height: defaultSpacing,
-          ),
-          Column(children: getWidgets()),
-        ]),
+                      expenseData: ExpenseData(
+                          "Expense",
+                          "-\$${CurrentUser.getUserLifetimeExpense}",
+                          CupertinoIcons.arrow_down)),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: defaultSpacing * 2,
+            ),
+            Text(
+              "Recent Transactions",
+              style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.w700, fontSize: fontSizeTitle),
+            ),
+            const SizedBox(
+              height: defaultSpacing / 3,
+            ),
+            Text(
+              "Today",
+              style: GoogleFonts.roboto(color: fontSubHeading),
+            ),
+            const SizedBox(
+              height: defaultSpacing,
+            ),
+            Column(children: getWidgets()),
+          ]),
+        ),
       ),
     );
   }

@@ -97,7 +97,7 @@ class QuizPageState extends State<QuizPage> {
               fontWeight: FontWeight.w800),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -119,56 +119,56 @@ class QuizPageState extends State<QuizPage> {
               // This is the Next button UI
               // if the user did not select an answer then we do not show the button to preceed the quiz
               _isLocked ? buildElevatedButton() : const SizedBox.shrink(),
-              const SizedBox(
-                height: 300,
-              ),
+              const SizedBox(),
             ],
           ),
         ));
   }
 
 // UI for the Questions
-  Column buildQuestion(Question question) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 32,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-        ),
-        Text(
-          question.text,
-          style: GoogleFonts.roboto(
-            fontSize: 25,
-            color: colors.AppColor.homepageTitle,
-          ),
-        ),
-        const SizedBox(
-          height: 32,
-        ),
-        Expanded(
-          child: OptionWidget(
-            question: question,
-            onClickedOption: (option) {
-              if (question.isLocked) {
-                return;
-              } else {
-                setState(() {
-                  question.isLocked = true;
-                  question.selectedOption = option;
-                });
-                _isLocked = question.isLocked;
-                // if the user selected the correct answer then increase the score by 1
-                if (question.selectedOption!.isCorrect) {
-                  results++;
+  Widget buildQuestion(Question question) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 32,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+            ),
+            Text(
+              question.text,
+              style: GoogleFonts.roboto(
+                fontSize: 25,
+                color: colors.AppColor.homepageTitle,
+              ),
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            OptionWidget(
+              question: question,
+              onClickedOption: (option) {
+                if (question.isLocked) {
+                  return;
+                } else {
+                  setState(() {
+                    question.isLocked = true;
+                    question.selectedOption = option;
+                  });
+                  _isLocked = question.isLocked;
+                  // if the user selected the correct answer then increase the score by 1
+                  if (question.selectedOption!.isCorrect) {
+                    results++;
+                  }
                 }
-              }
-            },
-          ),
-        )
-      ],
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -228,12 +228,10 @@ class OptionWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
-          children: question.options
-              .map((option) => buildOption(context, option))
-              .toList(),
-        ),
+  Widget build(BuildContext context) => Column(
+        children: question.options
+            .map((option) => buildOption(context, option))
+            .toList(),
       );
 
 // build the UI for the multiple choices
@@ -245,26 +243,28 @@ class OptionWidget extends StatelessWidget {
     return GestureDetector(
         // the user taps on a selected answer
         onTap: () => onClickedOption(option),
-        child: Container(
-          // add spacing between each multiple choice answer
-          height: 50,
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(19),
-              border: Border.all(color: color)),
-          child: Row(
-            // the style for the multiple choice text
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                option.text,
-                style: const TextStyle(fontSize: 10),
-              ),
-            ],
+        child: Column(children: [
+          Container(
+            // add spacing between each multiple choice answer
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(19),
+                border: Border.all(color: color)),
+            child: Row(
+              // the style for the multiple choice text
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  option.text,
+                  style: const TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
           ),
-        ));
+          const SizedBox(height: 10)
+        ]));
   }
 }
 

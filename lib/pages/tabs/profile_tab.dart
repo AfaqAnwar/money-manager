@@ -39,7 +39,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 child: Column(
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(top: defaultSpacing * 4),
+                        margin: const EdgeInsets.only(top: defaultSpacing * 2),
                         width: 50,
                         height: 50,
                         child: ClipRRect(

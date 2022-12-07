@@ -140,35 +140,37 @@ class GoalPageState extends State<GoalPage> {
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.only(topRight: Radius.circular(10))),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 45, left: 15)),
-                        Expanded(
-                          child: Flex(direction: Axis.horizontal, children: [
-                            Flexible(
-                              child: RichText(
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 50,
-                                text: TextSpan(
-                                  text: widget.moduleItems[widget.index]
-                                          ['lesson1']['lessonText']
-                                      .toString(),
-                                  style: GoogleFonts.roboto(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w200,
-                                      height: 2),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 45, left: 15)),
+                          Expanded(
+                            child: Flex(direction: Axis.horizontal, children: [
+                              Flexible(
+                                child: RichText(
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 50,
+                                  text: TextSpan(
+                                    text: widget.moduleItems[widget.index]
+                                            ['lesson1']['lessonText']
+                                        .toString(),
+                                    style: GoogleFonts.roboto(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200,
+                                        height: 2),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ],
+                            ]),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
