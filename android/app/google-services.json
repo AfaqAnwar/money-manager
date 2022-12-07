@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "992686773528",
+    "firebase_url": "https://money-manager-f474e-default-rtdb.firebaseio.com",
+    "project_id": "money-manager-f474e",
+    "storage_bucket": "money-manager-f474e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992686773528:android:1246f2f509ea73da923a6d",
+        "android_client_info": {
+          "package_name": "com.sweleague.moneymanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992686773528-rmjuucdnp7reljfk97g559o7tqmn06m6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfEmr8jjeuvXQLTijc1c2yXlXB7ksrNuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992686773528-rmjuucdnp7reljfk97g559o7tqmn06m6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "992686773528-p1lrhelb0ii63le75c7im83fn1afoiri.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sweleague.moneymanager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
