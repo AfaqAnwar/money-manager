@@ -108,7 +108,8 @@ class _ProfileTabState extends State<ProfileTab> {
                       future: updateInfo(),
                       builder: (BuildContext context,
                           AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.data == false) {
+                        if (snapshot.data == false &&
+                            CurrentUser.accountType != "Student") {
                           return InkWell(
                             onTap: () {
                               showDialog(
