@@ -10,7 +10,7 @@ Created By:
 
 ## Guide To Run Project Locally
 
-- Install [Flutter](https://docs.flutter.dev/get-started/install)
+- Install [Flutter SDK](https://docs.flutter.dev/get-started/install)
 - Clone a copy of this repository, or download a zipped version.
 - Navigate to the root folder within a terminal.
 - Run the following command. `dart pub get`
